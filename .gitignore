@@ -1,0 +1,7 @@
+packages/*
+*.dll
+bin/*
+*/bin/*
+*/obj/*
+*/publish/*
+!OpenHardwareMonitorLib.dll
