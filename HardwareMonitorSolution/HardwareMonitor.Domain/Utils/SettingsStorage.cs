@@ -1,9 +1,6 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Microsoft.Win32.Registry;
+using static Microsoft.Win32.RegistryKeyPermissionCheck;
 
 namespace HardwareMonitor.Domain.Utils
 {
@@ -11,12 +8,12 @@ namespace HardwareMonitor.Domain.Utils
     {
         private RegistryKey _rk;
 
-        public SettingsStorage(string key)
+        public SettingsStorage(string key, bool localMachine = false)
         {
-            _rk =
-                Registry.CurrentUser.OpenSubKey(key, RegistryKeyPermissionCheck.ReadWriteSubTree)
-                ??
-                Registry.CurrentUser.CreateSubKey(key, RegistryKeyPermissionCheck.ReadWriteSubTree);
+            RegistryKey rk = localMachine ? LocalMachine : CurrentUser;
+            _rk = rk.OpenSubKey(key, ReadWriteSubTree)
+                  ??
+                  rk.CreateSubKey(key, ReadWriteSubTree);
         }
 
         public object Get(string propertyKey)

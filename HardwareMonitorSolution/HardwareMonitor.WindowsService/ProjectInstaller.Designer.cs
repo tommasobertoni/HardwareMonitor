@@ -41,6 +41,7 @@
             // 
             this.serviceInstaller.ServiceName = "HardwareMonitorWinService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            this.serviceInstaller.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller_AfterInstall);
             // 
             // ProjectInstaller
             // 

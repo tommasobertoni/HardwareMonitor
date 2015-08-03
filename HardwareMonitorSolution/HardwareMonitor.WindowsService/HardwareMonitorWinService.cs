@@ -1,53 +1,47 @@
 ﻿using HardwareManager.Temperature;
 using HardwareMonitor.WindowsService.WCF;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using static System.Math;
+using static System.Threading.Thread;
 
 namespace HardwareMonitor.WindowsService
 {
     public partial class HardwareMonitorWinService : ServiceBase, IHardwareMonitorWCFContract
     {
-        public readonly static int DEFAULT_SLEEP_TIME_MILLIS = 5000;
-        public readonly static int MIN_SLEEP_TIME_MILLIS = 500;
+        public const int DEFAULT_SLEEP_TIME_MILLIS = 2000;
+        public const int MIN_SLEEP_TIME_MILLIS = 500;
 
         private BackgroundWorker _bworker;
         protected readonly int CURRENT_SLEEP_TIME_MILLIS;
-        private bool _isUpdating;
 
-        public HardwareMonitorWinService(int stmillis = -1)
+        public HardwareMonitorWinService(int stmillis = DEFAULT_SLEEP_TIME_MILLIS)
         {
             InitializeComponent();
             
-            if (stmillis < MIN_SLEEP_TIME_MILLIS) stmillis = DEFAULT_SLEEP_TIME_MILLIS;
-            CURRENT_SLEEP_TIME_MILLIS = stmillis;
+            CURRENT_SLEEP_TIME_MILLIS = Min(stmillis, MIN_SLEEP_TIME_MILLIS);
 
+            #region Init Background Worker
             _bworker = new BackgroundWorker();
             _bworker.WorkerReportsProgress = true;
+            _bworker.WorkerSupportsCancellation = true;
             _bworker.DoWork += _bworker_DoWork;
             _bworker.ProgressChanged += _bworker_ProgressChanged;
+            #endregion
         }
 
         private void _bworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //_isUpdating = true;
             CPUsTemperatureMonitor.INSTANCE.UpdateAvgTemperature();
-            //_isUpdating = false;
         }
 
         private void _bworker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (!_bworker.CancellationPending)
             {
-                /*if (!_isUpdating)*/ _bworker.ReportProgress(0);
-                Thread.Sleep(CURRENT_SLEEP_TIME_MILLIS);
+                _bworker.ReportProgress(0);
+                Sleep(CURRENT_SLEEP_TIME_MILLIS);
             }
         }
 
