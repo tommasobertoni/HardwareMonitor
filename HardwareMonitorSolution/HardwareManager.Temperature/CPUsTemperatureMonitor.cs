@@ -50,7 +50,7 @@ namespace HardwareManager.Temperature
             }
         }
 
-        public void UpdateAvgTemperature()
+        public bool UpdateAvgTemperature()
         {
             var count = 0;
             float sum = 0;
@@ -64,7 +64,13 @@ namespace HardwareManager.Temperature
                 }
             }
 
-            if (count > 0) _avg = sum / count;
+            if (count > 0)
+            {
+                _avg = sum / count;
+                return true;
+            }
+
+            return false;
         }
 
         public bool UpdateCPUTemperature(int cpuIndex)

@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Domain", "H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareManager.Temperature", "HardwareManager.Temperature\HardwareManager.Temperature.csproj", "{91D2901D-19B7-426D-AA13-AD4A5964627C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService.WCF", "HardwareMonitor.WindowsService.WCF\HardwareMonitor.WindowsService.WCF.csproj", "{3FD3DC11-F735-45D7-814A-F17ED03DDE71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService", "HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj", "{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitorWindowsServiceSetup", "HardwareMonitorWindowsServiceSetup\HardwareMonitorWindowsServiceSetup.vdproj", "{0F8F5589-BF60-4052-B26C-B66747F5420D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,16 @@ Global
 		{91D2901D-19B7-426D-AA13-AD4A5964627C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D2901D-19B7-426D-AA13-AD4A5964627C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91D2901D-19B7-426D-AA13-AD4A5964627C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FD3DC11-F735-45D7-814A-F17ED03DDE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FD3DC11-F735-45D7-814A-F17ED03DDE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FD3DC11-F735-45D7-814A-F17ED03DDE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FD3DC11-F735-45D7-814A-F17ED03DDE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F8F5589-BF60-4052-B26C-B66747F5420D}.Debug|Any CPU.ActiveCfg = Debug
+		{0F8F5589-BF60-4052-B26C-B66747F5420D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
