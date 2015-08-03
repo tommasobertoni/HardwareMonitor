@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9482A6AC-332D-4C64-BCAB-7DB7D88EC100}</ProjectGuid>
+    <ProjectGuid>{91D2901D-19B7-426D-AA13-AD4A5964627C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HardwareMonitor.Domain</RootNamespace>
-    <AssemblyName>HardwareMonitor.Domain</AssemblyName>
+    <RootNamespace>HardwareManager.Temperature</RootNamespace>
+    <AssemblyName>HardwareManager.Temperature</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,12 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenHardwareMonitorLib">
-      <HintPath>..\..\..\TemperatureAlertSystem\HardwareManager.Domain\bin\Debug\OpenHardwareMonitorLib.dll</HintPath>
+      <HintPath>..\HardwareMonitor.Domain\bin\Debug\OpenHardwareMonitorLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,12 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractHardwareMonitor.cs" />
+    <Compile Include="CPUsTemperatureMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\SettingsStorage.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\HardwareMonitor.Domain\HardwareMonitor.Domain.csproj">
+      <Project>{9482a6ac-332d-4c64-bcab-7db7d88ec100}</Project>
+      <Name>HardwareMonitor.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
