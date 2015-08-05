@@ -6,6 +6,9 @@ namespace HardwareMonitor.WindowsService.WCF
     public interface IHardwareMonitorWCFContract
     {
         [OperationContract]
+        int GetCPUsCount();
+
+        [OperationContract]
         float? GetAvgCPUsTemperature();
 
         [OperationContract]

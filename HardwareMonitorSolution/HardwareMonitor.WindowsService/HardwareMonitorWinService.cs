@@ -64,5 +64,10 @@ namespace HardwareMonitor.WindowsService
         {
             return CPUsTemperatureMonitor.INSTANCE.GetCPUTemperature(cpuIndex);
         }
+
+        public int GetCPUsCount()
+        {
+            return CPUsTemperatureMonitor.INSTANCE.GetCPUsCount();
+        }
     }
 }
