@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace HardwareManager.Temperature.WinTrayUI
+namespace HardwareMonitor.Client.Temperature
 {
     public class ThermometerPictureBox : PictureBox
     {

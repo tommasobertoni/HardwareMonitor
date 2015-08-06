@@ -69,9 +69,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HardwareManager.Temperature\HardwareManager.Temperature.csproj">
+    <ProjectReference Include="..\HardwareMonitor.Temperature\HardwareMonitor.Temperature.csproj">
       <Project>{91d2901d-19b7-426d-aa13-ad4a5964627c}</Project>
-      <Name>HardwareManager.Temperature</Name>
+      <Name>HardwareMonitor.Temperature</Name>
     </ProjectReference>
     <ProjectReference Include="..\HardwareMonitor.Domain\HardwareMonitor.Domain.csproj">
       <Project>{9482a6ac-332d-4c64-bcab-7db7d88ec100}</Project>

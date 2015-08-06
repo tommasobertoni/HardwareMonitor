@@ -9,12 +9,18 @@ namespace HardwareMonitor.WindowsService
         /// </summary>
         static void Main()
         {
+#if DEBUG
+            var serv = new HardwareMonitorWinService();
+            serv.OnDebug();
+            System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+#else
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
                 new HardwareMonitorWinService()
             };
             ServiceBase.Run(ServicesToRun);
+#endif
         }
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{91D2901D-19B7-426D-AA13-AD4A5964627C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HardwareManager.Temperature</RootNamespace>
-    <AssemblyName>HardwareManager.Temperature</AssemblyName>
+    <RootNamespace>HardwareMonitor.Temperature</RootNamespace>
+    <AssemblyName>HardwareMonitor.Temperature</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

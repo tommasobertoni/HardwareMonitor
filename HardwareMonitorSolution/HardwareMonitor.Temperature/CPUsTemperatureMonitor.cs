@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HardwareManager.Temperature
+namespace HardwareMonitor.Temperature
 {
     public class CPUsTemperatureMonitor : AbstractHardwareMonitor
     {

@@ -1,6 +1,6 @@
-﻿namespace HardwareManager.Temperature.WinTrayUI
+﻿namespace HardwareMonitor.Client.Temperature
 {
-    partial class Form
+    partial class TemperatureUI
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TemperatureUI));
             this.labelLastMeasuredTemperature = new System.Windows.Forms.Label();
             this.rbNoNotif = new System.Windows.Forms.RadioButton();
             this.rbTrayNotif = new System.Windows.Forms.RadioButton();
             this.rbMessageBoxNotif = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.labelTimeout = new System.Windows.Forms.Label();
             this.trackBarObservers = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
-            this.trackbarUpdateTimespan = new System.Windows.Forms.TrackBar();
+            this.trackbarUpdateTime = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.trackBarTemperature = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.thermometerPictureBox1 = new HardwareManager.Temperature.WinTrayUI.ThermometerPictureBox();
             this.labelTemperature = new System.Windows.Forms.Label();
-            this.labelTimespan = new System.Windows.Forms.Label();
+            this.labelUpdateTime = new System.Windows.Forms.Label();
             this.labelObservers = new System.Windows.Forms.Label();
+            this.thermometerPictureBox1 = new HardwareMonitor.Client.Temperature.ThermometerPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarObservers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTimespan)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thermometerPictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -108,18 +107,6 @@
             this.label5.TabIndex = 32;
             this.label5.Text = "Notification Event";
             // 
-            // labelTimeout
-            // 
-            this.labelTimeout.AutoSize = true;
-            this.labelTimeout.Font = new System.Drawing.Font("Marlett", 8.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimeout.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelTimeout.Location = new System.Drawing.Point(153, 278);
-            this.labelTimeout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTimeout.Name = "labelTimeout";
-            this.labelTimeout.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelTimeout.Size = new System.Drawing.Size(0, 18);
-            this.labelTimeout.TabIndex = 31;
-            // 
             // trackBarObservers
             // 
             this.trackBarObservers.BackColor = System.Drawing.SystemColors.Control;
@@ -144,21 +131,21 @@
             this.label4.TabIndex = 29;
             this.label4.Text = "Observers";
             // 
-            // trackbarUpdateTimespan
+            // trackbarUpdateTime
             // 
-            this.trackbarUpdateTimespan.BackColor = System.Drawing.SystemColors.Control;
-            this.trackbarUpdateTimespan.LargeChange = 2;
-            this.trackbarUpdateTimespan.Location = new System.Drawing.Point(224, 172);
-            this.trackbarUpdateTimespan.Margin = new System.Windows.Forms.Padding(4);
-            this.trackbarUpdateTimespan.Maximum = 120;
-            this.trackbarUpdateTimespan.Minimum = 1;
-            this.trackbarUpdateTimespan.Name = "trackbarUpdateTimespan";
-            this.trackbarUpdateTimespan.Size = new System.Drawing.Size(304, 56);
-            this.trackbarUpdateTimespan.SmallChange = 2;
-            this.trackbarUpdateTimespan.TabIndex = 27;
-            this.trackbarUpdateTimespan.TickFrequency = 10;
-            this.trackbarUpdateTimespan.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackbarUpdateTimespan.Value = 1;
+            this.trackbarUpdateTime.BackColor = System.Drawing.SystemColors.Control;
+            this.trackbarUpdateTime.LargeChange = 2;
+            this.trackbarUpdateTime.Location = new System.Drawing.Point(224, 172);
+            this.trackbarUpdateTime.Margin = new System.Windows.Forms.Padding(4);
+            this.trackbarUpdateTime.Maximum = 120;
+            this.trackbarUpdateTime.Minimum = 1;
+            this.trackbarUpdateTime.Name = "trackbarUpdateTime";
+            this.trackbarUpdateTime.Size = new System.Drawing.Size(304, 56);
+            this.trackbarUpdateTime.SmallChange = 2;
+            this.trackbarUpdateTime.TabIndex = 27;
+            this.trackbarUpdateTime.TickFrequency = 10;
+            this.trackbarUpdateTime.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackbarUpdateTime.Value = 1;
             // 
             // label2
             // 
@@ -167,9 +154,9 @@
             this.label2.Location = new System.Drawing.Point(152, 131);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 23);
+            this.label2.Size = new System.Drawing.Size(116, 23);
             this.label2.TabIndex = 26;
-            this.label2.Text = "Update timespan";
+            this.label2.Text = "Update time";
             // 
             // trackBarTemperature
             // 
@@ -197,6 +184,33 @@
             this.label1.TabIndex = 37;
             this.label1.Text = "Temperature Alert Level";
             // 
+            // labelTemperature
+            // 
+            this.labelTemperature.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemperature.Location = new System.Drawing.Point(152, 67);
+            this.labelTemperature.Name = "labelTemperature";
+            this.labelTemperature.Size = new System.Drawing.Size(64, 47);
+            this.labelTemperature.TabIndex = 40;
+            this.labelTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTimespan
+            // 
+            this.labelUpdateTime.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUpdateTime.Location = new System.Drawing.Point(152, 172);
+            this.labelUpdateTime.Name = "labelTimespan";
+            this.labelUpdateTime.Size = new System.Drawing.Size(64, 47);
+            this.labelUpdateTime.TabIndex = 41;
+            this.labelUpdateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelObservers
+            // 
+            this.labelObservers.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelObservers.Location = new System.Drawing.Point(152, 277);
+            this.labelObservers.Name = "labelObservers";
+            this.labelObservers.Size = new System.Drawing.Size(64, 47);
+            this.labelObservers.TabIndex = 42;
+            this.labelObservers.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // thermometerPictureBox1
             // 
             this.thermometerPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("thermometerPictureBox1.Image")));
@@ -212,40 +226,13 @@
             this.thermometerPictureBox1.TabIndex = 39;
             this.thermometerPictureBox1.TabStop = false;
             // 
-            // labelTemperature
-            // 
-            this.labelTemperature.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTemperature.Location = new System.Drawing.Point(152, 67);
-            this.labelTemperature.Name = "labelTemperature";
-            this.labelTemperature.Size = new System.Drawing.Size(64, 47);
-            this.labelTemperature.TabIndex = 40;
-            this.labelTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelTimespan
-            // 
-            this.labelTimespan.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimespan.Location = new System.Drawing.Point(152, 172);
-            this.labelTimespan.Name = "labelTimespan";
-            this.labelTimespan.Size = new System.Drawing.Size(64, 47);
-            this.labelTimespan.TabIndex = 41;
-            this.labelTimespan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelObservers
-            // 
-            this.labelObservers.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelObservers.Location = new System.Drawing.Point(152, 277);
-            this.labelObservers.Name = "labelObservers";
-            this.labelObservers.Size = new System.Drawing.Size(64, 47);
-            this.labelObservers.TabIndex = 42;
-            this.labelObservers.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(540, 438);
             this.Controls.Add(this.labelObservers);
-            this.Controls.Add(this.labelTimespan);
+            this.Controls.Add(this.labelUpdateTime);
             this.Controls.Add(this.labelTemperature);
             this.Controls.Add(this.thermometerPictureBox1);
             this.Controls.Add(this.trackBarTemperature);
@@ -255,16 +242,15 @@
             this.Controls.Add(this.rbTrayNotif);
             this.Controls.Add(this.rbMessageBoxNotif);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.labelTimeout);
             this.Controls.Add(this.trackBarObservers);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.trackbarUpdateTimespan);
+            this.Controls.Add(this.trackbarUpdateTime);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form";
             this.Text = "Hardware Monitor - Temperature";
             ((System.ComponentModel.ISupportInitialize)(this.trackBarObservers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTimespan)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.thermometerPictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -279,16 +265,15 @@
         private System.Windows.Forms.RadioButton rbTrayNotif;
         private System.Windows.Forms.RadioButton rbMessageBoxNotif;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label labelTimeout;
         private System.Windows.Forms.TrackBar trackBarObservers;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TrackBar trackbarUpdateTimespan;
+        private System.Windows.Forms.TrackBar trackbarUpdateTime;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar trackBarTemperature;
         private System.Windows.Forms.Label label1;
         private ThermometerPictureBox thermometerPictureBox1;
         private System.Windows.Forms.Label labelTemperature;
-        private System.Windows.Forms.Label labelTimespan;
+        private System.Windows.Forms.Label labelUpdateTime;
         private System.Windows.Forms.Label labelObservers;
     }
 }

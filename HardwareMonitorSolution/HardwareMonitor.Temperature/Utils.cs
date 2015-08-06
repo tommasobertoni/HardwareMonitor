@@ -1,7 +1,7 @@
 ﻿using OpenHardwareMonitor.Hardware;
 using System;
 
-namespace HardwareManager.Temperature
+namespace HardwareMonitor.Temperature
 {
     internal static class Utils
     {
