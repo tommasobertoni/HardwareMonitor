@@ -38,13 +38,16 @@ namespace HardwareMonitor.Client.Temperature
             trackBarObservers.MouseWheel += DoNothing_MouseWheel;
 
             #region Attach value change events
-            trackBarTemperature.ValueChanged += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
+            //trackBarTemperature.ValueChanged += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
+            trackBarTemperature.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
             trackBarTemperature.LostFocus += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
 
-            trackbarUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
+            //trackbarUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
+            trackbarUpdateTime.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
             trackbarUpdateTime.LostFocus += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
 
-            trackBarObservers.ValueChanged += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
+            //trackBarObservers.ValueChanged += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
+            trackBarObservers.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
             trackBarObservers.LostFocus += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
 
             rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
@@ -107,6 +110,12 @@ namespace HardwareMonitor.Client.Temperature
             });
         }
 
+        void ITemperatureUI.SetAvgCPUsTemperature(int temperature)
+        {
+            labelLastMeasuredTemperature.Text = temperature.ToString();
+            thermometerPictureBox1.Percentage = temperature;
+        }
+
         void ITemperatureUI.SetTemperatureAlertLevel(int tal)
         {
             labelTemperature.Text = tal.ToString();
@@ -116,7 +125,7 @@ namespace HardwareMonitor.Client.Temperature
         void ITemperatureUI.SetUpdateTime(int updateTime)
         {
             labelUpdateTime.Text = updateTime.ToString();
-            trackbarUpdateTime.Value = updateTime;
+            trackbarUpdateTime.Value = updateTime / 1000;
         }
 
         void ITemperatureUI.SetObserversCount(int observersCount)

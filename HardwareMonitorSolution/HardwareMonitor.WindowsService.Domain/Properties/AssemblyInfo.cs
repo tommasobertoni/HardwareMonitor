@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HardwareMonitor.WindowsService.WCF")]
+[assembly: AssemblyTitle("HardwareMonitor.WindowsService.Domain")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HardwareMonitor.WindowsService.WCF")]
+[assembly: AssemblyProduct("HardwareMonitor.WindowsService.Domain")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3fd3dc11-f735-45d7-814a-f17ed03dde71")]
+[assembly: Guid("b2824397-c291-46e5-961b-7c2ba8660d49")]
 
 // Version information for an assembly consists of the following four values:
 //

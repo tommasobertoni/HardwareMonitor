@@ -5,6 +5,8 @@ namespace HardwareMonitor.Client.Domain.Contracts
 {
     public interface ITemperatureUI : IView
     {
+        void SetAvgCPUsTemperature(int temperature);
+
         void SetTemperatureAlertLevel(int tal);
 
         void SetUpdateTime(int updateTime);

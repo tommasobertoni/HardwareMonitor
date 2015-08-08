@@ -8,12 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HardwareMonitor.Client.Controller.HardwareMonitorServiceReference {
+namespace HardwareMonitor.Client.Controller.TemperatureMonitorServiceReference {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="HardwareMonitorServiceReference.IHardwareMonitorWCFContract")]
-    public interface IHardwareMonitorWCFContract {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TemperatureMonitorServiceReference.IHardwareMonitorTemperatureWCFContract")]
+    public interface IHardwareMonitorTemperatureWCFContract {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUsCount", ReplyAction="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUsCountResponse")]
         int GetCPUsCount();
@@ -21,43 +21,47 @@ namespace HardwareMonitor.Client.Controller.HardwareMonitorServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUsCount", ReplyAction="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUsCountResponse")]
         System.Threading.Tasks.Task<int> GetCPUsCountAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorWCFContract/GetAvgCPUsTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorWCFContract/GetAvgCPUsTemperatureResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetAvgCPUsTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetAvgCPUsTemperatureRe" +
+            "sponse")]
         System.Nullable<float> GetAvgCPUsTemperature();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorWCFContract/GetAvgCPUsTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorWCFContract/GetAvgCPUsTemperatureResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetAvgCPUsTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetAvgCPUsTemperatureRe" +
+            "sponse")]
         System.Threading.Tasks.Task<System.Nullable<float>> GetAvgCPUsTemperatureAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUTemperatureResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetCPUTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetCPUTemperatureRespon" +
+            "se")]
         System.Nullable<float> GetCPUTemperature(int cpuIndex);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorWCFContract/GetCPUTemperatureResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetCPUTemperature", ReplyAction="http://tempuri.org/IHardwareMonitorTemperatureWCFContract/GetCPUTemperatureRespon" +
+            "se")]
         System.Threading.Tasks.Task<System.Nullable<float>> GetCPUTemperatureAsync(int cpuIndex);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IHardwareMonitorWCFContractChannel : HardwareMonitor.Client.Controller.HardwareMonitorServiceReference.IHardwareMonitorWCFContract, System.ServiceModel.IClientChannel {
+    public interface IHardwareMonitorTemperatureWCFContractChannel : HardwareMonitor.Client.Controller.TemperatureMonitorServiceReference.IHardwareMonitorTemperatureWCFContract, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class HardwareMonitorWCFContractClient : System.ServiceModel.ClientBase<HardwareMonitor.Client.Controller.HardwareMonitorServiceReference.IHardwareMonitorWCFContract>, HardwareMonitor.Client.Controller.HardwareMonitorServiceReference.IHardwareMonitorWCFContract {
+    public partial class HardwareMonitorTemperatureWCFContractClient : System.ServiceModel.ClientBase<HardwareMonitor.Client.Controller.TemperatureMonitorServiceReference.IHardwareMonitorTemperatureWCFContract>, HardwareMonitor.Client.Controller.TemperatureMonitorServiceReference.IHardwareMonitorTemperatureWCFContract {
         
-        public HardwareMonitorWCFContractClient() {
+        public HardwareMonitorTemperatureWCFContractClient() {
         }
         
-        public HardwareMonitorWCFContractClient(string endpointConfigurationName) : 
+        public HardwareMonitorTemperatureWCFContractClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public HardwareMonitorWCFContractClient(string endpointConfigurationName, string remoteAddress) : 
+        public HardwareMonitorTemperatureWCFContractClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public HardwareMonitorWCFContractClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public HardwareMonitorTemperatureWCFContractClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public HardwareMonitorWCFContractClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public HardwareMonitorTemperatureWCFContractClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         

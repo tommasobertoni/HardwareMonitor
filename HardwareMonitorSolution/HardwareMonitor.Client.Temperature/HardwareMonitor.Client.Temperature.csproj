@@ -7,8 +7,8 @@
     <ProjectGuid>{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HardwareManager.Temperature.WinTrayUI</RootNamespace>
-    <AssemblyName>HardwareManager.Temperature.WinTrayUI</AssemblyName>
+    <RootNamespace>HardwareMonitor.Client.Temperature</RootNamespace>
+    <AssemblyName>HardwareMonitor.Client.Temperature</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -69,7 +69,7 @@
     <Compile Include="ThermometerPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utils\WinTrayUISettingsHandler.cs" />
+    <Compile Include="Utils\TemperatureUISettingsHandler.cs" />
     <EmbeddedResource Include="TemperatureUI.resx">
       <DependentUpon>TemperatureUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,10 +131,6 @@
     <ProjectReference Include="..\HardwareMonitor.Domain\HardwareMonitor.Domain.csproj">
       <Project>{9482a6ac-332d-4c64-bcab-7db7d88ec100}</Project>
       <Name>HardwareMonitor.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.WindowsService.WCF\HardwareMonitor.WindowsService.WCF.csproj">
-      <Project>{3fd3dc11-f735-45d7-814a-f17ed03dde71}</Project>
-      <Name>HardwareMonitor.WindowsService.WCF</Name>
     </ProjectReference>
     <ProjectReference Include="..\HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj">
       <Project>{9f563d80-9fa9-4ab4-a03c-38a910ec2e04}</Project>

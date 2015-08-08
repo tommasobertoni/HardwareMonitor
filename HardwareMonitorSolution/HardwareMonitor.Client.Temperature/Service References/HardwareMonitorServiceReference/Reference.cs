@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HardwareManager.Temperature.WinTrayUI.HardwareMonitorServiceReference {
+namespace HardwareMonitor.Client.Temperature.HardwareMonitorServiceReference {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -35,12 +35,12 @@ namespace HardwareManager.Temperature.WinTrayUI.HardwareMonitorServiceReference 
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IHardwareMonitorWCFContractChannel : HardwareManager.Temperature.WinTrayUI.HardwareMonitorServiceReference.IHardwareMonitorWCFContract, System.ServiceModel.IClientChannel {
+    public interface IHardwareMonitorWCFContractChannel : HardwareMonitor.Client.Temperature.HardwareMonitorServiceReference.IHardwareMonitorWCFContract, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class HardwareMonitorWCFContractClient : System.ServiceModel.ClientBase<HardwareManager.Temperature.WinTrayUI.HardwareMonitorServiceReference.IHardwareMonitorWCFContract>, HardwareManager.Temperature.WinTrayUI.HardwareMonitorServiceReference.IHardwareMonitorWCFContract {
+    public partial class HardwareMonitorWCFContractClient : System.ServiceModel.ClientBase<HardwareMonitor.Client.Temperature.HardwareMonitorServiceReference.IHardwareMonitorWCFContract>, HardwareMonitor.Client.Temperature.HardwareMonitorServiceReference.IHardwareMonitorWCFContract {
         
         public HardwareMonitorWCFContractClient() {
         }

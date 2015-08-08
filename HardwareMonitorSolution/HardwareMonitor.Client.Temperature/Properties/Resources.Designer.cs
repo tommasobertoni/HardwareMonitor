@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HardwareManager.Temperature.WinTrayUI.Properties {
+namespace HardwareMonitor.Client.Temperature.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HardwareManager.Temperature.WinTrayUI.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HardwareManager.Temperature.WinTrayUI.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HardwareMonitor.Client.Temperature.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

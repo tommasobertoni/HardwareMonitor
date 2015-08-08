@@ -29,10 +29,7 @@ namespace HardwareMonitor.Temperature
             RetriveTemperatureSensors();
         }
 
-        public override int GetCPUsCount()
-        {
-            return _cpusTemperatureSensors.Count;
-        }
+        public override int GetCPUsCount() => _cpusTemperatureSensors.Count;
 
         private void RetriveTemperatureSensors()
         {

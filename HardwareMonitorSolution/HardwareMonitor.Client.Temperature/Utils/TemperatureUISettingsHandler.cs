@@ -3,21 +3,22 @@ using HardwareMonitor.Domain.Utils;
 
 namespace HardwareMonitor.Client.Temperature.Utils
 {
-    internal class WinTrayUISettingsHandler
+    public class TemperatureUISettingsHandler
     {
+        private const string _DEFAULT_TEMPERATURE_SETTINGS_KEY = "temperaturesettings";
+
         private const string _TEMPERATURE_ALERT_LEVEL_KEY = "temperaturelertlevel";
         private const int _DEFAULT_TEMPERATURE_ALERT_LEVEL = 30;
 
         private const string _UPDATE_TIME_KEY = "updatetime";
-        private const int _DEFAULT_UPDATE_TIME = 5;
+        private const int _DEFAULT_UPDATE_TIME = 5000;
 
         private const string _OBSERVERS_COUNT_KEY = "observerscount";
         private const int _DEFAULT_OBSERVERS_COUNT = 5;
 
         private const string _NOTIFICATION_KEY = "notification";
         private const NotificationMethod _DEFAULT_NOTIFICATION = NotificationMethod.MESSAGE_BOX;
-
-
+        
         private int _temperaturelertlevel;
         public int TemperatureAlertLevel {
             get
@@ -41,7 +42,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
             set
             {
                 _updatetime = value;
-                //_settings.Set(_UPDATE_TIME_KEY, _updatetime);
+                _settings.Set(_UPDATE_TIME_KEY, _updatetime);
             }
         }
 
@@ -75,7 +76,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
 
         private SettingsStorage _settings;
 
-        public WinTrayUISettingsHandler(string key)
+        public TemperatureUISettingsHandler(string key = _DEFAULT_TEMPERATURE_SETTINGS_KEY)
         {
             _settings = new SettingsStorage(key);
 

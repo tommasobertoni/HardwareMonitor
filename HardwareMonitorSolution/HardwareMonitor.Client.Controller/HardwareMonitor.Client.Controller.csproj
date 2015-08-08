@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HardwareMonitorController.cs" />
+    <Compile Include="Monitors\AbstractMonitor.cs" />
+    <Compile Include="Monitors\TemperatureMonitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -55,7 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service References\HardwareMonitorServiceReference\Reference.cs">
+    <Compile Include="Service References\TemperatureMonitorServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -63,11 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Service References\HardwareMonitorServiceReference\service.wsdl" />
-    <None Include="Service References\HardwareMonitorServiceReference\service.xsd">
+    <None Include="Service References\TemperatureMonitorServiceReference\service.wsdl" />
+    <None Include="Service References\TemperatureMonitorServiceReference\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HardwareMonitorServiceReference\service1.xsd">
+    <None Include="Service References\TemperatureMonitorServiceReference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -87,10 +89,6 @@
     <ProjectReference Include="..\HardwareMonitor.Temperature\HardwareMonitor.Temperature.csproj">
       <Project>{91d2901d-19b7-426d-aa13-ad4a5964627c}</Project>
       <Name>HardwareMonitor.Temperature</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.WindowsService.WCF\HardwareMonitor.WindowsService.WCF.csproj">
-      <Project>{3fd3dc11-f735-45d7-814a-f17ed03dde71}</Project>
-      <Name>HardwareMonitor.WindowsService.WCF</Name>
     </ProjectReference>
     <ProjectReference Include="..\HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj">
       <Project>{9f563d80-9fa9-4ab4-a03c-38a910ec2e04}</Project>
@@ -116,16 +114,16 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\HardwareMonitorServiceReference\" />
+    <WCFMetadataStorage Include="Service References\TemperatureMonitorServiceReference\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HardwareMonitorServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\TemperatureMonitorServiceReference\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HardwareMonitorServiceReference\configuration.svcinfo" />
+    <None Include="Service References\TemperatureMonitorServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HardwareMonitorServiceReference\Reference.svcmap">
+    <None Include="Service References\TemperatureMonitorServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

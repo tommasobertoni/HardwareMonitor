@@ -59,10 +59,6 @@
       <Project>{9482a6ac-332d-4c64-bcab-7db7d88ec100}</Project>
       <Name>HardwareMonitor.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.WindowsService.WCF\HardwareMonitor.WindowsService.WCF.csproj">
-      <Project>{3fd3dc11-f735-45d7-814a-f17ed03dde71}</Project>
-      <Name>HardwareMonitor.WindowsService.WCF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj">
       <Project>{9f563d80-9fa9-4ab4-a03c-38a910ec2e04}</Project>
       <Name>HardwareMonitor.WindowsService</Name>
