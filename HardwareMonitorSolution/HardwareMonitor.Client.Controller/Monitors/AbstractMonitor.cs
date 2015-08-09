@@ -58,12 +58,13 @@ namespace HardwareMonitor.Client.Controller.Monitors
         private void _bworker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
+            worker.ReportProgress(0);
 
             int elapsedTime = 0;
             while (!worker.CancellationPending)
             {
                 Sleep(SMALL_TICK);
-                if (TriggerEvent(elapsedTime += SMALL_TICK))
+                if (!worker.CancellationPending && TriggerEvent(elapsedTime += SMALL_TICK))
                 {
                     worker.ReportProgress(0);
                     elapsedTime = 0;

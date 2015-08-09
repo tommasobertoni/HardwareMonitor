@@ -2,11 +2,21 @@
 using HardwareMonitor.Client.Domain.Entities;
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HardwareMonitor.Client.Temperature
 {
     public partial class TemperatureUI : Form, ITemperatureUI
     {
+        private Bitmap _iconBitmap;
+        Image IView.Icon
+        {
+            get
+            {
+                return _iconBitmap;
+            }
+        }
+
         public class IntEventArgs : EventArgs
         {
             public int Value { get; set; }
@@ -22,6 +32,8 @@ namespace HardwareMonitor.Client.Temperature
         public TemperatureUI()
         {
             InitializeComponent();
+
+            _iconBitmap = Properties.Resources.temperatureIcon.ToBitmap();
 
             FormClosed += (s, o) => OnViewExit(s, o);
 
@@ -54,6 +66,12 @@ namespace HardwareMonitor.Client.Temperature
             rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
             rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
             #endregion
+
+            FormClosing += (s, e) =>
+            {
+                Hide();
+                e.Cancel = true;
+            };
         }
 
         private void DoNothing_MouseWheel(object sender, EventArgs e)
@@ -124,8 +142,9 @@ namespace HardwareMonitor.Client.Temperature
 
         void ITemperatureUI.SetUpdateTime(int updateTime)
         {
+            updateTime /= 1000;
             labelUpdateTime.Text = updateTime.ToString();
-            trackbarUpdateTime.Value = updateTime / 1000;
+            trackbarUpdateTime.Value = updateTime;
         }
 
         void ITemperatureUI.SetObserversCount(int observersCount)

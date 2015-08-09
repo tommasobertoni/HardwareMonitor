@@ -108,9 +108,6 @@
     <None Include="Resources\Settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\temperatureIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>

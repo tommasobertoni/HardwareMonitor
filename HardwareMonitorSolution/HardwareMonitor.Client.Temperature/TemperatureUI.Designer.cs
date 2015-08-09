@@ -193,11 +193,11 @@
             this.labelTemperature.TabIndex = 40;
             this.labelTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelTimespan
+            // labelUpdateTime
             // 
             this.labelUpdateTime.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelUpdateTime.Location = new System.Drawing.Point(152, 172);
-            this.labelUpdateTime.Name = "labelTimespan";
+            this.labelUpdateTime.Name = "labelUpdateTime";
             this.labelUpdateTime.Size = new System.Drawing.Size(64, 47);
             this.labelUpdateTime.TabIndex = 41;
             this.labelUpdateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -226,7 +226,7 @@
             this.thermometerPictureBox1.TabIndex = 39;
             this.thermometerPictureBox1.TabStop = false;
             // 
-            // Form
+            // TemperatureUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -247,7 +247,9 @@
             this.Controls.Add(this.trackbarUpdateTime);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "Form";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "TemperatureUI";
             this.Text = "Hardware Monitor - Temperature";
             ((System.ComponentModel.ISupportInitialize)(this.trackBarObservers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).EndInit();

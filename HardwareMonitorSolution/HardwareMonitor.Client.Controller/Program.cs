@@ -15,7 +15,6 @@ namespace HardwareMonitor.Client.Controller
 
             IController controller = new HardwareMonitorController();
             controller.TemperatureUI = new TemperatureUI();
-            controller.TemperatureUI.Show();
 
             Application.Run();
         }
