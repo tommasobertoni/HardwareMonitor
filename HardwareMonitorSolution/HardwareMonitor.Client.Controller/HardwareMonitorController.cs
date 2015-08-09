@@ -51,7 +51,7 @@ namespace HardwareMonitor.Client.Controller
                         (s, e) => TemperatureUI?.Show(true)).Name = _TEMPERATURE_ICON_NAME;
 
                     UpdateTemperatureUI();
-                    _temperatureUI.Show();
+                    _temperatureUI.Show(true);
                 }
             }
         }
