@@ -10,6 +10,7 @@ namespace HardwareMonitor.Client.Controller
     public class HardwareMonitorController : IController
     {
         private const string _APPLICATION_NAME = "HardwareMonitor";
+        private const int _TRAY_NOTIFICATION_TIMEOUT = 1000;
         private const string _MONITORS_ICON_NAME = "Monitors";
         private const string _SETTINGS_ICON_NAME = "Settings";
 
@@ -18,7 +19,8 @@ namespace HardwareMonitor.Client.Controller
         private readonly static string _TEMPERATURE_UI_NAME = $"{_APPLICATION_NAME} - {_TEMPERATURE_ICON_NAME}";
         
         private TemperatureMonitor _temperatureMonitor;
-        
+        private bool _isMessageVisible;
+
         private ITemperatureUI _temperatureUI;
         public ITemperatureUI TemperatureUI {
             set
@@ -55,7 +57,7 @@ namespace HardwareMonitor.Client.Controller
                             _temperatureMonitor.Settings.Notification = (NotificationMethod)e.Value;
                     };
 
-                    _temperatureUI.OnLog += (s, e) => Console.WriteLine($"TemperatureUI Log: {e}");
+                    //_temperatureUI.OnLog += (s, e) => { };
                     //_temperatureUI.OnViewExit += (s, e) => { };
                     _temperatureUI.OnRequestUpdate += (s, e) => UpdateTemperatureUI();
 
@@ -102,7 +104,7 @@ namespace HardwareMonitor.Client.Controller
             trayMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
 
             _trayIcon.ContextMenuStrip = trayMenuStrip;
-            _trayIcon.ShowBalloonTip(1000, _APPLICATION_NAME, "The program has started successfully", ToolTipIcon.None);
+            _trayIcon.ShowBalloonTip(_TRAY_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, "The program has started successfully", ToolTipIcon.None);
             #endregion
         }
 
@@ -124,9 +126,45 @@ namespace HardwareMonitor.Client.Controller
             {
                 if (_temperatureUI != null) UpdateTemperatureUI();
             };
-            _temperatureMonitor.OnEventTriggered += () => _temperatureUI?.SetAvgCPUsTemperature(
-                (int) (_temperatureMonitor.GetAvgCPUsTemperature() ?? 0));
+            _temperatureMonitor.OnEventTriggered += () =>
+            {
+                float? temperature = _temperatureMonitor.GetAvgCPUsTemperature();
+
+                if (temperature.HasValue)
+                {
+                    _temperatureUI?.SetAvgCPUsTemperature((int)temperature.Value);
+                    if (_temperatureMonitor != null &&
+                        temperature >= _temperatureMonitor.Settings.TemperatureAlertLevel &&
+                        !_isMessageVisible)
+                        DisplayHighTemperatureMessage(temperature.Value);
+                }
+            };
             _temperatureMonitor.Start();
+        }
+
+        private void DisplayHighTemperatureMessage(float temperature)
+        {
+            string message = $"AVG cpu temperature: {temperature} °C!";
+
+            switch (_temperatureMonitor.Settings.Notification)
+            {
+                case NotificationMethod.MESSAGE_BOX:
+                    _isMessageVisible = true;
+                    new System.Threading.Thread(() =>
+                    {
+                        MessageBox.Show(_temperatureUI as IWin32Window, message, _APPLICATION_NAME, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        _isMessageVisible = false;
+                    }).Start();
+                    break;
+
+                case NotificationMethod.TRAY_NOTIFICATION:
+                    _trayIcon.ShowBalloonTip(_TRAY_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, message, ToolTipIcon.Info);
+                    break;
+
+                case NotificationMethod.NONE:
+                    break;
+            }
         }
     }
 }

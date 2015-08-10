@@ -314,8 +314,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TemperatureUI";
             this.Text = "Hardware Monitor - Temperature";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.trackBarObservers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();

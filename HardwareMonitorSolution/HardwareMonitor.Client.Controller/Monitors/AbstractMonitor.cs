@@ -8,7 +8,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
         public const int SMALL_TICK = 500;
 
         private int _triggerTime;
-        public int TriggetTime {
+        public int TriggerTime {
             get
             {
                 return _triggerTime;
