@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HardwareMonitor.Client.Domain.Entities
 {
-    public enum NotificationMethod
+    public class ViewValueChangedEventArgs : EventArgs
     {
-        MESSAGE_BOX,
-        TRAY_NOTIFICATION,
-        NONE
+        public object Value { get; set; }
+
+        public bool Save { get; set; }
     }
 }

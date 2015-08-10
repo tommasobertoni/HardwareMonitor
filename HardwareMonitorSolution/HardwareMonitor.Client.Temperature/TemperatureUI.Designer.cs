@@ -44,10 +44,16 @@
             this.labelUpdateTime = new System.Windows.Forms.Label();
             this.labelObservers = new System.Windows.Forms.Label();
             this.thermometerPictureBox1 = new HardwareMonitor.Client.Temperature.ThermometerPictureBox();
+            this.nupTemperatureAlertLevle = new System.Windows.Forms.NumericUpDown();
+            this.nupUpdateTime = new System.Windows.Forms.NumericUpDown();
+            this.nupObservers = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarObservers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thermometerPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupTemperatureAlertLevle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupUpdateTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupObservers)).BeginInit();
             this.SuspendLayout();
             // 
             // labelLastMeasuredTemperature
@@ -111,11 +117,11 @@
             // 
             this.trackBarObservers.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarObservers.LargeChange = 1;
-            this.trackBarObservers.Location = new System.Drawing.Point(224, 277);
+            this.trackBarObservers.Location = new System.Drawing.Point(240, 277);
             this.trackBarObservers.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarObservers.Maximum = 20;
             this.trackBarObservers.Name = "trackBarObservers";
-            this.trackBarObservers.Size = new System.Drawing.Size(304, 56);
+            this.trackBarObservers.Size = new System.Drawing.Size(300, 56);
             this.trackBarObservers.TabIndex = 30;
             this.trackBarObservers.TickFrequency = 10;
             this.trackBarObservers.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -135,12 +141,12 @@
             // 
             this.trackbarUpdateTime.BackColor = System.Drawing.SystemColors.Control;
             this.trackbarUpdateTime.LargeChange = 2;
-            this.trackbarUpdateTime.Location = new System.Drawing.Point(224, 172);
+            this.trackbarUpdateTime.Location = new System.Drawing.Point(240, 172);
             this.trackbarUpdateTime.Margin = new System.Windows.Forms.Padding(4);
             this.trackbarUpdateTime.Maximum = 120;
             this.trackbarUpdateTime.Minimum = 1;
             this.trackbarUpdateTime.Name = "trackbarUpdateTime";
-            this.trackbarUpdateTime.Size = new System.Drawing.Size(304, 56);
+            this.trackbarUpdateTime.Size = new System.Drawing.Size(300, 56);
             this.trackbarUpdateTime.SmallChange = 2;
             this.trackbarUpdateTime.TabIndex = 27;
             this.trackbarUpdateTime.TickFrequency = 10;
@@ -162,12 +168,12 @@
             // 
             this.trackBarTemperature.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarTemperature.LargeChange = 1;
-            this.trackBarTemperature.Location = new System.Drawing.Point(224, 67);
+            this.trackBarTemperature.Location = new System.Drawing.Point(240, 67);
             this.trackBarTemperature.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarTemperature.Maximum = 110;
             this.trackBarTemperature.Minimum = 30;
             this.trackBarTemperature.Name = "trackBarTemperature";
-            this.trackBarTemperature.Size = new System.Drawing.Size(304, 56);
+            this.trackBarTemperature.Size = new System.Drawing.Size(300, 56);
             this.trackBarTemperature.TabIndex = 38;
             this.trackBarTemperature.TickFrequency = 5;
             this.trackBarTemperature.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -187,27 +193,27 @@
             // labelTemperature
             // 
             this.labelTemperature.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTemperature.Location = new System.Drawing.Point(152, 67);
+            this.labelTemperature.Location = new System.Drawing.Point(180, 67);
             this.labelTemperature.Name = "labelTemperature";
-            this.labelTemperature.Size = new System.Drawing.Size(64, 47);
+            this.labelTemperature.Size = new System.Drawing.Size(55, 56);
             this.labelTemperature.TabIndex = 40;
             this.labelTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelUpdateTime
             // 
             this.labelUpdateTime.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUpdateTime.Location = new System.Drawing.Point(152, 172);
+            this.labelUpdateTime.Location = new System.Drawing.Point(180, 172);
             this.labelUpdateTime.Name = "labelUpdateTime";
-            this.labelUpdateTime.Size = new System.Drawing.Size(64, 47);
+            this.labelUpdateTime.Size = new System.Drawing.Size(55, 47);
             this.labelUpdateTime.TabIndex = 41;
             this.labelUpdateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelObservers
             // 
             this.labelObservers.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelObservers.Location = new System.Drawing.Point(152, 277);
+            this.labelObservers.Location = new System.Drawing.Point(180, 277);
             this.labelObservers.Name = "labelObservers";
-            this.labelObservers.Size = new System.Drawing.Size(64, 47);
+            this.labelObservers.Size = new System.Drawing.Size(55, 47);
             this.labelObservers.TabIndex = 42;
             this.labelObservers.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -226,11 +232,70 @@
             this.thermometerPictureBox1.TabIndex = 39;
             this.thermometerPictureBox1.TabStop = false;
             // 
+            // nupTemperatureAlertLevle
+            // 
+            this.nupTemperatureAlertLevle.Location = new System.Drawing.Point(150, 80);
+            this.nupTemperatureAlertLevle.Maximum = new decimal(new int[] {
+            110,
+            0,
+            0,
+            0});
+            this.nupTemperatureAlertLevle.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nupTemperatureAlertLevle.Name = "nupTemperatureAlertLevle";
+            this.nupTemperatureAlertLevle.Size = new System.Drawing.Size(23, 22);
+            this.nupTemperatureAlertLevle.TabIndex = 43;
+            this.nupTemperatureAlertLevle.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // nupUpdateTime
+            // 
+            this.nupUpdateTime.Location = new System.Drawing.Point(150, 185);
+            this.nupUpdateTime.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.nupUpdateTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupUpdateTime.Name = "nupUpdateTime";
+            this.nupUpdateTime.Size = new System.Drawing.Size(23, 22);
+            this.nupUpdateTime.TabIndex = 44;
+            this.nupUpdateTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nupObservers
+            // 
+            this.nupObservers.Location = new System.Drawing.Point(150, 290);
+            this.nupObservers.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nupObservers.Name = "nupObservers";
+            this.nupObservers.Size = new System.Drawing.Size(23, 22);
+            this.nupObservers.TabIndex = 45;
+            // 
             // TemperatureUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 438);
+            this.ClientSize = new System.Drawing.Size(547, 438);
+            this.Controls.Add(this.nupObservers);
+            this.Controls.Add(this.nupUpdateTime);
+            this.Controls.Add(this.nupTemperatureAlertLevle);
             this.Controls.Add(this.labelObservers);
             this.Controls.Add(this.labelUpdateTime);
             this.Controls.Add(this.labelTemperature);
@@ -255,6 +320,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.thermometerPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupTemperatureAlertLevle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupUpdateTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupObservers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,6 +345,9 @@
         private System.Windows.Forms.Label labelTemperature;
         private System.Windows.Forms.Label labelUpdateTime;
         private System.Windows.Forms.Label labelObservers;
+        private System.Windows.Forms.NumericUpDown nupTemperatureAlertLevle;
+        private System.Windows.Forms.NumericUpDown nupUpdateTime;
+        private System.Windows.Forms.NumericUpDown nupObservers;
     }
 }
 

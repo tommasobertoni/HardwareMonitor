@@ -39,12 +39,12 @@ namespace HardwareMonitor.Client.Controller.Monitors
             _bworker.ProgressChanged += _bworker_ProgressChanged;
         }
 
-        public void Start()
+        public virtual void Start()
         {
             _bworker.RunWorkerAsync();
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             _bworker.CancelAsync();
             InitWorker();

@@ -1,12 +1,9 @@
 ﻿using HardwareMonitor.Client.Controller.Monitors;
 using HardwareMonitor.Client.Domain.Contracts;
+using HardwareMonitor.Client.Domain.Entities;
 using HardwareMonitor.Client.Temperature.Utils;
 using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.ServiceModel;
 using System.Windows.Forms;
-using static System.Threading.Thread;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -19,17 +16,11 @@ namespace HardwareMonitor.Client.Controller
         #region Temperature
         private const string _TEMPERATURE_ICON_NAME = "Temperature";
         private readonly static string _TEMPERATURE_UI_NAME = $"{_APPLICATION_NAME} - {_TEMPERATURE_ICON_NAME}";
-
-        private TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient _temperatureService;
+        
         private TemperatureMonitor _temperatureMonitor;
         
         private ITemperatureUI _temperatureUI;
         public ITemperatureUI TemperatureUI {
-            get
-            {
-                return _temperatureUI;
-            }
-
             set
             {
                 InitTemperatureMonitorIfNull();
@@ -40,18 +31,38 @@ namespace HardwareMonitor.Client.Controller
                 if (_temperatureMonitor != null)
                 {
                     _temperatureUI.Name = _TEMPERATURE_UI_NAME;
-                    _temperatureUI.OnTemperatureAlertLevelChanged += (s, e) => { };
-                    _temperatureUI.OnUpdateTimeChanged += (s, e) => { };
-                    _temperatureUI.OnObserversCountChanged += (s, e) => { };
-                    _temperatureUI.OnNotificationMethodChanged += (s, e) => { };
-                    _temperatureUI.OnViewExit += (s, e) => { };
-                    _temperatureUI.OnRequestUpdate += (s, e) => { };
+                    _temperatureUI.OnTemperatureAlertLevelChanged += (s, e) =>
+                    {
+                        if (e.Value != null && e.Save && _temperatureMonitor != null)
+                            _temperatureMonitor.Settings.TemperatureAlertLevel = (int)e.Value;
+                    };
+
+                    _temperatureUI.OnUpdateTimeChanged += (s, e) =>
+                    {
+                        if (e.Value != null && e.Save && _temperatureMonitor != null)
+                            _temperatureMonitor.Settings.UpdateTime = (int)e.Value;
+                    };
+
+                    _temperatureUI.OnObserversCountChanged += (s, e) =>
+                    {
+                        if (e.Value != null && e.Save && _temperatureMonitor != null)
+                            _temperatureMonitor.Settings.ObserversCount = (int)e.Value;
+                    };
+
+                    _temperatureUI.OnNotificationMethodChanged += (s, e) =>
+                    {
+                        if (e.Value != null && e.Save && _temperatureMonitor != null)
+                            _temperatureMonitor.Settings.Notification = (NotificationMethod)e.Value;
+                    };
+
+                    _temperatureUI.OnLog += (s, e) => Console.WriteLine($"TemperatureUI Log: {e}");
+                    //_temperatureUI.OnViewExit += (s, e) => { };
+                    _temperatureUI.OnRequestUpdate += (s, e) => UpdateTemperatureUI();
 
                     GetMonitorsToolStripItemCollection().Add(_TEMPERATURE_ICON_NAME, _temperatureUI.Icon,
-                        (s, e) => TemperatureUI?.Show(true)).Name = _TEMPERATURE_ICON_NAME;
+                        (s, e) => _temperatureUI?.Show(true)).Name = _TEMPERATURE_ICON_NAME;
 
                     UpdateTemperatureUI();
-                    _temperatureUI.Show(true);
                 }
             }
         }
@@ -65,11 +76,15 @@ namespace HardwareMonitor.Client.Controller
         }
 
         private NotifyIcon _trayIcon;
-        private TemperatureUISettingsHandler _settings;
 
         public HardwareMonitorController()
         {
-            _settings = new TemperatureUISettingsHandler();
+            Application.ApplicationExit += (s, e) =>
+            {
+                _temperatureUI?.Close();
+                _temperatureMonitor?.Stop();
+                _trayIcon?.Dispose();
+            };
 
             #region Init tray icon
             _trayIcon = new NotifyIcon()
@@ -87,32 +102,29 @@ namespace HardwareMonitor.Client.Controller
             trayMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
 
             _trayIcon.ContextMenuStrip = trayMenuStrip;
+            _trayIcon.ShowBalloonTip(1000, _APPLICATION_NAME, "The program has started successfully", ToolTipIcon.None);
             #endregion
-
-            _temperatureService = new TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient();
-
-            Application.ApplicationExit += (s, e) =>
-            {
-                _trayIcon?.Dispose();
-                _temperatureService?.Close();
-            };
         }
 
         private void UpdateTemperatureUI()
         {
-            TemperatureUI?.SetTemperatureAlertLevel(_settings.TemperatureAlertLevel);
-            TemperatureUI?.SetUpdateTime(_settings.UpdateTime);
-            TemperatureUI?.SetObserversCount(_settings.ObserversCount);
-            TemperatureUI?.SetNotificationMethod(_settings.Notification);
+            if (_temperatureMonitor != null && _temperatureMonitor.IsServiceReady)
+            {
+                _temperatureUI?.SetTemperatureAlertLevel(_temperatureMonitor.Settings.TemperatureAlertLevel);
+                _temperatureUI?.SetUpdateTime(_temperatureMonitor.Settings.UpdateTime / 1000);
+                _temperatureUI?.SetObserversCount(_temperatureMonitor.Settings.ObserversCount);
+                _temperatureUI?.SetNotificationMethod(_temperatureMonitor.Settings.Notification);
+            }
         }
 
         private void InitTemperatureMonitorIfNull()
         {
-            _temperatureMonitor = new TemperatureMonitor()
+            _temperatureMonitor = new TemperatureMonitor();
+            _temperatureMonitor.OnServiceReady += () =>
             {
-                Service = _temperatureService
+                if (_temperatureUI != null) UpdateTemperatureUI();
             };
-            _temperatureMonitor.OnEventTriggered += () => TemperatureUI?.SetAvgCPUsTemperature(
+            _temperatureMonitor.OnEventTriggered += () => _temperatureUI?.SetAvgCPUsTemperature(
                 (int) (_temperatureMonitor.GetAvgCPUsTemperature() ?? 0));
             _temperatureMonitor.Start();
         }

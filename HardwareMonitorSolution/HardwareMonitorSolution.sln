@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Temperature", "HardwareMonitor.Client.Temperature\HardwareMonitor.Client.Temperature.csproj", "{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApplication", "TestConsoleApplication\TestConsoleApplication.csproj", "{A849AE33-D333-4F27-8BFC-7EF49E8DEDC3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Domain", "HardwareMonitor.Client.Domain\HardwareMonitor.Client.Domain.csproj", "{5D79E443-97BE-4497-915F-F748EEB19F7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Controller", "HardwareMonitor.Client.Controller\HardwareMonitor.Client.Controller.csproj", "{5963A853-78E4-4404-9CDC-0C97C61CB5B2}"
@@ -47,10 +45,6 @@ Global
 		{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A849AE33-D333-4F27-8BFC-7EF49E8DEDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A849AE33-D333-4F27-8BFC-7EF49E8DEDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A849AE33-D333-4F27-8BFC-7EF49E8DEDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A849AE33-D333-4F27-8BFC-7EF49E8DEDC3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D79E443-97BE-4497-915F-F748EEB19F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D79E443-97BE-4497-915F-F748EEB19F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D79E443-97BE-4497-915F-F748EEB19F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU

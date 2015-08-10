@@ -45,6 +45,7 @@
     <Compile Include="Contracts\ITemperatureUI.cs" />
     <Compile Include="Contracts\IView.cs" />
     <Compile Include="Entities\NotificationMethods.cs" />
+    <Compile Include="Entities\ViewValueChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

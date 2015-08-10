@@ -17,17 +17,17 @@ namespace HardwareMonitor.Client.Temperature
             }
         }
 
-        public class IntEventArgs : EventArgs
-        {
-            public int Value { get; set; }
-        }
-
-        public event EventHandler OnTemperatureAlertLevelChanged;
-        public event EventHandler OnUpdateTimeChanged;
-        public event EventHandler OnObserversCountChanged;
-        public event EventHandler OnNotificationMethodChanged;
+        public event EventHandler<ViewValueChangedEventArgs> OnTemperatureAlertLevelChanged;
+        public event EventHandler<ViewValueChangedEventArgs> OnUpdateTimeChanged;
+        public event EventHandler<ViewValueChangedEventArgs> OnObserversCountChanged;
+        public event EventHandler<ViewValueChangedEventArgs> OnNotificationMethodChanged;
+        public event EventHandler<string> OnLog;
         public event EventHandler OnViewExit;
         public event EventHandler OnRequestUpdate;
+
+        private int _lastSavedTemperatureAlertLevel,
+                    _lastSavedUpdateTime,
+                    _lastSavedObserversCount;
 
         public TemperatureUI()
         {
@@ -45,22 +45,33 @@ namespace HardwareMonitor.Client.Temperature
             thermometerPictureBox1.Percentage = 0;
             #endregion
 
-            trackBarTemperature.MouseWheel += DoNothing_MouseWheel;
-            trackbarUpdateTime.MouseWheel += DoNothing_MouseWheel;
-            trackBarObservers.MouseWheel += DoNothing_MouseWheel;
-
             #region Attach value change events
-            //trackBarTemperature.ValueChanged += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
-            trackBarTemperature.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
-            trackBarTemperature.LostFocus += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
+            nupTemperatureAlertLevle.MouseWheel += DoNothing_MouseWheel;
+            nupTemperatureAlertLevle.ValueChanged += (s, e) => UpdateTemperatureAlertValue((int)nupTemperatureAlertLevle.Value);
+            nupTemperatureAlertLevle.MouseUp += (s, e) => UpdateTemperatureAlertValue((int)nupTemperatureAlertLevle.Value, true);
+            nupTemperatureAlertLevle.LostFocus += (s, e) => SetTemperatureAlertLevel(_lastSavedTemperatureAlertLevel);
+            trackBarTemperature.MouseWheel += DoNothing_MouseWheel;
+            trackBarTemperature.ValueChanged += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
+            trackBarTemperature.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value, true);
+            trackBarTemperature.LostFocus += (s, e) => SetTemperatureAlertLevel(_lastSavedTemperatureAlertLevel);
 
-            //trackbarUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
-            trackbarUpdateTime.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
-            trackbarUpdateTime.LostFocus += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
+            nupUpdateTime.MouseWheel += DoNothing_MouseWheel;
+            nupUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue((int)nupUpdateTime.Value);
+            nupUpdateTime.MouseUp += (s, e) => UpdateTemperatureAlertValue((int)nupUpdateTime.Value, true);
+            nupUpdateTime.LostFocus += (s, e) => SetUpdateTime(_lastSavedUpdateTime);
+            trackbarUpdateTime.MouseWheel += DoNothing_MouseWheel;
+            trackbarUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
+            trackbarUpdateTime.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value, true);
+            trackbarUpdateTime.LostFocus += (s, e) => SetUpdateTime(_lastSavedUpdateTime);
 
-            //trackBarObservers.ValueChanged += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
-            trackBarObservers.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value);
-            trackBarObservers.LostFocus += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
+            nupObservers.MouseWheel += DoNothing_MouseWheel;
+            nupObservers.ValueChanged += (s, e) => UpdateObserversCountValue((int)nupObservers.Value);
+            nupObservers.MouseUp += (s, e) => UpdateTemperatureAlertValue((int)nupObservers.Value, true);
+            nupObservers.LostFocus += (s, e) => SetObserversCount(_lastSavedObserversCount);
+            trackBarObservers.MouseWheel += DoNothing_MouseWheel;
+            trackBarObservers.ValueChanged += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
+            trackBarObservers.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperature.Value, true);
+            trackBarObservers.LostFocus += (s, e) => SetObserversCount(_lastSavedObserversCount);
 
             rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
             rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
@@ -80,80 +91,101 @@ namespace HardwareMonitor.Client.Temperature
             ee.Handled = true;
         }
 
-        private void UpdateTemperatureAlertValue(int temperature)
+        private void UpdateTemperatureAlertValue(int temperature, bool saveSettings = false)
         {
-            labelTemperature.Text = $"{temperature} °C";
+            SetTemperatureAlertLevel(temperature);
 
-            if (OnTemperatureAlertLevelChanged != null)
-                OnTemperatureAlertLevelChanged(this, new IntEventArgs
+            if (saveSettings)
+            {
+                _lastSavedTemperatureAlertLevel = temperature;
+                OnTemperatureAlertLevelChanged?.Invoke(this, new ViewValueChangedEventArgs
                 {
-                    Value = temperature
+                    Value = temperature,
+                    Save = saveSettings
                 });
+            }
         }
 
         private void UpdateUpdateTimeValue(int updateTime, bool saveSettings = false)
         {
-            labelUpdateTime.Text = $"{updateTime} sec";
+            SetUpdateTime(updateTime);
 
-            if (OnUpdateTimeChanged != null)
-                OnUpdateTimeChanged(this, new IntEventArgs
+            if (saveSettings)
+            {
+                _lastSavedUpdateTime = updateTime;
+                OnUpdateTimeChanged?.Invoke(this, new ViewValueChangedEventArgs
                 {
-                    Value = updateTime
+                    Value = updateTime,
+                    Save = saveSettings
                 });
+            }
         }
 
         private void UpdateObserversCountValue(int observersCount, bool saveSettings = false)
         {
-            labelObservers.Text = $"{observersCount}";
+            SetObserversCount(observersCount);
 
-            if (OnObserversCountChanged != null)
-                OnObserversCountChanged(this, new IntEventArgs
+            if (saveSettings)
+            {
+                _lastSavedObserversCount = observersCount;
+                OnObserversCountChanged?.Invoke(this, new ViewValueChangedEventArgs
                 {
-                    Value = observersCount
+                    Value = observersCount,
+                    Save = saveSettings
                 });
+            }
         }
 
         private void RB_CheckedChanged(object sender, EventArgs e)
         {
-            if (OnTemperatureAlertLevelChanged == null) return;
+            NotificationMethod? value = null;
+            if (sender == rbMessageBoxNotif && rbMessageBoxNotif.Checked) value = NotificationMethod.MESSAGE_BOX;
+            else if (sender == rbTrayNotif && rbTrayNotif.Checked) value = NotificationMethod.TRAY_NOTIFICATION;
+            else if (sender == rbNoNotif && rbNoNotif.Checked) value = NotificationMethod.NONE;
 
-            NotificationMethod value;
-            if (sender == rbMessageBoxNotif/* && rbMessageBoxNotif.Checked*/) value = NotificationMethod.MESSAGE_BOX;
-            else if (sender == rbTrayNotif/* && rbTrayNotif.Checked*/) value = NotificationMethod.TRAY_NOTIFICATION;
-            else/* (sender == rbNoNotif/* && rbNoNotif.Checked)*/ value = NotificationMethod.NONE;
-
-            OnTemperatureAlertLevelChanged(this, new NotificationMethodEventArgs
-            {
-                Value = value
-            });
+            if (value != null)
+                OnTemperatureAlertLevelChanged?.Invoke(this, new ViewValueChangedEventArgs
+                {
+                    Value = value.Value,
+                    Save = true
+                });
         }
 
-        void ITemperatureUI.SetAvgCPUsTemperature(int temperature)
+        public void SetAvgCPUsTemperature(int temperature)
         {
             labelLastMeasuredTemperature.Text = temperature.ToString();
             thermometerPictureBox1.Percentage = temperature;
         }
 
-        void ITemperatureUI.SetTemperatureAlertLevel(int tal)
+        public void SetTemperatureAlertLevel(int temperature)
         {
-            labelTemperature.Text = tal.ToString();
-            trackBarTemperature.Value = tal;
+            if (temperature < trackBarTemperature.Minimum || temperature > trackBarTemperature.Maximum) return;
+
+            labelTemperature.Text = $"{temperature} °C";
+            trackBarTemperature.Value = temperature;
+            nupTemperatureAlertLevle.Value = temperature;
         }
 
-        void ITemperatureUI.SetUpdateTime(int updateTime)
+        public void SetUpdateTime(int updateTime)
         {
-            updateTime /= 1000;
-            labelUpdateTime.Text = updateTime.ToString();
+            if (updateTime < trackbarUpdateTime.Minimum || updateTime > trackbarUpdateTime.Maximum) return;
+
+            string unit = updateTime > 99 ? "s" : "sec";
+            labelUpdateTime.Text = $"{updateTime} {unit}";
             trackbarUpdateTime.Value = updateTime;
+            nupUpdateTime.Value = updateTime;
         }
 
-        void ITemperatureUI.SetObserversCount(int observersCount)
+        public void SetObserversCount(int observersCount)
         {
-            labelObservers.Text = observersCount.ToString();
+            if (observersCount < trackBarObservers.Minimum || observersCount > trackBarObservers.Maximum) return;
+
+            labelObservers.Text = $"{observersCount}";
             trackBarObservers.Value = observersCount;
+            nupObservers.Value = observersCount;
         }
 
-        void ITemperatureUI.SetNotificationMethod(NotificationMethod notification)
+        public void SetNotificationMethod(NotificationMethod notification)
         {
             switch (notification)
             {
@@ -165,6 +197,9 @@ namespace HardwareMonitor.Client.Temperature
 
         void IView.Show(bool resetPosition)
         {
+            _lastSavedTemperatureAlertLevel = trackBarTemperature.Value;
+            _lastSavedUpdateTime = trackbarUpdateTime.Value;
+            _lastSavedObserversCount = trackBarObservers.Value;
             if (resetPosition) CenterToScreen(); //ensure that the form is in the center of the screen
             Show();
         }

@@ -16,9 +16,9 @@ namespace HardwareMonitor.Client.Domain.Contracts
         void SetNotificationMethod(NotificationMethod notification);
 
         
-        event EventHandler OnTemperatureAlertLevelChanged;
-        event EventHandler OnUpdateTimeChanged;
-        event EventHandler OnObserversCountChanged;
-        event EventHandler OnNotificationMethodChanged;
+        event EventHandler<ViewValueChangedEventArgs> OnTemperatureAlertLevelChanged;
+        event EventHandler<ViewValueChangedEventArgs> OnUpdateTimeChanged;
+        event EventHandler<ViewValueChangedEventArgs> OnObserversCountChanged;
+        event EventHandler<ViewValueChangedEventArgs> OnNotificationMethodChanged;
     }
 }
