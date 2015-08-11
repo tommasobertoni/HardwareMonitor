@@ -124,4 +124,28 @@
   <data name="Thermometer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Thermometer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="a_tone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\a_tone.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bleep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bleep.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="computer_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\computer_error.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="computer_error_alert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\computer_error_alert.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="electronic_chime" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\electronic_chime.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pop_banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pop_banner.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="robot_blip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\robot_blip.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="smoke_alarm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smoke_alarm.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

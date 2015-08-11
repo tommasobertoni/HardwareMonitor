@@ -8,8 +8,8 @@ namespace HardwareMonitor.Client.Domain.Entities
 {
     public enum NotificationMethod
     {
-        MESSAGE_BOX,
-        TRAY_NOTIFICATION,
+        SOUND_AND_MESSAGE,
+        MESSAGE,
         NONE
     }
 }

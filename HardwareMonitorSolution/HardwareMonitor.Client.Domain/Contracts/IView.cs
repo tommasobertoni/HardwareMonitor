@@ -15,7 +15,7 @@ namespace HardwareMonitor.Client.Domain.Contracts
 
         void Close();
 
-
+        event EventHandler<string> OnNotification;
         event EventHandler<string> OnLog;
         event EventHandler OnViewExit;
         event EventHandler OnRequestUpdate;

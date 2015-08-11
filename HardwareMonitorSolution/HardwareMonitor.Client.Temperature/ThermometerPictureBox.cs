@@ -17,7 +17,7 @@ namespace HardwareMonitor.Client.Temperature
 
         private int _percentage = 100;
 
-        public int Percentage
+        public int Value
         {
             get
             {
@@ -48,7 +48,7 @@ namespace HardwareMonitor.Client.Temperature
 
             int availiableHeight = Height - MarginTop - MarginBottom;
 
-            int rectHeight = availiableHeight * Percentage / 100;
+            int rectHeight = availiableHeight * Value / 100;
             if (rectHeight < 0) rectHeight = 0;
 
             int verticalGap = availiableHeight - rectHeight;

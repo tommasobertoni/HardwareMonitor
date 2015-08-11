@@ -140,6 +140,30 @@
   <ItemGroup>
     <None Include="Resources\temperatureIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a_tone.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bleep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\computer_error.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\computer_error_alert.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\electronic_chime.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pop_banner.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\robot_blip.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smoke_alarm.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

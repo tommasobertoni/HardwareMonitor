@@ -32,11 +32,8 @@ namespace HardwareMonitor.Client.Controller.Monitors
 
             new Thread(() =>
             {
-                Console.WriteLine("A");
                 _service = new TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient();
-                Console.WriteLine("B");
                 OnServiceReady?.Invoke();
-                Console.WriteLine("C");
             }).Start();
         }
 
