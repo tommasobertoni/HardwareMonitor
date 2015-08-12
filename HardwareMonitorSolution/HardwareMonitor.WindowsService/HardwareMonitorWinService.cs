@@ -10,20 +10,20 @@ namespace HardwareMonitor.WindowsService
     {
         private const string _BASE_ADDRESS = "net.tcp://localhost:9292/";
 
-        public const int DEFAULT_SLEEP_TIME_MILLIS = 2000;
-        public const int MIN_SLEEP_TIME_MILLIS = 500;
+        public const int DEFAULT_UPDATE_TIME_SPAN = 2000;
+        public const int MIN_UPDATE_TIME_SPAN = 1000;
 
-        protected readonly int CURRENT_SLEEP_TIME_MILLIS;
+        protected readonly int CURRENT_UPDATE_TIME_SPAN;
 
         internal static ServiceHost _temperatureHost = null;
 
-        public HardwareMonitorWinService() : this(DEFAULT_SLEEP_TIME_MILLIS)
+        public HardwareMonitorWinService() : this(DEFAULT_UPDATE_TIME_SPAN)
         { }
 
         public HardwareMonitorWinService(int stmillis)
         {
             InitializeComponent();
-            CURRENT_SLEEP_TIME_MILLIS = Max(stmillis, MIN_SLEEP_TIME_MILLIS);
+            CURRENT_UPDATE_TIME_SPAN = Max(stmillis, MIN_UPDATE_TIME_SPAN);
         }
 
         protected override void OnStart(string[] args)
@@ -31,7 +31,7 @@ namespace HardwareMonitor.WindowsService
             #region Temperature Host
             _temperatureHost?.Close();
             _temperatureHost = new ServiceHost(
-                new HardwareMonitorTemperatureWinService(CURRENT_SLEEP_TIME_MILLIS),
+                new HardwareMonitorTemperatureWinService(CURRENT_UPDATE_TIME_SPAN),
                 new Uri[]
                 {
                     new Uri($"{_BASE_ADDRESS}{nameof(HardwareMonitorTemperatureWinService)}")

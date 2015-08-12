@@ -9,32 +9,18 @@ namespace HardwareMonitor.WindowsService.TemperatureWCF
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class HardwareMonitorTemperatureWinService : IHardwareMonitorTemperatureWCFContract
     {
-        public const int DEFAULT_SLEEP_TIME_MILLIS = 2000;
-        public const int MIN_SLEEP_TIME_MILLIS = 500;
+        public const int DEFAULT_UPDATE_TIME_SPAN = 2000;
+        public const int MIN_UPDATE_TIME_SPAN = 1000;
 
-        protected readonly int CURRENT_SLEEP_TIME_MILLIS;
+        protected readonly int CURRENT_UPDATE_TIME_SPAN;
+        private DateTime _lastUpdateTime;
 
-        private Timer _timer;
-
-        public HardwareMonitorTemperatureWinService() : this(DEFAULT_SLEEP_TIME_MILLIS)
+        public HardwareMonitorTemperatureWinService() : this(DEFAULT_UPDATE_TIME_SPAN)
         { }
 
         public HardwareMonitorTemperatureWinService(int stmillis)
         {
-            CURRENT_SLEEP_TIME_MILLIS = Max(stmillis, MIN_SLEEP_TIME_MILLIS);
-
-            #region Init Timer
-            _timer = new Timer();
-            _timer.AutoReset = true;
-            _timer.Interval = CURRENT_SLEEP_TIME_MILLIS;
-            _timer.Elapsed += Timer_Tick;
-            _timer.Start();
-            #endregion
-        }
-
-        private void Timer_Tick(object sender, ElapsedEventArgs e)
-        {
-            CPUsTemperatureMonitor.INSTANCE.UpdateAvgTemperature();
+            CURRENT_UPDATE_TIME_SPAN = Max(stmillis, MIN_UPDATE_TIME_SPAN);
         }
 
         public int GetCPUsCount()
@@ -44,7 +30,17 @@ namespace HardwareMonitor.WindowsService.TemperatureWCF
 
         public float? GetAvgCPUsTemperature()
         {
-            return CPUsTemperatureMonitor.INSTANCE.GetAvgTemperature();
+            bool update;
+            if (_lastUpdateTime != null)
+            {
+                var now = DateTime.Now;
+                var lastUpdateElapsedTime = now - _lastUpdateTime;
+                update = lastUpdateElapsedTime.TotalMilliseconds >= CURRENT_UPDATE_TIME_SPAN;
+                if (update) _lastUpdateTime = now;
+            }
+            else update = true;
+            
+            return CPUsTemperatureMonitor.INSTANCE.GetAvgTemperature(update);
         }
 
         public float? GetCPUTemperature(int cpuIndex)

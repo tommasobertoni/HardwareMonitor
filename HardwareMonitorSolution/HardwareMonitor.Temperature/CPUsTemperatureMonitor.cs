@@ -86,7 +86,7 @@ namespace HardwareMonitor.Temperature
 
         public float? GetAvgTemperature(bool forceUpdate = false)
         {
-            if (_avg == null && forceUpdate) UpdateAvgTemperature();
+            if (_avg == null || forceUpdate) UpdateAvgTemperature();
             return _avg;
         }
 
