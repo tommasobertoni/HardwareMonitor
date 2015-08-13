@@ -14,7 +14,6 @@ namespace HardwareMonitor.Temperature
         private List<Tuple<IHardware, ISensor>> _cpusTemperatureSensors;
 
         private float? _avg = null;
-        private Dictionary<int, float> _cache = new Dictionary<int, float>();
 
         private CPUsTemperatureMonitor()
         {
@@ -55,7 +54,6 @@ namespace HardwareMonitor.Temperature
                 if (temperature != null)
                 {
                     sum += temperature.Value;
-                    _cache[count++] = temperature.Value; //also updates cpu values
                 }
             }
 
@@ -68,22 +66,6 @@ namespace HardwareMonitor.Temperature
             return false;
         }
 
-        public bool UpdateCPUTemperature(int cpuIndex)
-        {
-            if (cpuIndex < 0 || cpuIndex > _cpusTemperatureSensors.Count) return false;
-
-            float temperature;
-            if (_cache.TryGetValue(cpuIndex, out temperature)) _avg = temperature;
-            else
-            {
-                temperature = _cpusTemperatureSensors[cpuIndex].GetValueFromTuple().Value;
-                _avg = temperature;
-                _cache[cpuIndex] = temperature;
-            }
-
-            return true;
-        }
-
         public float? GetAvgTemperature(bool forceUpdate = false)
         {
             if (_avg == null || forceUpdate) UpdateAvgTemperature();
@@ -92,10 +74,11 @@ namespace HardwareMonitor.Temperature
 
         public float? GetCPUTemperature(int cpuIndex, bool forceUpdate = false)
         {
-            float temperature;
-            if (_cache.TryGetValue(cpuIndex, out temperature)) return temperature;
-            else if (forceUpdate && UpdateCPUTemperature(cpuIndex)) return _cache[cpuIndex];
-            else return null;
+            if (cpuIndex < 0 || cpuIndex > _cpusTemperatureSensors.Count) return null;
+
+            var tuple = _cpusTemperatureSensors[cpuIndex];
+            if (forceUpdate) tuple.Item1.Update();
+            return tuple.Item2.Value;
         }
     }
 }
