@@ -31,11 +31,9 @@ namespace HardwareMonitor.Client.Temperature
                 return _iconBitmap;
             }
         }
-
-        public event EventHandler<ViewValueChangedEventArgs> OnTemperatureAlertLevelChanged;
+        
         public event EventHandler<ViewValueChangedEventArgs> OnUpdateTimeChanged;
         public event EventHandler<ViewValueChangedEventArgs> OnObserversCountChanged;
-        public event EventHandler<ViewValueChangedEventArgs> OnNotificationMethodChanged;
         public event EventHandler<string> OnNotification;
         public event EventHandler<string> OnLog;
         public event EventHandler OnViewExit;
@@ -151,12 +149,7 @@ namespace HardwareMonitor.Client.Temperature
             if (saveSettings)
             {
                 _lastSavedTemperatureAlertLevel = temperature;
-                OnTemperatureAlertLevelChanged?.Invoke(this, new ViewValueChangedEventArgs
-                {
-                    Value = temperature,
-                    Save = saveSettings
-                });
-                _settings.Update();
+                _settings.TemperatureAlertLevel = _lastSavedTemperatureAlertLevel;
             }
         }
 
@@ -167,12 +160,11 @@ namespace HardwareMonitor.Client.Temperature
             if (saveSettings)
             {
                 _lastSavedUpdateTime = updateTime;
+                _settings.UpdateTime = _lastSavedUpdateTime;
                 OnUpdateTimeChanged?.Invoke(this, new ViewValueChangedEventArgs
                 {
-                    Value = updateTime,
-                    Save = saveSettings
+                    Value = updateTime
                 });
-                _settings.Update();
             }
         }
 
@@ -183,12 +175,12 @@ namespace HardwareMonitor.Client.Temperature
             if (saveSettings)
             {
                 _lastSavedObserversCount = observersCount;
+                _settings.ObserversCount = _lastSavedObserversCount;
                 OnObserversCountChanged?.Invoke(this, new ViewValueChangedEventArgs
                 {
                     Value = observersCount,
                     Save = saveSettings
                 });
-                _settings.Update();
             }
         }
 
@@ -204,15 +196,7 @@ namespace HardwareMonitor.Client.Temperature
             else if (sender == rbMessageNotif && rbMessageNotif.Checked) value = NotificationMethod.MESSAGE;
             else if (sender == rbNoNotif && rbNoNotif.Checked) value = NotificationMethod.NONE;
 
-            if (value != null)
-            {
-                OnNotificationMethodChanged?.Invoke(this, new ViewValueChangedEventArgs
-                {
-                    Value = value.Value,
-                    Save = true
-                });
-                _settings.Update();
-            }
+            if (value.HasValue) _settings.Notification = value.Value;
         }
 
         void ITemperatureUI.SetAvgCPUsTemperature(float temperature)
@@ -223,7 +207,6 @@ namespace HardwareMonitor.Client.Temperature
             thermometerPictureBox.Value = (int)temperature;
 
             _lastAvgCPUsTemperature = temperature;
-            _settings.Update();
             CheckTemperature(_settings.TemperatureAlertLevel, true);
         }
 

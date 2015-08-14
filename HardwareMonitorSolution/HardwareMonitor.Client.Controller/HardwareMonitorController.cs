@@ -31,28 +31,16 @@ namespace HardwareMonitor.Client.Controller
                 if (_temperatureUI != null)
                 {
                     _temperatureUI.Name = _TEMPERATURE_UI_NAME;
-                    _temperatureUI.OnTemperatureAlertLevelChanged += (s, e) =>
-                    {
-                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
-                            _remoteTemperatureMonitor.Settings.TemperatureAlertLevel = (int)e.Value;
-                    };
 
                     _temperatureUI.OnUpdateTimeChanged += (s, e) =>
                     {
-                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
-                            _remoteTemperatureMonitor.Settings.UpdateTime = (int)e.Value;
+                        _remoteTemperatureMonitor.Settings.Update();
                     };
 
                     _temperatureUI.OnObserversCountChanged += (s, e) =>
                     {
                         if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
                             _remoteTemperatureMonitor.Settings.ObserversCount = (int)e.Value;
-                    };
-
-                    _temperatureUI.OnNotificationMethodChanged += (s, e) =>
-                    {
-                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
-                            _remoteTemperatureMonitor.Settings.Notification = (NotificationMethod)e.Value;
                     };
 
                     _temperatureUI.OnNotification += (s, message) =>
@@ -63,8 +51,7 @@ namespace HardwareMonitor.Client.Controller
                             _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, message, ToolTipIcon.Warning);
                         }
                     };
-                    //_temperatureUI.OnLog += (s, message) => { };
-                    //_temperatureUI.OnViewExit += (s, e) => { };
+
                     _temperatureUI.OnRequestUpdate += (s, e) => UpdateTemperatureUI();
 
                     GetMonitorsToolStripItemCollection().Add(_TEMPERATURE_ICON_NAME, _temperatureUI.Icon,
