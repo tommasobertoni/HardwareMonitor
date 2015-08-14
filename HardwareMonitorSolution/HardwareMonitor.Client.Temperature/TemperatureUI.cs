@@ -87,7 +87,7 @@ namespace HardwareMonitor.Client.Temperature
 
             SetNotificationMethod(_settings.Notification);
 
-            if (SoundsManager.INSTANCE.SelectedSound != null) UpdateSoundName();
+            if (SoundResourcesManager.INSTANCE.SelectedSound != null) UpdateSoundName();
             else btnChangeSound.Enabled = false; //no resource available
             #endregion
 
@@ -194,7 +194,7 @@ namespace HardwareMonitor.Client.Temperature
 
         private void UpdateSoundName()
         {
-            labelSoundName.Text = $"\"{SoundsManager.INSTANCE.SelectedSound?.Name ?? "No sound selected"}\"";
+            labelSoundName.Text = $"\"{SoundResourcesManager.INSTANCE.SelectedSound?.Name ?? "No sound selected"}\"";
         }
 
         private void RB_CheckedChanged(object sender, EventArgs e)
@@ -314,7 +314,7 @@ namespace HardwareMonitor.Client.Temperature
             switch (_settings.Notification)
             {
                 case NotificationMethod.SOUND_AND_MESSAGE:
-                    SoundsManager.INSTANCE.SelectedSound?.Play();
+                    SoundResourcesManager.INSTANCE.SelectedSound?.Play();
                     goto case NotificationMethod.MESSAGE;
 
                 case NotificationMethod.MESSAGE:

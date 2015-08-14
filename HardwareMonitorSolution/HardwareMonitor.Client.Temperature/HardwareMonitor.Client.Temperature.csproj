@@ -60,7 +60,7 @@
     <Compile Include="SoundChooserForm.Designer.cs">
       <DependentUpon>SoundChooserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\SoundsManager.cs" />
+    <Compile Include="Utils\SoundResourcesManager.cs" />
     <Compile Include="TemperatureUI.cs">
       <SubType>Form</SubType>
     </Compile>
