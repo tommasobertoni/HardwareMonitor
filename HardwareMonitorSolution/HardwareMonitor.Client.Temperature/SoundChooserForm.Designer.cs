@@ -29,43 +29,46 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.radioListBox = new HardwareMonitor.Client.Temperature.CustomControls.RadioListBox();
+            this.soundResourcesRadioListBox1 = new HardwareMonitor.Client.Temperature.CustomControls.SoundResourcesRadioListBox();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(52, 427);
+            this.button1.Location = new System.Drawing.Point(52, 422);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(249, 48);
             this.button1.TabIndex = 2;
             this.button1.Text = "Confirm";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // radioListBox
+            // soundResourcesRadioListBox1
             // 
-            this.radioListBox.BackColor = System.Drawing.Color.Transparent;
-            this.radioListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.radioListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.radioListBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioListBox.FormattingEnabled = true;
-            this.radioListBox.HorizontalScrollbar = true;
-            this.radioListBox.ItemHeight = 36;
-            this.radioListBox.Location = new System.Drawing.Point(12, 12);
-            this.radioListBox.Name = "radioListBox";
-            this.radioListBox.Size = new System.Drawing.Size(326, 396);
-            this.radioListBox.TabIndex = 1;
+            this.soundResourcesRadioListBox1.BackColor = System.Drawing.Color.Transparent;
+            this.soundResourcesRadioListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.soundResourcesRadioListBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.soundResourcesRadioListBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.soundResourcesRadioListBox1.FormattingEnabled = true;
+            this.soundResourcesRadioListBox1.ItemHeight = 36;
+            this.soundResourcesRadioListBox1.Location = new System.Drawing.Point(12, 12);
+            this.soundResourcesRadioListBox1.Name = "soundResourcesRadioListBox1";
+            this.soundResourcesRadioListBox1.Size = new System.Drawing.Size(326, 360);
+            this.soundResourcesRadioListBox1.TabIndex = 3;
             // 
             // SoundChooserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 494);
+            this.ClientSize = new System.Drawing.Size(350, 487);
+            this.Controls.Add(this.soundResourcesRadioListBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.radioListBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SoundChooserForm";
-            this.Text = "SoundChooserForm";
+            this.ShowIcon = false;
+            this.Text = "Sound Chooser";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.SoundChooserForm_Load_1);
             this.ResumeLayout(false);
@@ -73,8 +76,7 @@
         }
 
         #endregion
-
-        private CustomControls.RadioListBox radioListBox;
         private System.Windows.Forms.Button button1;
+        private CustomControls.SoundResourcesRadioListBox soundResourcesRadioListBox1;
     }
 }

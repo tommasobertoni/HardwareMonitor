@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HardwareMonitor.Client.Temperature.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,19 +21,19 @@ namespace HardwareMonitor.Client.Temperature
 
         private void SoundChooserForm_Load_1(object sender, EventArgs e)
         {
-            string elements = "";
-
-            System.Resources.ResourceSet resourceSet = Properties.Resources.ResourceManager.GetResourceSet(
-                System.Globalization.CultureInfo.CurrentUICulture, true, true);
-            foreach (System.Collections.DictionaryEntry entry in resourceSet)
+            soundResourcesRadioListBox1.Load(SoundsManager.INSTANCE.GetResourcesList());
+            if (SoundsManager.INSTANCE.SelectedSound != null)
             {
-                if (entry.Value is System.IO.Stream)
-                    elements += $"{entry.Key},";
+                var index = SoundsManager.INSTANCE.GetResourcesList().IndexOf(SoundsManager.INSTANCE.SelectedSound);
+                if (index >= 0) soundResourcesRadioListBox1.SetSelected(index, true);
             }
+        }
 
-            elements = elements.Substring(0, elements.Length - 1);
-            radioListBox.Items.AddRange(elements.Split(new char[] { ',' }));
-            radioListBox.SetSelected(0, true);
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var resource = soundResourcesRadioListBox1.SelectedItem as ResourcePlayer;
+            resource.Stop();
+            SoundsManager.INSTANCE.SelectedSound = resource;
         }
     }
 }

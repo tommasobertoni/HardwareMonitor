@@ -1,8 +1,6 @@
 ﻿using HardwareMonitor.Client.Controller.Monitors;
 using HardwareMonitor.Client.Domain.Contracts;
 using HardwareMonitor.Client.Domain.Entities;
-using HardwareMonitor.Client.Temperature.Utils;
-using System;
 using System.Windows.Forms;
 
 namespace HardwareMonitor.Client.Controller

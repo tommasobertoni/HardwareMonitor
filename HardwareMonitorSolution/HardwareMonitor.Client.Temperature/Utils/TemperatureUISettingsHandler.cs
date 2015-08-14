@@ -1,5 +1,6 @@
 ﻿using HardwareMonitor.Client.Domain.Entities;
 using HardwareMonitor.Domain.Utils;
+using System;
 
 namespace HardwareMonitor.Client.Temperature.Utils
 {
@@ -14,7 +15,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
 
         private const string _UPDATE_TIME_KEY = "updatetime";
         private const int _DEFAULT_UPDATE_TIME = 5000;
-        public const int MIN_UPDATE_TIME = 1000;
+        public const int MIN_UPDATE_TIME = 2000;
         public const int MAX_UPDATE_TIME = 120000;
 
         private const string _OBSERVERS_COUNT_KEY = "observerscount";
@@ -24,7 +25,9 @@ namespace HardwareMonitor.Client.Temperature.Utils
 
         private const string _NOTIFICATION_KEY = "notification";
         private const NotificationMethod _DEFAULT_NOTIFICATION = NotificationMethod.SOUND_AND_MESSAGE;
-        
+
+        private const string _SOUND_RESOURCE_NAME_KEY = "soundresourcename";
+
         private int _temperaturelertlevel;
         public int TemperatureAlertLevel {
             get
@@ -89,6 +92,22 @@ namespace HardwareMonitor.Client.Temperature.Utils
             }
         }
 
+        private string _soundResourceName;
+        public string SoundResourceName
+        {
+            get
+            {
+                return _soundResourceName;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("The name for the resource must be valid");
+
+                _soundResourceName = value;
+                _settings.Set(_SOUND_RESOURCE_NAME_KEY, _soundResourceName);
+            }
+        }
+
         private SettingsStorage _settings;
 
         public TemperatureUISettingsHandler(string key = _DEFAULT_TEMPERATURE_SETTINGS_KEY)
@@ -104,6 +123,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
             _updatetime = (value = _settings.Get(_UPDATE_TIME_KEY)) != null ? (int)value : _DEFAULT_UPDATE_TIME;
             _observerscount = (value = _settings.Get(_OBSERVERS_COUNT_KEY)) != null ? (int)value : _DEFAULT_OBSERVERS_COUNT;
             _notification = (value = _settings.Get(_NOTIFICATION_KEY)) != null ? (NotificationMethod)((int)value) : _DEFAULT_NOTIFICATION;
+            _soundResourceName = (value = _settings.Get(_OBSERVERS_COUNT_KEY)) as string;
         }
     }
 

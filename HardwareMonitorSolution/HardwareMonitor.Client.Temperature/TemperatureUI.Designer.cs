@@ -238,17 +238,19 @@
             this.btnChangeSound.Margin = new System.Windows.Forms.Padding(0);
             this.btnChangeSound.Name = "btnChangeSound";
             this.btnChangeSound.Size = new System.Drawing.Size(120, 36);
+            this.btnChangeSound.TabIndex = 20;
             this.btnChangeSound.Text = "Change Sound";
             this.btnChangeSound.UseVisualStyleBackColor = true;
             this.btnChangeSound.Click += new System.EventHandler(this.btnChangeSound_Click);
             // 
             // labelSoundName
             // 
+            this.labelSoundName.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSoundName.Location = new System.Drawing.Point(309, 408);
             this.labelSoundName.Name = "labelSoundName";
             this.labelSoundName.Size = new System.Drawing.Size(251, 36);
             this.labelSoundName.TabIndex = 19;
-            this.labelSoundName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelSoundName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // thermometerPictureBox
             // 

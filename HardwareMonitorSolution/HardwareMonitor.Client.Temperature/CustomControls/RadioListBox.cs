@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -16,7 +13,7 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
     public class RadioListBox : ListBox
     {
         private StringFormat Align;
-        private bool IsTransparent = false;
+        protected bool IsTransparent = false;
         private Brush BackBrush;
 
         // Allows the BackColor to be transparent
@@ -91,22 +88,6 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
             
             this.Align = new StringFormat(StringFormat.GenericDefault);
             this.Align.LineAlignment = StringAlignment.Center;
-
-            IsTransparent = true;
-            BorderStyle = BorderStyle.None;
-        }
-
-        protected override void OnMouseClick(MouseEventArgs e)
-        {
-            if (SelectedIndex != -1)
-            {
-                var rect = GetItemRectangle(SelectedIndex);
-                if (rect.Contains(e.Location))
-                {
-                    var localY = e.Y - rect.Y;
-                    base.OnMouseClick(e);
-                }
-            }
         }
 
         // Main paiting method
@@ -162,8 +143,8 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
             Size glyphSize = RadioButtonRenderer.GetGlyphSize(e.Graphics, state);
             Point glyphLocation = e.Bounds.Location;
             glyphLocation.Y += (e.Bounds.Height - glyphSize.Height) / 2;
-            var padding = 5;
-            Rectangle bounds = new Rectangle(e.Bounds.X + glyphSize.Width + padding, e.Bounds.Y, e.Bounds.Width - glyphSize.Width - padding, e.Bounds.Height);
+            var rightPadding = 5;
+            Rectangle bounds = new Rectangle(e.Bounds.X + glyphSize.Width + rightPadding, e.Bounds.Y, e.Bounds.Width - glyphSize.Width - rightPadding, e.Bounds.Height);
 
             // Draws the radio button
             RadioButtonRenderer.DrawRadioButton(e.Graphics, glyphLocation, state);
@@ -174,18 +155,6 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
                     e.Font, textBrush, bounds, this.Align);
             else
                 e.Graphics.DrawString(this.Items[e.Index].ToString(), e.Font, textBrush, bounds, this.Align);
-
-            Bitmap img = new Bitmap(Properties.Resources.play_button);
-
-            var margin = 6;
-            var w = e.Bounds.Height - margin;
-            var h = e.Bounds.Height - margin * 2;
-            var x = e.Bounds.Width - w - margin;
-            var y = e.Bounds.Location.Y + margin;
-
-            e.Graphics.DrawImage(img, x, y, w, h);
-            
-            //e.Graphics.DrawIcon(Properties.Resources.temperatureIcon, e.Bounds.Location.X, e.Bounds.Location.Y);
 
             // If the ListBox has focus, draw a focus rectangle around the selected item.
             e.DrawFocusRectangle();

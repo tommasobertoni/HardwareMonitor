@@ -42,7 +42,6 @@ namespace HardwareMonitor.Client.Temperature
         public event EventHandler OnRequestUpdate;
 
         private bool _alert;
-        private SoundPlayer _sound;
         private float _lastAvgCPUsTemperature;
         private int _lastSavedTemperatureAlertLevel,
                     _lastSavedUpdateTime,
@@ -56,9 +55,6 @@ namespace HardwareMonitor.Client.Temperature
 
             _settings = new TemperatureUISettingsHandler();
             _iconBitmap = Properties.Resources.temperatureIcon.ToBitmap();
-            _sound = new SoundPlayer();
-            _sound.Stream = Properties.Resources.a_tone;
-            _sound.Load();
 
             FormClosed += (s, o) => OnViewExit(s, o);
 
@@ -90,6 +86,9 @@ namespace HardwareMonitor.Client.Temperature
             SetObserversCount(_settings.ObserversCount);
 
             SetNotificationMethod(_settings.Notification);
+
+            if (SoundsManager.INSTANCE.SelectedSound != null) UpdateSoundName();
+            else btnChangeSound.Enabled = false; //no resource available
             #endregion
 
             #region Attach value change events
@@ -193,6 +192,11 @@ namespace HardwareMonitor.Client.Temperature
             }
         }
 
+        private void UpdateSoundName()
+        {
+            labelSoundName.Text = $"\"{SoundsManager.INSTANCE.SelectedSound?.Name ?? "No sound selected"}\"";
+        }
+
         private void RB_CheckedChanged(object sender, EventArgs e)
         {
             NotificationMethod? value = null;
@@ -213,6 +217,8 @@ namespace HardwareMonitor.Client.Temperature
 
         void ITemperatureUI.SetAvgCPUsTemperature(float temperature)
         {
+            if (labelAvgCPUsTemperature.InvokeRequired || thermometerPictureBox.InvokeRequired) return;
+
             labelAvgCPUsTemperature.Text = temperature.ToString();
             thermometerPictureBox.Value = (int)temperature;
 
@@ -290,7 +296,8 @@ namespace HardwareMonitor.Client.Temperature
 
         private void btnChangeSound_Click(object sender, EventArgs e)
         {
-            new SoundChooserForm().ShowDialog(this);
+            var result = new SoundChooserForm().ShowDialog(this);
+            if (result == DialogResult.OK || result == DialogResult.Yes) UpdateSoundName();
         }
 
         void IView.Show(bool resetPosition)
@@ -307,7 +314,7 @@ namespace HardwareMonitor.Client.Temperature
             switch (_settings.Notification)
             {
                 case NotificationMethod.SOUND_AND_MESSAGE:
-                    _sound.Play();
+                    SoundsManager.INSTANCE.SelectedSound?.Play();
                     goto case NotificationMethod.MESSAGE;
 
                 case NotificationMethod.MESSAGE:
