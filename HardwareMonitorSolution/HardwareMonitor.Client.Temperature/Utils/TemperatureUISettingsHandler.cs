@@ -85,7 +85,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
             set
             {
                 _notification = value;
-                _settings.Set(_NOTIFICATION_KEY, _notification);
+                _settings.Set(_NOTIFICATION_KEY, (int)_notification);
             }
         }
 
@@ -103,7 +103,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
             _temperaturelertlevel = (value = _settings.Get(_TEMPERATURE_ALERT_LEVEL_KEY)) != null ? (int)value : _DEFAULT_TEMPERATURE_ALERT_LEVEL;
             _updatetime = (value = _settings.Get(_UPDATE_TIME_KEY)) != null ? (int)value : _DEFAULT_UPDATE_TIME;
             _observerscount = (value = _settings.Get(_OBSERVERS_COUNT_KEY)) != null ? (int)value : _DEFAULT_OBSERVERS_COUNT;
-            _notification = (value = _settings.Get(_NOTIFICATION_KEY)) != null ? (NotificationMethod)value : _DEFAULT_NOTIFICATION;
+            _notification = (value = _settings.Get(_NOTIFICATION_KEY)) != null ? (NotificationMethod)((int)value) : _DEFAULT_NOTIFICATION;
         }
     }
 

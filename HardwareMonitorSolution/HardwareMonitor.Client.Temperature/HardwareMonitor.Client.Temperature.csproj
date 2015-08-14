@@ -48,6 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\RadioListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SoundChooserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoundChooserForm.Designer.cs">
+      <DependentUpon>SoundChooserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TemperatureUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,10 +75,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="ThermometerPictureBox.cs">
+    <Compile Include="CustomControls\ThermometerPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\TemperatureUISettingsHandler.cs" />
+    <EmbeddedResource Include="SoundChooserForm.resx">
+      <DependentUpon>SoundChooserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TemperatureUI.resx">
       <DependentUpon>TemperatureUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\smoke_alarm.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play_button.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

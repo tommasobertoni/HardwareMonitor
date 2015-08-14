@@ -18,7 +18,7 @@ namespace HardwareMonitor.Client.Controller
         private const string _TEMPERATURE_ICON_NAME = "Temperature";
         private readonly static string _TEMPERATURE_UI_NAME = $"{_APPLICATION_NAME} - {_TEMPERATURE_ICON_NAME}";
 
-        private TemperatureMonitor _temperatureMonitor;
+        private RemoteTemperatureMonitor _remoteTemperatureMonitor;
 
         private ITemperatureUI _temperatureUI;
         public ITemperatureUI TemperatureUI {
@@ -35,26 +35,26 @@ namespace HardwareMonitor.Client.Controller
                     _temperatureUI.Name = _TEMPERATURE_UI_NAME;
                     _temperatureUI.OnTemperatureAlertLevelChanged += (s, e) =>
                     {
-                        if (e.Value != null && e.Save && _temperatureMonitor != null)
-                            _temperatureMonitor.Settings.TemperatureAlertLevel = (int)e.Value;
+                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
+                            _remoteTemperatureMonitor.Settings.TemperatureAlertLevel = (int)e.Value;
                     };
 
                     _temperatureUI.OnUpdateTimeChanged += (s, e) =>
                     {
-                        if (e.Value != null && e.Save && _temperatureMonitor != null)
-                            _temperatureMonitor.Settings.UpdateTime = (int)e.Value;
+                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
+                            _remoteTemperatureMonitor.Settings.UpdateTime = (int)e.Value;
                     };
 
                     _temperatureUI.OnObserversCountChanged += (s, e) =>
                     {
-                        if (e.Value != null && e.Save && _temperatureMonitor != null)
-                            _temperatureMonitor.Settings.ObserversCount = (int)e.Value;
+                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
+                            _remoteTemperatureMonitor.Settings.ObserversCount = (int)e.Value;
                     };
 
                     _temperatureUI.OnNotificationMethodChanged += (s, e) =>
                     {
-                        if (e.Value != null && e.Save && _temperatureMonitor != null)
-                            _temperatureMonitor.Settings.Notification = (NotificationMethod)e.Value;
+                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
+                            _remoteTemperatureMonitor.Settings.Notification = (NotificationMethod)e.Value;
                     };
 
                     _temperatureUI.OnNotification += (s, message) =>
@@ -62,7 +62,7 @@ namespace HardwareMonitor.Client.Controller
                         if (!_isShowingNotification)
                         {
                             _isShowingNotification = true;
-                            _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, message, ToolTipIcon.Info);
+                            _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, message, ToolTipIcon.Warning);
                         }
                     };
                     //_temperatureUI.OnLog += (s, message) => { };
@@ -76,8 +76,8 @@ namespace HardwareMonitor.Client.Controller
                 }
                 else
                 {
-                    _temperatureMonitor.Stop();
-                    _temperatureMonitor = null;
+                    _remoteTemperatureMonitor.Stop();
+                    _remoteTemperatureMonitor = null;
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace HardwareMonitor.Client.Controller
             Application.ApplicationExit += (s, e) =>
             {
                 _temperatureUI?.Close();
-                _temperatureMonitor?.Stop();
+                _remoteTemperatureMonitor?.Stop();
                 _notifyIcon?.Dispose();
             };
 
@@ -111,6 +111,7 @@ namespace HardwareMonitor.Client.Controller
             };
             
             _notifyIcon.BalloonTipClosed += (s, e) => _isShowingNotification = false;
+            _notifyIcon.BalloonTipClicked += (s, e) => _isShowingNotification = false;
 
             var trayMenuStrip = new ContextMenuStrip();
 
@@ -126,23 +127,23 @@ namespace HardwareMonitor.Client.Controller
 
         private void UpdateTemperatureUI()
         {
-            if (_temperatureMonitor.IsServiceReady)
-                _temperatureUI?.SetAvgCPUsTemperature((int)_temperatureMonitor.GetAvgCPUsTemperature().GetValueOrDefault());
+            if (_remoteTemperatureMonitor.IsServiceReady)
+                _temperatureUI?.SetAvgCPUsTemperature((int)_remoteTemperatureMonitor.GetAvgCPUsTemperature().GetValueOrDefault());
         }
 
         private void InitTemperatureMonitorIfNull()
         {
-            _temperatureMonitor = new TemperatureMonitor();
-            _temperatureMonitor.OnServiceReady += () =>
+            _remoteTemperatureMonitor = new RemoteTemperatureMonitor();
+            _remoteTemperatureMonitor.OnServiceReady += () =>
             {
                 if (_temperatureUI != null) UpdateTemperatureUI();
             };
-            _temperatureMonitor.OnEventTriggered += () =>
+            _remoteTemperatureMonitor.OnEventTriggered += () =>
             {
-                if (_temperatureMonitor != null) //if the UI is removed, the monitor is stopped and set to null
+                if (_remoteTemperatureMonitor != null) //if the UI is removed, the monitor is stopped and set to null
                     UpdateTemperatureUI();
             };
-            _temperatureMonitor.Start();
+            _remoteTemperatureMonitor.Start();
         }
     }
 }

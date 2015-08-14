@@ -46,7 +46,7 @@ namespace HardwareMonitor.Temperature
 
         public bool UpdateAvgTemperature()
         {
-            var count = 0;
+            int count = 0;
             float sum = 0;
             foreach (var tuple in _cpusTemperatureSensors)
             {

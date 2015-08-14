@@ -11,7 +11,7 @@ namespace HardwareMonitor.Client.Temperature
         [STAThread]
         static void Main()
         {
-            Application.Run(new TemperatureUI());
+            Application.Run(new SoundChooserForm());
         }
     }
 }

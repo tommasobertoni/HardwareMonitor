@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace HardwareMonitor.Client.Temperature
+namespace HardwareMonitor.Client.Temperature.CustomControls
 {
     public class ThermometerPictureBox : PictureBox
     {

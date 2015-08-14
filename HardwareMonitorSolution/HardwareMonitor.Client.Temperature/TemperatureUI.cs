@@ -10,6 +10,19 @@ namespace HardwareMonitor.Client.Temperature
 {
     public partial class TemperatureUI : Form, ITemperatureUI
     {
+        string IView.Name
+        {
+            get
+            {
+                return Text;
+            }
+
+            set
+            {
+                Text = value;
+            }
+        }
+
         private Bitmap _iconBitmap;
         Image IView.Icon
         {
@@ -97,26 +110,26 @@ namespace HardwareMonitor.Client.Temperature
             trackBarTemperatureAlertLevel.LostFocus += (s, e) => SetTemperatureAlertLevel(_lastSavedTemperatureAlertLevel);
 
             nupUpdateTime.MouseWheel += DoNothing_MouseWheel;
-            nupUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue((int)nupUpdateTime.Value);
-            nupUpdateTime.MouseUp += (s, e) => UpdateTemperatureAlertValue((int)nupUpdateTime.Value, true);
+            nupUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue((int)nupUpdateTime.Value * 1000);
+            nupUpdateTime.MouseUp += (s, e) => UpdateUpdateTimeValue((int)nupUpdateTime.Value * 1000, true);
             nupUpdateTime.LostFocus += (s, e) => SetUpdateTime(_lastSavedUpdateTime);
             trackbarUpdateTime.MouseWheel += DoNothing_MouseWheel;
-            trackbarUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value);
-            trackbarUpdateTime.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperatureAlertLevel.Value, true);
+            trackbarUpdateTime.ValueChanged += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value * 1000);
+            trackbarUpdateTime.MouseUp += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value * 1000, true);
             trackbarUpdateTime.LostFocus += (s, e) => SetUpdateTime(_lastSavedUpdateTime);
 
             nupObservers.MouseWheel += DoNothing_MouseWheel;
             nupObservers.ValueChanged += (s, e) => UpdateObserversCountValue((int)nupObservers.Value);
-            nupObservers.MouseUp += (s, e) => UpdateTemperatureAlertValue((int)nupObservers.Value, true);
+            nupObservers.MouseUp += (s, e) => UpdateObserversCountValue((int)nupObservers.Value, true);
             nupObservers.LostFocus += (s, e) => SetObserversCount(_lastSavedObserversCount);
             trackBarObservers.MouseWheel += DoNothing_MouseWheel;
             trackBarObservers.ValueChanged += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
-            trackBarObservers.MouseUp += (s, e) => UpdateTemperatureAlertValue(trackBarTemperatureAlertLevel.Value, true);
+            trackBarObservers.MouseUp += (s, e) => UpdateObserversCountValue(trackBarObservers.Value, true);
             trackBarObservers.LostFocus += (s, e) => SetObserversCount(_lastSavedObserversCount);
 
-            rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
-            rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
-            rbMessageBoxNotif.CheckedChanged += RB_CheckedChanged;
+            rbMessageAndSoundNotif.CheckedChanged += RB_CheckedChanged;
+            rbMessageNotif.CheckedChanged += RB_CheckedChanged;
+            rbNoNotif.CheckedChanged += RB_CheckedChanged;
             #endregion
 
             FormClosing += (s, e) =>
@@ -183,13 +196,13 @@ namespace HardwareMonitor.Client.Temperature
         private void RB_CheckedChanged(object sender, EventArgs e)
         {
             NotificationMethod? value = null;
-            if (sender == rbMessageBoxNotif && rbMessageBoxNotif.Checked) value = NotificationMethod.SOUND_AND_MESSAGE;
-            else if (sender == rbTrayNotif && rbTrayNotif.Checked) value = NotificationMethod.MESSAGE;
+            if (sender == rbMessageAndSoundNotif && rbMessageAndSoundNotif.Checked) value = NotificationMethod.SOUND_AND_MESSAGE;
+            else if (sender == rbMessageNotif && rbMessageNotif.Checked) value = NotificationMethod.MESSAGE;
             else if (sender == rbNoNotif && rbNoNotif.Checked) value = NotificationMethod.NONE;
 
             if (value != null)
             {
-                OnTemperatureAlertLevelChanged?.Invoke(this, new ViewValueChangedEventArgs
+                OnNotificationMethodChanged?.Invoke(this, new ViewValueChangedEventArgs
                 {
                     Value = value.Value,
                     Save = true
@@ -212,13 +225,14 @@ namespace HardwareMonitor.Client.Temperature
         {
             if (_lastAvgCPUsTemperature >= temperatureAlertLevel)
             {
-                if (showAlert)
+                if (!_alert)
                 {
                     _alert = true;
-                    ShowAlertMessage(_lastAvgCPUsTemperature);
+                    labelAvgCPUsTemperature.BorderStyle = BorderStyle.FixedSingle;
+                    labelAvgCPUsTemperature.Invalidate();
                 }
-                labelAvgCPUsTemperature.BorderStyle = BorderStyle.FixedSingle;
-                labelAvgCPUsTemperature.Invalidate();
+
+                if (showAlert)ShowAlertMessage(_lastAvgCPUsTemperature);
             }
             else
             {
@@ -268,10 +282,15 @@ namespace HardwareMonitor.Client.Temperature
         {
             switch (notification)
             {
-                case NotificationMethod.SOUND_AND_MESSAGE: rbMessageBoxNotif.Checked = true; break;
-                case NotificationMethod.MESSAGE: rbTrayNotif.Checked = true; break;
+                case NotificationMethod.SOUND_AND_MESSAGE: rbMessageAndSoundNotif.Checked = true; break;
+                case NotificationMethod.MESSAGE: rbMessageNotif.Checked = true; break;
                 case NotificationMethod.NONE: rbNoNotif.Checked = true; break;
             }
+        }
+
+        private void btnChangeSound_Click(object sender, EventArgs e)
+        {
+            new SoundChooserForm().ShowDialog(this);
         }
 
         void IView.Show(bool resetPosition)

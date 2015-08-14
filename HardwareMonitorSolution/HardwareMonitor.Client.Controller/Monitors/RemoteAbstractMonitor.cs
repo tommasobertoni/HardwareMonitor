@@ -3,7 +3,7 @@ using static System.Threading.Thread;
 
 namespace HardwareMonitor.Client.Controller.Monitors
 {
-    public abstract class AbstractMonitor
+    public abstract class RemoteAbstractMonitor
     {
         public const int SMALL_TICK = 500;
 
@@ -25,7 +25,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
 
         private BackgroundWorker _bworker;
 
-        public AbstractMonitor()
+        public RemoteAbstractMonitor()
         {
             InitWorker();
         }

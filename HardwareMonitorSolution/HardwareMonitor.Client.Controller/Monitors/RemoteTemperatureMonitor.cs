@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace HardwareMonitor.Client.Controller.Monitors
 {
-    public class TemperatureMonitor : AbstractMonitor
+    public class RemoteTemperatureMonitor : RemoteAbstractMonitor
     {
         public event EventHandler OnServiceReady;
 
@@ -26,7 +26,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
             }
         }
 
-        public TemperatureMonitor() : base()
+        public RemoteTemperatureMonitor() : base()
         {
             _settings = new TemperatureUISettingsHandler();
 
