@@ -8,7 +8,7 @@ namespace HardwareMonitor.Temperature
 {
     public class CPUsTemperatureMonitor : AbstractHardwareMonitor
     {
-        public static readonly CPUsTemperatureMonitor INSTANCE = new CPUsTemperatureMonitor();
+        public static readonly CPUsTemperatureMonitor Instance = new CPUsTemperatureMonitor();
 
         private Computer _computer;
         private List<Tuple<IHardware, ISensor>> _cpusTemperatureSensors;
@@ -54,6 +54,7 @@ namespace HardwareMonitor.Temperature
                 if (temperature != null)
                 {
                     sum += temperature.Value;
+                    count++;
                 }
             }
 

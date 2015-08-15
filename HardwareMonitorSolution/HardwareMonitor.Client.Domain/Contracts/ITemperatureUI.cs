@@ -3,10 +3,8 @@ using System;
 
 namespace HardwareMonitor.Client.Domain.Contracts
 {
-    public interface ITemperatureUI : IView
-    {
-        void SetAvgCPUsTemperature(float temperature);
-        
+    public interface ITemperatureUI : IView, ITemperatureObserver
+    {   
         event EventHandler<ViewValueChangedEventArgs> OnUpdateTimeChanged;
         event EventHandler<ViewValueChangedEventArgs> OnObserversCountChanged;
     }

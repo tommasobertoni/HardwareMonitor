@@ -85,7 +85,7 @@ namespace HardwareMonitor.Client.Temperature
 
             SetNotificationMethod(_settings.Notification);
 
-            if (SoundResourcesManager.INSTANCE.SelectedSound != null) UpdateSoundName();
+            if (SoundResourcesManager.Instance.SelectedSound != null) UpdateSoundName();
             else btnChangeSound.Enabled = false; //no resource available
             #endregion
 
@@ -186,7 +186,7 @@ namespace HardwareMonitor.Client.Temperature
 
         private void UpdateSoundName()
         {
-            labelSoundName.Text = $"\"{SoundResourcesManager.INSTANCE.SelectedSound?.Name ?? "No sound selected"}\"";
+            labelSoundName.Text = $"\"{SoundResourcesManager.Instance.SelectedSound?.Name ?? "No sound selected"}\"";
         }
 
         private void RB_CheckedChanged(object sender, EventArgs e)
@@ -199,10 +199,13 @@ namespace HardwareMonitor.Client.Temperature
             if (value.HasValue) _settings.Notification = value.Value;
         }
 
-        void ITemperatureUI.SetAvgCPUsTemperature(float temperature)
-        {
-            if (labelAvgCPUsTemperature.InvokeRequired || thermometerPictureBox.InvokeRequired) return;
+        private delegate void ThreadSafeUpdateAvgCPUsTemperature(float temperature);
 
+        public void OnAvgCPUsTemperatureChanged(float temperature)
+        {
+            if (labelAvgCPUsTemperature.InvokeRequired || thermometerPictureBox.InvokeRequired)
+                Invoke(new ThreadSafeUpdateAvgCPUsTemperature(OnAvgCPUsTemperatureChanged), new object[] { temperature });
+            
             labelAvgCPUsTemperature.Text = temperature.ToString();
             thermometerPictureBox.Value = (int)temperature;
 
@@ -297,7 +300,7 @@ namespace HardwareMonitor.Client.Temperature
             switch (_settings.Notification)
             {
                 case NotificationMethod.SOUND_AND_MESSAGE:
-                    SoundResourcesManager.INSTANCE.SelectedSound?.Play();
+                    SoundResourcesManager.Instance.SelectedSound?.Play();
                     goto case NotificationMethod.MESSAGE;
 
                 case NotificationMethod.MESSAGE:

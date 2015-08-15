@@ -9,7 +9,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
 {
     public class SoundResourcesManager
     {
-        public static readonly SoundResourcesManager INSTANCE = new SoundResourcesManager();
+        public static readonly SoundResourcesManager Instance = new SoundResourcesManager();
 
         private SortedSet<ResourcePlayer> _resources;
         private List<ResourcePlayer> _resourcesList;

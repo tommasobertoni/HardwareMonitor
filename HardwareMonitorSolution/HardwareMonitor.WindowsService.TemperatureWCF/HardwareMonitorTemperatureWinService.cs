@@ -25,7 +25,7 @@ namespace HardwareMonitor.WindowsService.TemperatureWCF
 
         public int GetCPUsCount()
         {
-            return CPUsTemperatureMonitor.INSTANCE.GetCPUsCount();
+            return CPUsTemperatureMonitor.Instance.GetCPUsCount();
         }
 
         public float? GetAvgCPUsTemperature()
@@ -40,12 +40,12 @@ namespace HardwareMonitor.WindowsService.TemperatureWCF
             }
             else update = true;
             
-            return CPUsTemperatureMonitor.INSTANCE.GetAvgTemperature(update);
+            return CPUsTemperatureMonitor.Instance.GetAvgTemperature(update);
         }
 
         public float? GetCPUTemperature(int cpuIndex)
         {
-            return CPUsTemperatureMonitor.INSTANCE.GetCPUTemperature(cpuIndex);
+            return CPUsTemperatureMonitor.Instance.GetCPUTemperature(cpuIndex);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using HardwareMonitor.WindowsService.TemperatureWCF;
-using System;
 using System.ServiceModel;
 using System.ServiceProcess;
 using static System.Math;
@@ -8,8 +7,6 @@ namespace HardwareMonitor.WindowsService
 {
     public partial class HardwareMonitorWinService : ServiceBase
     {
-        private const string _BASE_ADDRESS = "net.tcp://localhost:9292/";
-
         public const int DEFAULT_UPDATE_TIME_SPAN = 2000;
         public const int MIN_UPDATE_TIME_SPAN = 1000;
 
@@ -30,12 +27,7 @@ namespace HardwareMonitor.WindowsService
         {
             #region Temperature Host
             _temperatureHost?.Close();
-            _temperatureHost = new ServiceHost(
-                new HardwareMonitorTemperatureWinService(CURRENT_UPDATE_TIME_SPAN),
-                new Uri[]
-                {
-                    new Uri($"{_BASE_ADDRESS}{nameof(HardwareMonitorTemperatureWinService)}")
-                });
+            _temperatureHost = new ServiceHost(new HardwareMonitorTemperatureWinService(CURRENT_UPDATE_TIME_SPAN));
             _temperatureHost.Open();
             #endregion
         }

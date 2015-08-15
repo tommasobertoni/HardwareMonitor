@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IController.cs" />
+    <Compile Include="Contracts\ITemperatureObserver.cs" />
     <Compile Include="Contracts\ITemperatureUI.cs" />
     <Compile Include="Contracts\IView.cs" />
     <Compile Include="Entities\NotificationMethods.cs" />

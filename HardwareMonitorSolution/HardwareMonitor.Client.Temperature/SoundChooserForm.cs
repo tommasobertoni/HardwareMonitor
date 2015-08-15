@@ -21,10 +21,10 @@ namespace HardwareMonitor.Client.Temperature
 
         private void SoundChooserForm_Load_1(object sender, EventArgs e)
         {
-            soundResourcesRadioListBox1.Load(SoundResourcesManager.INSTANCE.GetResourcesList());
-            if (SoundResourcesManager.INSTANCE.SelectedSound != null)
+            soundResourcesRadioListBox1.Load(SoundResourcesManager.Instance.GetResourcesList());
+            if (SoundResourcesManager.Instance.SelectedSound != null)
             {
-                var index = SoundResourcesManager.INSTANCE.GetResourcesList().IndexOf(SoundResourcesManager.INSTANCE.SelectedSound);
+                var index = SoundResourcesManager.Instance.GetResourcesList().IndexOf(SoundResourcesManager.Instance.SelectedSound);
                 if (index >= 0) soundResourcesRadioListBox1.SetSelected(index, true);
             }
         }
@@ -33,7 +33,7 @@ namespace HardwareMonitor.Client.Temperature
         {
             var resource = soundResourcesRadioListBox1.SelectedItem as ResourcePlayer;
             resource.Stop();
-            SoundResourcesManager.INSTANCE.SelectedSound = resource;
+            SoundResourcesManager.Instance.SelectedSound = resource;
         }
     }
 }

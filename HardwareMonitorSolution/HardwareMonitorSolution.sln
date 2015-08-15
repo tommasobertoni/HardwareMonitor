@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsServ
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitor.Client.Setup", "HardwareMonitor.Client.Setup\HardwareMonitor.Client.Setup.vdproj", "{3BCA3C66-38D5-43AA-8A37-C4B2977F2B38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.TemperatureWCF", "HardwareMonitor.Client.TemperatureWCF\HardwareMonitor.Client.TemperatureWCF.csproj", "{AAD8AD6D-F924-42AE-B1A4-8D77ECDB115F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{B2824397-C291-46E5-961B-7C2BA8660D49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BCA3C66-38D5-43AA-8A37-C4B2977F2B38}.Debug|Any CPU.ActiveCfg = Debug
 		{3BCA3C66-38D5-43AA-8A37-C4B2977F2B38}.Release|Any CPU.ActiveCfg = Release
+		{AAD8AD6D-F924-42AE-B1A4-8D77ECDB115F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD8AD6D-F924-42AE-B1A4-8D77ECDB115F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD8AD6D-F924-42AE-B1A4-8D77ECDB115F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD8AD6D-F924-42AE-B1A4-8D77ECDB115F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

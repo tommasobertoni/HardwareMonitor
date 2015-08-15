@@ -6,8 +6,6 @@ namespace HardwareMonitor.Client.Controller.Monitors
 {
     public class RemoteTemperatureMonitor : RemoteAbstractMonitor
     {
-        public event EventHandler OnServiceReady;
-
         private TemperatureUISettingsHandler _settings;
         public TemperatureUISettingsHandler Settings
         {
@@ -33,7 +31,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
             new Thread(() =>
             {
                 _service = new TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient();
-                OnServiceReady?.Invoke();
+                StartWorker();
             }).Start();
         }
 
@@ -45,9 +43,9 @@ namespace HardwareMonitor.Client.Controller.Monitors
 
         public float? GetCPUTemperature(int cpuIndex) => _service?.GetCPUTemperature(cpuIndex);
 
-        public override void Stop()
+        public override void StopWorker()
         {
-            base.Stop();
+            base.StopWorker();
             _service?.Close();
         }
     }
