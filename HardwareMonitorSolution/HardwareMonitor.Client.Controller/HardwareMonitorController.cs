@@ -4,6 +4,7 @@ using HardwareMonitor.Client.Domain.Entities;
 using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
+using HardwareMonitor.Client.Controller.Utils;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -111,12 +112,15 @@ namespace HardwareMonitor.Client.Controller
             var trayMenuStrip = new ContextMenuStrip();
 
             trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
-            trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings);
+            trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (s, e) => new SettingsForm().ShowDialog());
             trayMenuStrip.Items.Add(new ToolStripSeparator());
             trayMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
 
             _notifyIcon.ContextMenuStrip = trayMenuStrip;
-            _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, "The program has started successfully", ToolTipIcon.None);
+
+            if (new ClientSettingsHandler().StartupNotification)
+                _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
+                    "The program has started successfully", ToolTipIcon.None);
             #endregion
 
             #region Init Remote Temperature Monitor
