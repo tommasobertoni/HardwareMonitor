@@ -1,7 +1,6 @@
 ﻿using HardwareMonitor.Temperature;
 using System;
 using System.ServiceModel;
-using System.Timers;
 using static System.Math;
 
 namespace HardwareMonitor.WindowsService.TemperatureWCF

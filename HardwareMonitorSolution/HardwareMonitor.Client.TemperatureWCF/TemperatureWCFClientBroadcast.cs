@@ -24,7 +24,7 @@ namespace HardwareMonitor.Client.TemperatureWCF
             LastMeasuredAvgCPUsTemperature = temperature;
             lock (subscribedChannels)
             {
-                List<int> disconnectedClients = new List<int>();
+                List <int> disconnectedClients = new List<int>();
                 for (int i = 0; i < subscribedChannels.Count; i++)
                 {
                     try
