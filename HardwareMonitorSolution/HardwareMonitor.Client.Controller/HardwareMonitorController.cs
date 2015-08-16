@@ -135,8 +135,11 @@ namespace HardwareMonitor.Client.Controller
                 float temperature = _remoteTemperatureMonitor.GetAvgCPUsTemperature().GetValueOrDefault();
                 if (observer == null)
                 {
-                    _temperatureObservers.ForEach(obs =>
-                        obs.OnAvgCPUsTemperatureChanged(temperature));
+                    lock (_temperatureObservers)
+                    {
+                        _temperatureObservers.ForEach(obs =>
+                            obs.OnAvgCPUsTemperatureChanged(temperature));
+                    }
                 }
                 else observer.OnAvgCPUsTemperatureChanged(temperature);
 

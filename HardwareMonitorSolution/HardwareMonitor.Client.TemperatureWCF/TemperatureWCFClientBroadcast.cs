@@ -1,10 +1,7 @@
 ﻿using HardwareMonitor.Client.Domain.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace HardwareMonitor.Client.TemperatureWCF
 {
@@ -24,7 +21,7 @@ namespace HardwareMonitor.Client.TemperatureWCF
             LastMeasuredAvgCPUsTemperature = temperature;
             lock (subscribedChannels)
             {
-                List <int> disconnectedClients = new List<int>();
+                List<int> disconnectedClients = new List<int>();
                 for (int i = 0; i < subscribedChannels.Count; i++)
                 {
                     try
