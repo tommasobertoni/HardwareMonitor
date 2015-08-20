@@ -5,6 +5,11 @@ using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using HardwareMonitor.Client.Controller.Utils;
+using System.IO.Pipes;
+using HardwareMonitor.Client.Controller.Contracts;
+using System.IO;
+using HardwareMonitor.Client.TemperatureWCF;
+using System.ServiceModel;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -14,6 +19,22 @@ namespace HardwareMonitor.Client.Controller
         private const int _NOTIFICATION_TIMEOUT = 10000;
         private const string _MONITORS_ICON_NAME = "Monitors";
         private const string _SETTINGS_ICON_NAME = "Settings";
+
+        private BinaryWriter _binWriter;
+        private PipeStream _launcherPipe;
+        public PipeStream LauncherPipe {
+            get
+            {
+                return _launcherPipe;
+            }
+
+            set
+            {
+                _binWriter?.Dispose();
+                _launcherPipe = value;
+                if (_launcherPipe != null) _binWriter = new BinaryWriter(_launcherPipe);
+            }
+        }
 
         #region Temperature
         private const string _TEMPERATURE_ICON_NAME = "Temperature";
@@ -89,6 +110,8 @@ namespace HardwareMonitor.Client.Controller
         private NotifyIcon _notifyIcon;
         private bool _isShowingNotification;
 
+        private ClientSettingsHandler _clientSettings;
+
         public HardwareMonitorController()
         {
             Application.ApplicationExit += (s, e) =>
@@ -98,6 +121,8 @@ namespace HardwareMonitor.Client.Controller
                 _notifyIcon?.Dispose();
             };
 
+            _clientSettings = new ClientSettingsHandler();
+
             #region Init tray icon
             _notifyIcon = new NotifyIcon()
             {
@@ -105,22 +130,50 @@ namespace HardwareMonitor.Client.Controller
                 Visible = true,
                 Icon = Properties.Resources.ohmlogo
             };
-            
+
             _notifyIcon.BalloonTipClosed += (s, e) => _isShowingNotification = false;
             _notifyIcon.BalloonTipClicked += (s, e) => _isShowingNotification = false;
 
             var trayMenuStrip = new ContextMenuStrip();
 
             trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
-            trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (s, e) => new SettingsForm().ShowDialog());
+            trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (snd, evt) =>
+            {
+                var settingsForm = new SettingsForm(
+                    BroadcastServices.IsUserAdministrator(),
+                    BroadcastServices.Temperature.IsRunning);
+
+                var settingsOperations = settingsForm as IClientSettingsOperations;
+                if (settingsOperations != null)
+                {
+                    settingsOperations.OnAdminStartEnabled += (s, e) => SendToLauncher(ControllerCommand.UPDATE);
+                    settingsOperations.OnToggleBroadcastServices += (s, startServices) =>
+                    {
+                        string action;
+                        bool result;
+                        if (startServices)
+                        {
+                            action = "started";
+                            result = BroadcastServices.Temperature.Start(this);
+                        }
+                        else
+                        {
+                            action = "stopped";
+                            result = BroadcastServices.Temperature.Stop(this);
+                        }
+
+                        string negative = result ? "" : "n't";
+                        _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
+                            $"The broadcast services have{negative} been {action} successfully", ToolTipIcon.None);
+                    };
+                }
+                settingsForm.ShowDialog();
+            });
             trayMenuStrip.Items.Add(new ToolStripSeparator());
+            trayMenuStrip.Items.Add("Restart", null, SendRestartSignal);
             trayMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
 
             _notifyIcon.ContextMenuStrip = trayMenuStrip;
-
-            if (new ClientSettingsHandler().StartupNotification)
-                _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
-                    "The program has started successfully", ToolTipIcon.None);
             #endregion
 
             #region Init Remote Temperature Monitor
@@ -130,6 +183,22 @@ namespace HardwareMonitor.Client.Controller
                 NotifyTemperature();
             };
             #endregion
+
+            #region Broadcast services
+            bool servicesStarted = false;
+            if (BroadcastServices.IsUserAdministrator() && _clientSettings.StartupBroadcastServices)
+            {
+                servicesStarted = true;
+                servicesStarted = servicesStarted && BroadcastServices.Temperature.Start(this);
+            }
+            #endregion
+
+            if (_clientSettings.StartupNotification)
+            {
+                var subSentence = servicesStarted ? " and the services have" : " has";
+                _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
+                    $"The program{subSentence} been started successfully", ToolTipIcon.None);
+            }
         }
 
         private bool NotifyTemperature(ITemperatureObserver observer = null)
@@ -150,6 +219,22 @@ namespace HardwareMonitor.Client.Controller
                 return true;
             }
             else return false;
+        }
+
+        private void SendRestartSignal(object o, EventArgs e)
+        {
+            if (SendToLauncher(ControllerCommand.RESTART))
+                Application.Exit();
+        }
+
+        private bool SendToLauncher(ControllerCommand command)
+        {
+            if (_launcherPipe == null || _binWriter == null) return false;
+
+            _binWriter.Write((int)command);
+            _binWriter.Flush();
+            _launcherPipe.WaitForPipeDrain();
+            return true;
         }
     }
 }
