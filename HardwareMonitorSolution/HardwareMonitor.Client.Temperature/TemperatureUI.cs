@@ -4,7 +4,6 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 using HardwareMonitor.Client.Temperature.Utils;
-using System.Media;
 
 namespace HardwareMonitor.Client.Temperature
 {
@@ -310,6 +309,14 @@ namespace HardwareMonitor.Client.Temperature
                 case NotificationMethod.NONE:
                     break;
             }
+        }
+
+        void IView.Close()
+        {
+            SoundResourcesManager.Instance.DisposeAll();
+            base.Close();
+            base.Dispose();
+            _settings.Close();
         }
     }
 }

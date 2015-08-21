@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5963A853-78E4-4404-9CDC-0C97C61CB5B2}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HardwareMonitor.Client.Controller</RootNamespace>
     <AssemblyName>HardwareMonitor.Client.Controller</AssemblyName>
@@ -106,14 +106,6 @@
     <ProjectReference Include="..\HardwareMonitor.Domain\HardwareMonitor.Domain.csproj">
       <Project>{9482a6ac-332d-4c64-bcab-7db7d88ec100}</Project>
       <Name>HardwareMonitor.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.Temperature\HardwareMonitor.Temperature.csproj">
-      <Project>{91d2901d-19b7-426d-aa13-ad4a5964627c}</Project>
-      <Name>HardwareMonitor.Temperature</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj">
-      <Project>{9f563d80-9fa9-4ab4-a03c-38a910ec2e04}</Project>
-      <Name>HardwareMonitor.WindowsService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

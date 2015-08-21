@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using HardwareMonitor.Client.Controller.Utils;
-using System.IO.Pipes;
 using HardwareMonitor.Client.Controller.Contracts;
 using System.IO;
 using HardwareMonitor.Client.TemperatureWCF;
@@ -19,22 +18,6 @@ namespace HardwareMonitor.Client.Controller
         private const int _NOTIFICATION_TIMEOUT = 10000;
         private const string _MONITORS_ICON_NAME = "Monitors";
         private const string _SETTINGS_ICON_NAME = "Settings";
-
-        private BinaryWriter _binWriter;
-        private PipeStream _launcherPipe;
-        public PipeStream LauncherPipe {
-            get
-            {
-                return _launcherPipe;
-            }
-
-            set
-            {
-                _binWriter?.Dispose();
-                _launcherPipe = value;
-                if (_launcherPipe != null) _binWriter = new BinaryWriter(_launcherPipe);
-            }
-        }
 
         #region Temperature
         private const string _TEMPERATURE_ICON_NAME = "Temperature";
@@ -114,14 +97,31 @@ namespace HardwareMonitor.Client.Controller
 
         public HardwareMonitorController()
         {
+            _clientSettings = new ClientSettingsHandler();
+
+            #region Broadcast services
+            bool servicesStarted = false;
+            if (_clientSettings.StartupBroadcastServices)
+            {
+                if (BroadcastServices.IsUserAdministrator())
+                {
+                    servicesStarted = true;
+                    servicesStarted = servicesStarted && BroadcastServices.Temperature.Start(this);
+                }
+                else
+                {
+                    CloseAll();
+                    throw new AdminRightsRequiredException();
+                }
+            }
+            #endregion
+
             Application.ApplicationExit += (s, e) =>
             {
                 _temperatureUI?.Close();
                 _remoteTemperatureMonitor?.StopWorker();
                 _notifyIcon?.Dispose();
             };
-
-            _clientSettings = new ClientSettingsHandler();
 
             #region Init tray icon
             _notifyIcon = new NotifyIcon()
@@ -136,6 +136,7 @@ namespace HardwareMonitor.Client.Controller
 
             var trayMenuStrip = new ContextMenuStrip();
 
+            trayMenuStrip.Items.Add($"Admin? {BroadcastServices.IsUserAdministrator()}");
             trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
             trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (snd, evt) =>
             {
@@ -146,7 +147,6 @@ namespace HardwareMonitor.Client.Controller
                 var settingsOperations = settingsForm as IClientSettingsOperations;
                 if (settingsOperations != null)
                 {
-                    settingsOperations.OnAdminStartEnabled += (s, e) => SendToLauncher(ControllerCommand.UPDATE);
                     settingsOperations.OnToggleBroadcastServices += (s, startServices) =>
                     {
                         string action;
@@ -170,8 +170,15 @@ namespace HardwareMonitor.Client.Controller
                 settingsForm.ShowDialog();
             });
             trayMenuStrip.Items.Add(new ToolStripSeparator());
-            trayMenuStrip.Items.Add("Restart", null, SendRestartSignal);
-            trayMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
+            trayMenuStrip.Items.Add("Restart", null, (s, e) => {
+                CloseAll();
+                Application.Restart();
+            });
+            trayMenuStrip.Items.Add("Exit", null, (s, e) =>
+            {
+                CloseAll();
+                Application.Exit();
+            });
 
             _notifyIcon.ContextMenuStrip = trayMenuStrip;
             #endregion
@@ -184,15 +191,6 @@ namespace HardwareMonitor.Client.Controller
             };
             #endregion
 
-            #region Broadcast services
-            bool servicesStarted = false;
-            if (BroadcastServices.IsUserAdministrator() && _clientSettings.StartupBroadcastServices)
-            {
-                servicesStarted = true;
-                servicesStarted = servicesStarted && BroadcastServices.Temperature.Start(this);
-            }
-            #endregion
-
             if (_clientSettings.StartupNotification)
             {
                 var subSentence = servicesStarted ? " and the services have" : " has";
@@ -203,6 +201,8 @@ namespace HardwareMonitor.Client.Controller
 
         private bool NotifyTemperature(ITemperatureObserver observer = null)
         {
+            if (_remoteTemperatureMonitor == null) return false;
+
             if (_remoteTemperatureMonitor.IsServiceReady)
             {
                 float temperature = _remoteTemperatureMonitor.GetAvgCPUsTemperature().GetValueOrDefault();
@@ -221,20 +221,19 @@ namespace HardwareMonitor.Client.Controller
             else return false;
         }
 
-        private void SendRestartSignal(object o, EventArgs e)
+        private void CloseAll()
         {
-            if (SendToLauncher(ControllerCommand.RESTART))
-                Application.Exit();
+            _notifyIcon?.Dispose();
+            _remoteTemperatureMonitor?.StopWorker();
+            _temperatureUI?.Close();
+            _temperatureObservers?.Clear();
         }
+    }
 
-        private bool SendToLauncher(ControllerCommand command)
-        {
-            if (_launcherPipe == null || _binWriter == null) return false;
+    class AdminRightsRequiredException : Exception
+    {
+        public AdminRightsRequiredException() : base() { }
 
-            _binWriter.Write((int)command);
-            _binWriter.Flush();
-            _launcherPipe.WaitForPipeDrain();
-            return true;
-        }
+        public AdminRightsRequiredException(string message) : base(message) { }
     }
 }

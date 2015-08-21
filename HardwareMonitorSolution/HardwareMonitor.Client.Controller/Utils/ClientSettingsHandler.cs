@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace HardwareMonitor.Client.Controller.Utils
 {
-    class ClientSettingsHandler
+    public class ClientSettingsHandler
     {
         // The path to the key where Windows looks for startup applications
         private const string _STARTUP_APPLICATIONS_KEY = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
@@ -71,7 +71,7 @@ namespace HardwareMonitor.Client.Controller.Utils
         {
             get
             {
-                return _startupNotification;
+                return _startupBroadcastServices;
             }
             set
             {
@@ -111,6 +111,11 @@ namespace HardwareMonitor.Client.Controller.Utils
                 if (autorun) key.SetValue(_STARTUP_APPLICATION_NAME, "\"" + Application.ExecutablePath + "\"");
                 else if (key.GetValue(_STARTUP_APPLICATIONS_KEY) != null) key.DeleteValue(_STARTUP_APPLICATION_NAME);
             }
+        }
+
+        public void Close()
+        {
+            _settings.Close();
         }
     }
 }

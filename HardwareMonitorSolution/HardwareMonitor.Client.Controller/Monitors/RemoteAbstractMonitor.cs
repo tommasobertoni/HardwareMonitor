@@ -47,7 +47,6 @@ namespace HardwareMonitor.Client.Controller.Monitors
         public virtual void StopWorker()
         {
             _bworker.CancelAsync();
-            InitWorker();
         }
 
         private void _bworker_ProgressChanged(object sender, ProgressChangedEventArgs e)

@@ -25,5 +25,11 @@ namespace HardwareMonitor.Domain.Utils
         {
             _rk.SetValue(propertyKey, propertyValue);
         }
+
+        public void Close()
+        {
+            _rk.Close();
+            _rk.Dispose();
+        }
     }
 }

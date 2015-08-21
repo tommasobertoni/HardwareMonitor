@@ -8,7 +8,6 @@ namespace HardwareMonitor.Client.Controller.Contracts
 {
     public interface IClientSettingsOperations
     {
-        event EventHandler<bool> OnAdminStartEnabled;
         event EventHandler<bool> OnToggleBroadcastServices;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -65,6 +66,13 @@ namespace HardwareMonitor.Client.Temperature.Utils
         {
             if (_resourcesList == null) _resourcesList = _resources.ToList();
             return _resourcesList;
+        }
+
+        internal void DisposeAll()
+        {
+            _resourcesList.ForEach(res => res.Dispose());
+            _resourcesList.Clear();
+            SelectedSound = null;
         }
     }
 

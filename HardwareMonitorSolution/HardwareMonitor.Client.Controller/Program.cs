@@ -2,7 +2,10 @@
 using HardwareMonitor.Client.Temperature;
 using HardwareMonitor.Client.TemperatureWCF;
 using System;
-using System.IO.Pipes;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Security.Permissions;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Windows.Forms;
@@ -17,12 +20,49 @@ namespace HardwareMonitor.Client.Controller
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            IController controller = new HardwareMonitorController();
+            Console.WriteLine("CreateController");
+            try
+            {
+                IController controller = new HardwareMonitorController();
+                controller.TemperatureUI = new TemperatureUI();
+                Application.Run();
+            }
+            catch (AdminRightsRequiredException)
+            {
+                Console.WriteLine("AdminRightsRequiredException");
+                ElevateProcess(Process.GetCurrentProcess());
+                Application.Exit();
+            }
 
-            if (args?.Length > 0) controller.LauncherPipe = new AnonymousPipeClientStream(PipeDirection.Out, args[0]);
-            controller.TemperatureUI = new TemperatureUI();
-            
-            Application.Run();
+            Console.WriteLine("End");
+        }
+
+        [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
+        public static Process ElevateProcess(Process source)
+        {
+            //Create a new process
+            Process target = new Process();
+            target.StartInfo = source.StartInfo;
+            target.StartInfo.FileName = source.MainModule.FileName;
+            target.StartInfo.WorkingDirectory = Path.GetDirectoryName(source.MainModule.FileName);
+
+            //Required for UAC to work
+            target.StartInfo.UseShellExecute = true;
+            target.StartInfo.Verb = "runas";
+
+            try
+            {
+                if (!target.Start())
+                    return null;
+            }
+            catch (Win32Exception e)
+            {
+                //Cancelled
+                if (e.NativeErrorCode == 1223)
+                    return null;
+                throw;
+            };
+            return target;
         }
     }
 

@@ -12,8 +12,7 @@ namespace HardwareMonitor.Client.Controller
         private const string _STOP_SERVICES_TEXT = "Stop broadcast services";
 
         private ClientSettingsHandler _settings;
-
-        public event EventHandler<bool> OnAdminStartEnabled;
+        
         public event EventHandler<bool> OnToggleBroadcastServices;
 
         private bool _areServicesRunning;
@@ -70,7 +69,6 @@ namespace HardwareMonitor.Client.Controller
 
         private void cbAdminRights_CheckedChanged(object sender, EventArgs e)
         {
-            OnAdminStartEnabled?.Invoke(this, cbAdminRights.Checked);
             ChangeLabelAdminRightsInfoVisibility();
         }
 

@@ -125,6 +125,11 @@ namespace HardwareMonitor.Client.Temperature.Utils
             _notification = (value = _settings.Get(_NOTIFICATION_KEY)) != null ? (NotificationMethod)((int)value) : _DEFAULT_NOTIFICATION;
             _soundResourceName = (value = _settings.Get(_OBSERVERS_COUNT_KEY)) as string;
         }
+
+        public void Close()
+        {
+            _settings.Close();
+        }
     }
 
     static class Utils
