@@ -2,7 +2,7 @@
 using static Microsoft.Win32.Registry;
 using static Microsoft.Win32.RegistryKeyPermissionCheck;
 
-namespace HardwareMonitor.Domain.Utils
+namespace HardwareMonitor.Client.Domain.Utils
 {
     public class SettingsStorage
     {

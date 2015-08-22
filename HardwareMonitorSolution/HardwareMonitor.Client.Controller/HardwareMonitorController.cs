@@ -1,14 +1,10 @@
 ﻿using HardwareMonitor.Client.Controller.Monitors;
 using HardwareMonitor.Client.Domain.Contracts;
-using HardwareMonitor.Client.Domain.Entities;
 using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using HardwareMonitor.Client.Controller.Utils;
 using HardwareMonitor.Client.Controller.Contracts;
-using System.IO;
-using HardwareMonitor.Client.TemperatureWCF;
-using System.ServiceModel;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -56,10 +52,9 @@ namespace HardwareMonitor.Client.Controller
                         _remoteTemperatureMonitor.Settings.Update();
                     };
 
-                    _temperatureUI.OnObserversCountChanged += (s, e) =>
+                    _temperatureUI.OnObserversCountChanged += (s, observersCount) =>
                     {
-                        if (e.Value != null && e.Save && _remoteTemperatureMonitor != null)
-                            _remoteTemperatureMonitor.Settings.ObserversCount = (int)e.Value;
+                        _remoteTemperatureMonitor.Settings.ObserversCount = observersCount;
                     };
 
                     _temperatureUI.OnNotification += (s, message) =>

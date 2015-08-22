@@ -1,4 +1,4 @@
-﻿using HardwareMonitor.Domain.Utils;
+﻿using HardwareMonitor.Client.Domain.Utils;
 using Microsoft.Win32;
 using System.Windows.Forms;
 

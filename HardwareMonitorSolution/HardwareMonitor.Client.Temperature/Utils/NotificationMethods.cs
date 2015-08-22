@@ -1,5 +1,5 @@
 ﻿
-namespace HardwareMonitor.Client.Domain.Entities
+namespace HardwareMonitor.Client.Temperature.Utils
 {
     public enum NotificationMethod
     {

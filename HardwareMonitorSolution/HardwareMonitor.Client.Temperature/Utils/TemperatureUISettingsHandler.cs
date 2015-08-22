@@ -1,5 +1,4 @@
-﻿using HardwareMonitor.Client.Domain.Entities;
-using HardwareMonitor.Domain.Utils;
+﻿using HardwareMonitor.Client.Domain.Utils;
 using System;
 
 namespace HardwareMonitor.Client.Temperature.Utils

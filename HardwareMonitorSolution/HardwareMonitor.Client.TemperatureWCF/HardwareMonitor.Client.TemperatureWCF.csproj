@@ -68,10 +68,6 @@
       <Project>{5d79e443-97be-4497-915f-f748eeb19f7d}</Project>
       <Name>HardwareMonitor.Client.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.Domain\HardwareMonitor.Domain.csproj">
-      <Project>{9482a6ac-332d-4c64-bcab-7db7d88ec100}</Project>
-      <Name>HardwareMonitor.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

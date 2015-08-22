@@ -1,5 +1,4 @@
 ﻿using HardwareMonitor.Client.Domain.Contracts;
-using HardwareMonitor.Client.Domain.Entities;
 using System;
 using System.Windows.Forms;
 using System.Drawing;
@@ -31,8 +30,8 @@ namespace HardwareMonitor.Client.Temperature
             }
         }
         
-        public event EventHandler<ViewValueChangedEventArgs> OnUpdateTimeChanged;
-        public event EventHandler<ViewValueChangedEventArgs> OnObserversCountChanged;
+        public event EventHandler<int> OnUpdateTimeChanged;
+        public event EventHandler<int> OnObserversCountChanged;
         public event EventHandler<string> OnNotification;
         public event EventHandler<string> OnLog;
         public event EventHandler OnViewExit;
@@ -160,10 +159,7 @@ namespace HardwareMonitor.Client.Temperature
             {
                 _lastSavedUpdateTime = updateTime;
                 _settings.UpdateTime = _lastSavedUpdateTime;
-                OnUpdateTimeChanged?.Invoke(this, new ViewValueChangedEventArgs
-                {
-                    Value = updateTime
-                });
+                OnUpdateTimeChanged?.Invoke(this, updateTime);
             }
         }
 
@@ -175,11 +171,7 @@ namespace HardwareMonitor.Client.Temperature
             {
                 _lastSavedObserversCount = observersCount;
                 _settings.ObserversCount = _lastSavedObserversCount;
-                OnObserversCountChanged?.Invoke(this, new ViewValueChangedEventArgs
-                {
-                    Value = observersCount,
-                    Save = saveSettings
-                });
+                OnObserversCountChanged?.Invoke(this, observersCount);
             }
         }
 
