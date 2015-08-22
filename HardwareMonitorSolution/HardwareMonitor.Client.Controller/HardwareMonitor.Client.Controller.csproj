@@ -75,7 +75,10 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\BroadcastServices.cs" />
     <Compile Include="Utils\ClientSettingsHandler.cs" />
+    <Compile Include="Utils\LogsManager.cs" />
+    <Compile Include="Utils\ProcessUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

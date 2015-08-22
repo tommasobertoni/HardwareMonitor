@@ -90,10 +90,10 @@ namespace HardwareMonitor.Client.Controller
             return monitorsItem.DropDown.Items;
         }
 
+        private ClientSettingsHandler _clientSettings;
+
         private NotifyIcon _notifyIcon;
         private bool _isShowingNotification;
-
-        private ClientSettingsHandler _clientSettings;
 
         public HardwareMonitorController()
         {
@@ -103,7 +103,7 @@ namespace HardwareMonitor.Client.Controller
             bool servicesStarted = false;
             if (_clientSettings.StartupBroadcastServices)
             {
-                if (BroadcastServices.IsUserAdministrator())
+                if (BroadcastServices.IsUserAdministrator)
                 {
                     servicesStarted = true;
                     servicesStarted = servicesStarted && BroadcastServices.Temperature.Start(this);
@@ -111,7 +111,7 @@ namespace HardwareMonitor.Client.Controller
                 else
                 {
                     CloseAll();
-                    throw new AdminRightsRequiredException();
+                    throw new AdminRightsRequiredException("Administrator rights are required to start the broadcast services");
                 }
             }
             #endregion
@@ -136,12 +136,12 @@ namespace HardwareMonitor.Client.Controller
 
             var trayMenuStrip = new ContextMenuStrip();
 
-            trayMenuStrip.Items.Add($"Admin? {BroadcastServices.IsUserAdministrator()}");
+            trayMenuStrip.Items.Add($"Admin? {BroadcastServices.IsUserAdministrator}");
             trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
             trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (snd, evt) =>
             {
                 var settingsForm = new SettingsForm(
-                    BroadcastServices.IsUserAdministrator(),
+                    BroadcastServices.IsUserAdministrator,
                     BroadcastServices.Temperature.IsRunning);
 
                 var settingsOperations = settingsForm as IClientSettingsOperations;
@@ -171,8 +171,19 @@ namespace HardwareMonitor.Client.Controller
             });
             trayMenuStrip.Items.Add(new ToolStripSeparator());
             trayMenuStrip.Items.Add("Restart", null, (s, e) => {
-                CloseAll();
-                Application.Restart();
+
+                var requiresAdministratorRights = _clientSettings.StartProgramAsAdmin || _clientSettings.StartupBroadcastServices;
+                //if the privileges requested are different that the ones acquired
+                if (requiresAdministratorRights != BroadcastServices.IsUserAdministrator)
+                {
+                    ProcessUtils.RerunCurrentProcess(requiresAdministratorRights);
+                    Application.Exit();
+                }
+                else
+                {
+                    CloseAll();
+                    Application.Restart();
+                }
             });
             trayMenuStrip.Items.Add("Exit", null, (s, e) =>
             {
