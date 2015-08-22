@@ -1,12 +1,8 @@
 ﻿using HardwareMonitor.Client.Domain.Contracts;
 using HardwareMonitor.Client.TemperatureWCF;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HardwareMonitor.Client.Controller.Utils
