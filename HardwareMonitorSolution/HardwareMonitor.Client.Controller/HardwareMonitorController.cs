@@ -113,9 +113,7 @@ namespace HardwareMonitor.Client.Controller
 
             Application.ApplicationExit += (s, e) =>
             {
-                _temperatureUI?.Close();
-                _remoteTemperatureMonitor?.StopWorker();
-                _notifyIcon?.Dispose();
+                CloseAll();
             };
 
             #region Init tray icon
@@ -166,22 +164,23 @@ namespace HardwareMonitor.Client.Controller
                 }
                 settingsForm.ShowDialog();
             });
+
             trayMenuStrip.Items.Add(new ToolStripSeparator());
+
             trayMenuStrip.Items.Add("Restart", null, (s, e) => {
 
                 var requiresAdministratorRights = _clientSettings.StartProgramAsAdmin || _clientSettings.StartupBroadcastServices;
+                CloseAll();
+
                 //if the privileges requested are different that the ones acquired
                 if (requiresAdministratorRights != BroadcastServices.IsUserAdministrator)
                 {
                     ProcessUtils.RerunCurrentProcess(requiresAdministratorRights);
                     Application.Exit();
                 }
-                else
-                {
-                    CloseAll();
-                    Application.Restart();
-                }
+                else Application.Restart();
             });
+
             trayMenuStrip.Items.Add("Exit", null, (s, e) =>
             {
                 CloseAll();
@@ -232,6 +231,7 @@ namespace HardwareMonitor.Client.Controller
         private void CloseAll()
         {
             _notifyIcon?.Dispose();
+            BroadcastServices.Temperature.Stop(this);
             _remoteTemperatureMonitor?.StopWorker();
             _temperatureUI?.Close();
             _temperatureObservers?.Clear();

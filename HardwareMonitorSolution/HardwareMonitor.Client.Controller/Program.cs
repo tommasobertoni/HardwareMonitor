@@ -2,7 +2,7 @@
 using HardwareMonitor.Client.Domain.Contracts;
 using HardwareMonitor.Client.Temperature;
 using System;
-using System.Diagnostics;
+using static System.Diagnostics.Process;
 using System.Windows.Forms;
 using static HardwareMonitor.Client.Controller.Utils.LogsManager;
 
@@ -22,7 +22,7 @@ namespace HardwareMonitor.Client.Controller
 
                 if ((settings.StartProgramAsAdmin || settings.StartupBroadcastServices) && !BroadcastServices.IsUserAdministrator)
                 {
-                    ProcessUtils.RerunProcessWithAdminPrivileges(Process.GetCurrentProcess());
+                    ProcessUtils.RerunProcessWithAdminPrivileges(GetCurrentProcess());
                     Application.Exit();
                 }
                 else
