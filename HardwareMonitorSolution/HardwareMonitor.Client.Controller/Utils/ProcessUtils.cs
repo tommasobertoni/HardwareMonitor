@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Security.Permissions;
+using static System.Reflection.Assembly;
 
 namespace HardwareMonitor.Client.Controller.Utils
 {
@@ -10,11 +11,12 @@ namespace HardwareMonitor.Client.Controller.Utils
         [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
         public static Process RerunCurrentProcess(bool administratorRights = false)
         {
-            return RerunProcess(Process.GetCurrentProcess(), administratorRights);
+            if (administratorRights) return RerunProcessWithAdminPrivileges(Process.GetCurrentProcess());
+            else return Process.Start("explorer.exe", GetEntryAssembly().Location);
         }
 
         [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
-        public static Process RerunProcess(Process source, bool administratorRights = false)
+        public static Process RerunProcessWithAdminPrivileges(Process source)
         {
             Process target = new Process();
             target.StartInfo = source.StartInfo;
@@ -23,7 +25,7 @@ namespace HardwareMonitor.Client.Controller.Utils
 
             //Required for UAC to work
             target.StartInfo.UseShellExecute = true;
-            if (administratorRights) target.StartInfo.Verb = "runas";
+            target.StartInfo.Verb = "runas";
 
             try
             {

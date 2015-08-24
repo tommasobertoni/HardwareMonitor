@@ -22,7 +22,7 @@ namespace HardwareMonitor.Client.Controller
 
                 if ((settings.StartProgramAsAdmin || settings.StartupBroadcastServices) && !BroadcastServices.IsUserAdministrator)
                 {
-                    ProcessUtils.RerunProcess(Process.GetCurrentProcess(), true);
+                    ProcessUtils.RerunProcessWithAdminPrivileges(Process.GetCurrentProcess());
                     Application.Exit();
                 }
                 else
@@ -34,7 +34,7 @@ namespace HardwareMonitor.Client.Controller
             }
             catch (Exception ex)
             {
-                Log($"Program Main exit => {ex.Message}");
+                Log($"Program Main exit => {ex}");
             }
         }
     }

@@ -14,6 +14,7 @@ namespace HardwareMonitor.Client.Controller
         private ClientSettingsHandler _settings;
         
         public event EventHandler<bool> OnToggleBroadcastServices;
+        public event EventHandler OnSavedSettings;
 
         private bool _areServicesRunning;
 
@@ -54,6 +55,7 @@ namespace HardwareMonitor.Client.Controller
             _settings.StartupNotification = cbStartupNotification.Checked;
             _settings.StartProgramAsAdmin = cbAdminRights.Checked;
             _settings.StartupBroadcastServices = cbStartupServices.Checked;
+            OnSavedSettings?.Invoke(this, null);
         }
 
         private void ChangeLabelAdminRightsInfoVisibility()

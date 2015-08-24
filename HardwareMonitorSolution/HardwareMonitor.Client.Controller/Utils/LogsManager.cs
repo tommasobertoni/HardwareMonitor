@@ -14,8 +14,8 @@ namespace HardwareMonitor.Client.Controller.Utils
 
         public static void Log(string message, LogLevel level = LogLevel.DEBUG)
         {
-            WriteAllText(
-                $"{AppDomain.CurrentDomain.BaseDirectory}{nameof(level)}.log",
+            AppendAllText(
+                $"{AppDomain.CurrentDomain.BaseDirectory}{level.ToString().ToLower()}.log",
                 $"{DateTime.UtcNow}\n{message}\n{_SEPARATOR}\n");
         }
     }

@@ -161,6 +161,8 @@ namespace HardwareMonitor.Client.Controller
                         _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
                             $"The broadcast services have{negative} been {action} successfully", ToolTipIcon.None);
                     };
+
+                    settingsOperations.OnSavedSettings += (s, e) => _clientSettings?.Update();
                 }
                 settingsForm.ShowDialog();
             });
