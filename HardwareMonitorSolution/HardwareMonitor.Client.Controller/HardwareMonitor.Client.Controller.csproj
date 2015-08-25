@@ -35,9 +35,7 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,9 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="app.manifest">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\TemperatureMonitorServiceReference\service.wsdl" />
     <None Include="Service References\TemperatureMonitorServiceReference\service.xsd">
       <SubType>Designer</SubType>
@@ -145,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\settings-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ohmuaclogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

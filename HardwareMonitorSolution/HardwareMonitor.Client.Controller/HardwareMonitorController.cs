@@ -10,7 +10,7 @@ namespace HardwareMonitor.Client.Controller
 {
     public class HardwareMonitorController : IController
     {
-        private const string _APPLICATION_NAME = "HardwareMonitor";
+        private const string _APPLICATION_NAME = "Hardware Monitor Client";
         private const int _NOTIFICATION_TIMEOUT = 10000;
         private const string _MONITORS_ICON_NAME = "Monitors";
         private const string _SETTINGS_ICON_NAME = "Settings";
@@ -121,15 +121,14 @@ namespace HardwareMonitor.Client.Controller
             {
                 Text = _APPLICATION_NAME,
                 Visible = true,
-                Icon = Properties.Resources.ohmlogo
+                Icon = BroadcastServices.IsUserAdministrator ? Properties.Resources.ohmuaclogo : Properties.Resources.ohmlogo
             };
 
             _notifyIcon.BalloonTipClosed += (s, e) => _isShowingNotification = false;
             _notifyIcon.BalloonTipClicked += (s, e) => _isShowingNotification = false;
 
             var trayMenuStrip = new ContextMenuStrip();
-
-            trayMenuStrip.Items.Add($"Admin? {BroadcastServices.IsUserAdministrator}");
+            
             trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
             trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (snd, evt) =>
             {
