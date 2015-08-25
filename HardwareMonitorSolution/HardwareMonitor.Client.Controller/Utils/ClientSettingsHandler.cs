@@ -34,6 +34,7 @@ namespace HardwareMonitor.Client.Controller.Utils
             {
                 _runAtStartup = value;
                 _settings.Set(_RUN_AT_STARTUP_KEY, _runAtStartup);
+                SetAutorun(_runAtStartup);
             }
         }
 
@@ -48,7 +49,6 @@ namespace HardwareMonitor.Client.Controller.Utils
             {
                 _startupNotification = value;
                 _settings.Set(_STARTUP_NOTIFICATION_KEY, _startupNotification);
-                SetAutorun(_startupNotification);
             }
         }
 
