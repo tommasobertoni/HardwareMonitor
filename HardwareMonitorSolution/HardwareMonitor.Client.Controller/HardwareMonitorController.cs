@@ -65,7 +65,7 @@ namespace HardwareMonitor.Client.Controller
                             _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME, message, ToolTipIcon.Warning);
                         }
                     };
-
+                    
                     _temperatureUI.OnLog += (s, messsage) => Console.WriteLine(messsage);
                     _temperatureUI.OnRequestUpdate += (s, e) => NotifyTemperature(_temperatureUI);
 

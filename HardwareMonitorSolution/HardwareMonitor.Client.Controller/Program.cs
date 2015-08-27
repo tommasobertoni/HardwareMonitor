@@ -10,14 +10,17 @@ namespace HardwareMonitor.Client.Controller
 {
     class Program
     {
+        private static void InitComponents()
+        {
+            IController controller = new HardwareMonitorController();
+            controller.TemperatureUI = new TemperatureUI();
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
             try
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-
                 var settings = new ClientSettingsHandler();
 
                 if ((settings.StartProgramAsAdmin || settings.StartupBroadcastServices) && !BroadcastServices.IsUserAdministrator)
@@ -27,8 +30,9 @@ namespace HardwareMonitor.Client.Controller
                 }
                 else
                 {
-                    IController controller = new HardwareMonitorController();
-                    controller.TemperatureUI = new TemperatureUI();
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    InitComponents();
                     Application.Run();
                 }
             }

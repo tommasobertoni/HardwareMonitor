@@ -52,8 +52,11 @@ namespace HardwareMonitor.Client.Temperature
             _settings = new TemperatureUISettingsHandler();
             _iconBitmap = Properties.Resources.temperatureIcon.ToBitmap();
 
-            FormClosed += (s, o) => OnViewExit(s, o);
-
+            FormClosed += (s, e) =>
+            {
+                if ((e as FormClosedEventArgs).CloseReason == CloseReason.UserClosing) OnViewExit(s, e);
+            };
+            
             #region Init ThermometerPictureBox
             thermometerPictureBox.MarginLeft = 20;
             thermometerPictureBox.MarginRight = 20;
