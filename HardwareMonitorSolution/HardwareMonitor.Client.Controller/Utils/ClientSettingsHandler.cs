@@ -109,7 +109,7 @@ namespace HardwareMonitor.Client.Controller.Utils
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(_STARTUP_APPLICATIONS_KEY, true))
             {
                 if (autorun) key.SetValue(_STARTUP_APPLICATION_NAME, "\"" + Application.ExecutablePath + "\"");
-                else if (key.GetValue(_STARTUP_APPLICATIONS_KEY) != null) key.DeleteValue(_STARTUP_APPLICATION_NAME);
+                else if (key.GetValue(_STARTUP_APPLICATION_NAME) != null) key.DeleteValue(_STARTUP_APPLICATION_NAME);
             }
         }
 
