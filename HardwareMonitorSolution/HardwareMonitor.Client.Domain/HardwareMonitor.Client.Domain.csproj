@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IClientSettingsOperations.cs" />
     <Compile Include="Contracts\IController.cs" />
     <Compile Include="Contracts\ITemperatureObserver.cs" />
     <Compile Include="Contracts\ITemperatureUI.cs" />
     <Compile Include="Contracts\IView.cs" />
+    <Compile Include="Utils\LogsManager.cs" />
     <Compile Include="Utils\SettingsStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

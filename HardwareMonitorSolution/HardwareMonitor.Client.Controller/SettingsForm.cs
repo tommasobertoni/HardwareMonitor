@@ -1,8 +1,7 @@
-﻿using HardwareMonitor.Client.Controller.Contracts;
-using HardwareMonitor.Client.Controller.Utils;
+﻿using HardwareMonitor.Client.Controller.Utils;
 using System;
 using System.Windows.Forms;
-using System.Drawing;
+using HardwareMonitor.Client.Domain.Contracts;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -13,7 +12,6 @@ namespace HardwareMonitor.Client.Controller
 
         private ClientSettingsHandler _settings;
         
-        public event EventHandler<bool> OnToggleBroadcastServices;
         public event EventHandler OnSavedSettings;
 
         private bool _areServicesRunning;
@@ -29,40 +27,20 @@ namespace HardwareMonitor.Client.Controller
             cbStartupRun.Checked = _settings.RunAtStartup;
             cbStartupNotification.Checked = _settings.StartupNotification;
             cbAdminRights.Checked = _settings.StartProgramAsAdmin;
-            cbStartupServices.Checked = _settings.StartupBroadcastServices;
-            
-            btnStartBroadcastServices.Enabled = canStartServices;
-            ServicesRunningLayout();
         }
         
-        private void ServicesRunningLayout()
-        {
-            if (_areServicesRunning)
-            {
-                btnStartBroadcastServices.Text = _STOP_SERVICES_TEXT;
-                btnStartBroadcastServices.BackColor = Color.Orange;
-            }
-            else
-            {
-                btnStartBroadcastServices.Text = _START_SERVICES_TEXT;
-                btnStartBroadcastServices.UseVisualStyleBackColor = true;
-            }
-        }
-
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
             _settings.RunAtStartup = cbStartupRun.Checked;
             _settings.StartupNotification = cbStartupNotification.Checked;
             _settings.StartProgramAsAdmin = cbAdminRights.Checked;
-            _settings.StartupBroadcastServices = cbStartupServices.Checked;
             OnSavedSettings?.Invoke(this, null);
         }
 
         private void ChangeLabelAdminRightsInfoVisibility()
         {
-            var uacRequired = cbAdminRights.Checked || cbStartupServices.Checked;
-            labelAdminRightsInfo.Visible = uacRequired;
-            if (uacRequired)
+            labelAdminRightsInfo.Visible = cbAdminRights.Checked;
+            if (cbAdminRights.Checked)
             {
                 btnSaveSettings.Image = Properties.Resources.uac_icon;
             }
@@ -77,13 +55,6 @@ namespace HardwareMonitor.Client.Controller
         private void cbStartupServices_CheckedChanged(object sender, EventArgs e)
         {
             ChangeLabelAdminRightsInfoVisibility();
-        }
-
-        private void btnToggleBroadcastServices_Click(object sender, EventArgs e)
-        {
-            _areServicesRunning = !_areServicesRunning;
-            ServicesRunningLayout();
-            OnToggleBroadcastServices?.Invoke(this, _areServicesRunning);
         }
     }
 }

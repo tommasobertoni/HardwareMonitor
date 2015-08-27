@@ -31,7 +31,6 @@ namespace HardwareMonitor.Client.Temperature
         }
         
         public event EventHandler<int> OnUpdateTimeChanged;
-        public event EventHandler<int> OnObserversCountChanged;
         public event EventHandler<string> OnNotification;
         public event EventHandler<string> OnLog;
         public event EventHandler OnViewExit;
@@ -40,8 +39,7 @@ namespace HardwareMonitor.Client.Temperature
         private bool _alert;
         private float _lastAvgCPUsTemperature;
         private int _lastSavedTemperatureAlertLevel,
-                    _lastSavedUpdateTime,
-                    _lastSavedObserversCount;
+                    _lastSavedUpdateTime;
 
         private TemperatureUISettingsHandler _settings;
 
@@ -78,12 +76,6 @@ namespace HardwareMonitor.Client.Temperature
             trackbarUpdateTime.Maximum = TemperatureUISettingsHandler.MAX_UPDATE_TIME / 1000;
             SetUpdateTime(_settings.UpdateTime);
 
-            nupObservers.Minimum = TemperatureUISettingsHandler.MIN_OBSERVERS_COUNT;
-            nupObservers.Maximum = TemperatureUISettingsHandler.MAX_OBSERVERS_COUNT;
-            trackBarObservers.Minimum = TemperatureUISettingsHandler.MIN_OBSERVERS_COUNT;
-            trackBarObservers.Maximum = TemperatureUISettingsHandler.MAX_OBSERVERS_COUNT;
-            SetObserversCount(_settings.ObserversCount);
-
             SetNotificationMethod(_settings.Notification);
 
             if (SoundResourcesManager.Instance.SelectedSound != null) UpdateSoundName();
@@ -116,15 +108,6 @@ namespace HardwareMonitor.Client.Temperature
             trackbarUpdateTime.MouseUp += (s, e) => UpdateUpdateTimeValue(trackbarUpdateTime.Value * 1000, true);
             trackbarUpdateTime.LostFocus += (s, e) => SetUpdateTime(_lastSavedUpdateTime);
 
-            nupObservers.MouseWheel += DoNothing_MouseWheel;
-            nupObservers.ValueChanged += (s, e) => UpdateObserversCountValue((int)nupObservers.Value);
-            nupObservers.MouseUp += (s, e) => UpdateObserversCountValue((int)nupObservers.Value, true);
-            nupObservers.LostFocus += (s, e) => SetObserversCount(_lastSavedObserversCount);
-            trackBarObservers.MouseWheel += DoNothing_MouseWheel;
-            trackBarObservers.ValueChanged += (s, e) => UpdateObserversCountValue(trackBarObservers.Value);
-            trackBarObservers.MouseUp += (s, e) => UpdateObserversCountValue(trackBarObservers.Value, true);
-            trackBarObservers.LostFocus += (s, e) => SetObserversCount(_lastSavedObserversCount);
-
             rbMessageAndSoundNotif.CheckedChanged += RB_CheckedChanged;
             rbMessageNotif.CheckedChanged += RB_CheckedChanged;
             rbNoNotif.CheckedChanged += RB_CheckedChanged;
@@ -132,15 +115,44 @@ namespace HardwareMonitor.Client.Temperature
 
             FormClosing += (s, e) =>
             {
-                Hide();
-                e.Cancel = true;
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    Hide();
+                    e.Cancel = true;
+                }
             };
+
+            ApplyTheme();
         }
 
         private void DoNothing_MouseWheel(object sender, EventArgs e)
         {
             HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
             ee.Handled = true;
+        }
+
+        private void ApplyTheme()
+        {
+            Color backgroundColor, foregroundColor;
+            Bitmap thermometerImage;
+
+            switch (_settings.Theme)
+            {
+                case Theme.DARK:
+                    backgroundColor = Color.Black;
+                    foregroundColor = SystemColors.Control;
+                    thermometerImage = Properties.Resources.ThermometerDark;
+                    break;
+
+                default:
+                    backgroundColor = SystemColors.Control;
+                    foregroundColor = Color.Black;
+                    thermometerImage = Properties.Resources.Thermometer;
+                    break;
+            }
+
+            BackColor = backgroundColor;
+            thermometerPictureBox.Image = thermometerImage;
         }
 
         private void UpdateTemperatureAlertValue(int temperature, bool saveSettings = false)
@@ -166,18 +178,6 @@ namespace HardwareMonitor.Client.Temperature
             }
         }
 
-        private void UpdateObserversCountValue(int observersCount, bool saveSettings = false)
-        {
-            SetObserversCount(observersCount);
-
-            if (saveSettings)
-            {
-                _lastSavedObserversCount = observersCount;
-                _settings.ObserversCount = _lastSavedObserversCount;
-                OnObserversCountChanged?.Invoke(this, observersCount);
-            }
-        }
-
         private void UpdateSoundName()
         {
             labelSoundName.Text = $"\"{SoundResourcesManager.Instance.SelectedSound?.Name ?? "No sound selected"}\"";
@@ -200,7 +200,7 @@ namespace HardwareMonitor.Client.Temperature
             if (labelAvgCPUsTemperature.InvokeRequired || thermometerPictureBox.InvokeRequired)
                 Invoke(new ThreadSafeUpdateAvgCPUsTemperature(OnAvgCPUsTemperatureChanged), new object[] { temperature });
             
-            labelAvgCPUsTemperature.Text = temperature.ToString();
+            labelAvgCPUsTemperature.Text = $"{temperature} °C";
             thermometerPictureBox.Value = (int)temperature;
 
             _lastAvgCPUsTemperature = temperature;
@@ -253,17 +253,6 @@ namespace HardwareMonitor.Client.Temperature
             nupUpdateTime.Value = updateTime;
         }
 
-        private void SetObserversCount(int observersCount)
-        {
-            if (observersCount < TemperatureUISettingsHandler.MIN_OBSERVERS_COUNT ||
-                observersCount > TemperatureUISettingsHandler.MAX_OBSERVERS_COUNT)
-                return;
-
-            labelObservers.Text = $"{observersCount}";
-            trackBarObservers.Value = observersCount;
-            nupObservers.Value = observersCount;
-        }
-
         private void SetNotificationMethod(NotificationMethod notification)
         {
             switch (notification)
@@ -284,7 +273,6 @@ namespace HardwareMonitor.Client.Temperature
         {
             _lastSavedTemperatureAlertLevel = trackBarTemperatureAlertLevel.Value;
             _lastSavedUpdateTime = trackbarUpdateTime.Value;
-            _lastSavedObserversCount = trackBarObservers.Value;
             if (resetPosition) CenterToScreen(); //ensure that the form is in the center of the screen
             Show();
         }

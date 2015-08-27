@@ -5,6 +5,5 @@ namespace HardwareMonitor.Client.Domain.Contracts
     public interface ITemperatureUI : IView, ITemperatureObserver
     {   
         event EventHandler<int> OnUpdateTimeChanged;
-        event EventHandler<int> OnObserversCountChanged;
     }
 }

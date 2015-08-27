@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace HardwareMonitor.Client.Controller.Contracts
+namespace HardwareMonitor.Client.Domain.Contracts
 {
     public interface IClientSettingsOperations
     {
-        event EventHandler<bool> OnToggleBroadcastServices;
         event EventHandler OnSavedSettings;
     }
 }

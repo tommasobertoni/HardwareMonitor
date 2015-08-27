@@ -1,9 +1,9 @@
 ﻿using System;
 using static System.IO.File;
 
-namespace HardwareMonitor.Client.Controller.Utils
+namespace HardwareMonitor.Client.Domain.Utils
 {
-    static class LogsManager
+    public static class LogsManager
     {
         private const string _SEPARATOR = "--------------------------------";
 

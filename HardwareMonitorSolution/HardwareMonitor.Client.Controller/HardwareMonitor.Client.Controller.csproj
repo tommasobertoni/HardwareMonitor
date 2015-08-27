@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IClientSettingsOperations.cs" />
     <Compile Include="HardwareMonitorController.cs" />
     <Compile Include="Monitors\RemoteAbstractMonitor.cs" />
     <Compile Include="Monitors\RemoteTemperatureMonitor.cs" />
@@ -75,7 +74,6 @@
     </Compile>
     <Compile Include="Utils\BroadcastServices.cs" />
     <Compile Include="Utils\ClientSettingsHandler.cs" />
-    <Compile Include="Utils\LogsManager.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +90,6 @@
     <ProjectReference Include="..\HardwareMonitor.Client.Domain\HardwareMonitor.Client.Domain.csproj">
       <Project>{5d79e443-97be-4497-915f-f748eeb19f7d}</Project>
       <Name>HardwareMonitor.Client.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HardwareMonitor.Client.TemperatureWCF\HardwareMonitor.Client.TemperatureWCF.csproj">
-      <Project>{aad8ad6d-f924-42ae-b1a4-8d77ecdb115f}</Project>
-      <Name>HardwareMonitor.Client.TemperatureWCF</Name>
     </ProjectReference>
     <ProjectReference Include="..\HardwareMonitor.Client.Temperature\HardwareMonitor.Client.Temperature.csproj">
       <Project>{08eab2b8-0e62-4b1b-abbd-83d8ce26bdcb}</Project>

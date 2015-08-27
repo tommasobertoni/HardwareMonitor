@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using HardwareMonitor.Client.Controller.Utils;
-using HardwareMonitor.Client.Controller.Contracts;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -52,11 +51,6 @@ namespace HardwareMonitor.Client.Controller
                         _remoteTemperatureMonitor.Settings.Update();
                     };
 
-                    _temperatureUI.OnObserversCountChanged += (s, observersCount) =>
-                    {
-                        _remoteTemperatureMonitor.Settings.ObserversCount = observersCount;
-                    };
-
                     _temperatureUI.OnNotification += (s, message) =>
                     {
                         if (!_isShowingNotification)
@@ -94,23 +88,6 @@ namespace HardwareMonitor.Client.Controller
         {
             _clientSettings = new ClientSettingsHandler();
 
-            #region Broadcast services
-            bool servicesStarted = false;
-            if (_clientSettings.StartupBroadcastServices)
-            {
-                if (BroadcastServices.IsUserAdministrator)
-                {
-                    servicesStarted = true;
-                    servicesStarted = servicesStarted && BroadcastServices.Temperature.Start(this);
-                }
-                else
-                {
-                    CloseAll();
-                    throw new AdminRightsRequiredException("Administrator rights are required to start the broadcast services");
-                }
-            }
-            #endregion
-
             Application.ApplicationExit += (s, e) =>
             {
                 CloseAll();
@@ -132,33 +109,11 @@ namespace HardwareMonitor.Client.Controller
             trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
             trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (snd, evt) =>
             {
-                var settingsForm = new SettingsForm(
-                    BroadcastServices.IsUserAdministrator,
-                    BroadcastServices.Temperature.IsRunning);
+                var settingsForm = new SettingsForm(BroadcastServices.IsUserAdministrator);
 
                 var settingsOperations = settingsForm as IClientSettingsOperations;
                 if (settingsOperations != null)
                 {
-                    settingsOperations.OnToggleBroadcastServices += (s, startServices) =>
-                    {
-                        string action;
-                        bool result;
-                        if (startServices)
-                        {
-                            action = "started";
-                            result = BroadcastServices.Temperature.Start(this);
-                        }
-                        else
-                        {
-                            action = "stopped";
-                            result = BroadcastServices.Temperature.Stop(this);
-                        }
-
-                        string negative = result ? "" : "n't";
-                        _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
-                            $"The broadcast services have{negative} been {action} successfully", ToolTipIcon.None);
-                    };
-
                     settingsOperations.OnSavedSettings += (s, e) => _clientSettings?.Update();
                 }
                 settingsForm.ShowDialog();
@@ -168,13 +123,10 @@ namespace HardwareMonitor.Client.Controller
 
             trayMenuStrip.Items.Add("Restart", null, (s, e) => {
 
-                var requiresAdministratorRights = _clientSettings.StartProgramAsAdmin || _clientSettings.StartupBroadcastServices;
-                CloseAll();
-
                 //if the privileges requested are different that the ones acquired
-                if (requiresAdministratorRights != BroadcastServices.IsUserAdministrator)
+                if (_clientSettings.StartProgramAsAdmin != BroadcastServices.IsUserAdministrator)
                 {
-                    ProcessUtils.RerunCurrentProcess(requiresAdministratorRights);
+                    ProcessUtils.RerunCurrentProcess(_clientSettings.StartProgramAsAdmin);
                     Application.Exit();
                 }
                 else Application.Restart();
@@ -199,9 +151,8 @@ namespace HardwareMonitor.Client.Controller
 
             if (_clientSettings.StartupNotification)
             {
-                var subSentence = servicesStarted ? " and the services have" : " has";
                 _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
-                    $"The program{subSentence} been started successfully", ToolTipIcon.None);
+                    $"The program has been started successfully", ToolTipIcon.None);
             }
         }
 
@@ -230,7 +181,6 @@ namespace HardwareMonitor.Client.Controller
         private void CloseAll()
         {
             _notifyIcon?.Dispose();
-            BroadcastServices.Temperature.Stop(this);
             _remoteTemperatureMonitor?.StopWorker();
             _temperatureUI?.Close();
             _temperatureObservers?.Clear();

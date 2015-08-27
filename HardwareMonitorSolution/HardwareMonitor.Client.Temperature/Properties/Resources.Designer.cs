@@ -171,5 +171,15 @@ namespace HardwareMonitor.Client.Temperature.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThermometerDark {
+            get {
+                object obj = ResourceManager.GetObject("ThermometerDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

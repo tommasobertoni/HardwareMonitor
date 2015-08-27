@@ -35,8 +35,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbAdminRights = new System.Windows.Forms.CheckBox();
-            this.cbStartupServices = new System.Windows.Forms.CheckBox();
-            this.btnStartBroadcastServices = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.labelAdminRightsInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -65,7 +63,7 @@
             // 
             this.btnSaveSettings.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSaveSettings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveSettings.Location = new System.Drawing.Point(100, 317);
+            this.btnSaveSettings.Location = new System.Drawing.Point(107, 251);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(115, 45);
             this.btnSaveSettings.TabIndex = 2;
@@ -105,33 +103,11 @@
             this.cbAdminRights.UseVisualStyleBackColor = true;
             this.cbAdminRights.CheckedChanged += new System.EventHandler(this.cbAdminRights_CheckedChanged);
             // 
-            // cbStartupServices
-            // 
-            this.cbStartupServices.AutoSize = true;
-            this.cbStartupServices.Location = new System.Drawing.Point(21, 165);
-            this.cbStartupServices.Name = "cbStartupServices";
-            this.cbStartupServices.Size = new System.Drawing.Size(269, 21);
-            this.cbStartupServices.TabIndex = 6;
-            this.cbStartupServices.Text = "Start broadcast services automatically";
-            this.toolTip1.SetToolTip(this.cbStartupServices, "Administrator rights are required to start the services");
-            this.cbStartupServices.UseVisualStyleBackColor = true;
-            this.cbStartupServices.CheckedChanged += new System.EventHandler(this.cbStartupServices_CheckedChanged);
-            // 
-            // btnStartBroadcastServices
-            // 
-            this.btnStartBroadcastServices.Location = new System.Drawing.Point(21, 198);
-            this.btnStartBroadcastServices.Name = "btnStartBroadcastServices";
-            this.btnStartBroadcastServices.Size = new System.Drawing.Size(194, 32);
-            this.btnStartBroadcastServices.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.btnStartBroadcastServices, "Administrator rights are required to start the services");
-            this.btnStartBroadcastServices.UseVisualStyleBackColor = true;
-            this.btnStartBroadcastServices.Click += new System.EventHandler(this.btnToggleBroadcastServices_Click);
-            // 
             // labelAdminRightsInfo
             // 
             this.labelAdminRightsInfo.AutoSize = true;
             this.labelAdminRightsInfo.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminRightsInfo.Location = new System.Drawing.Point(18, 270);
+            this.labelAdminRightsInfo.Location = new System.Drawing.Point(18, 198);
             this.labelAdminRightsInfo.Name = "labelAdminRightsInfo";
             this.labelAdminRightsInfo.Size = new System.Drawing.Size(277, 32);
             this.labelAdminRightsInfo.TabIndex = 8;
@@ -143,10 +119,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 381);
+            this.ClientSize = new System.Drawing.Size(330, 308);
             this.Controls.Add(this.labelAdminRightsInfo);
-            this.Controls.Add(this.btnStartBroadcastServices);
-            this.Controls.Add(this.cbStartupServices);
             this.Controls.Add(this.cbAdminRights);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -173,8 +147,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox cbAdminRights;
-        private System.Windows.Forms.CheckBox cbStartupServices;
-        private System.Windows.Forms.Button btnStartBroadcastServices;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label labelAdminRightsInfo;
     }

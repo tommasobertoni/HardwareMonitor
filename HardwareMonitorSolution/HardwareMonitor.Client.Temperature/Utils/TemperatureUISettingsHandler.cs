@@ -17,10 +17,8 @@ namespace HardwareMonitor.Client.Temperature.Utils
         public const int MIN_UPDATE_TIME = 2000;
         public const int MAX_UPDATE_TIME = 120000;
 
-        private const string _OBSERVERS_COUNT_KEY = "observerscount";
-        public const int _DEFAULT_OBSERVERS_COUNT = 5;
-        public const int MIN_OBSERVERS_COUNT = 0;
-        public const int MAX_OBSERVERS_COUNT = 30;
+        private const string _THEME_KEY = "theme";
+        private const Theme _DEFAULT_THEME = Theme.DEFAULT;
 
         private const string _NOTIFICATION_KEY = "notification";
         private const NotificationMethod _DEFAULT_NOTIFICATION = NotificationMethod.SOUND_AND_MESSAGE;
@@ -60,20 +58,17 @@ namespace HardwareMonitor.Client.Temperature.Utils
             }
         }
 
-        private int _observerscount;
-        public int ObserversCount
+        private Theme _theme;
+        public Theme Theme
         {
             get
             {
-                return _observerscount;
+                return _theme;
             }
             set
             {
-                if (value.Between(MIN_OBSERVERS_COUNT, MAX_OBSERVERS_COUNT, true))
-                {
-                    _observerscount = value;
-                    _settings.Set(_OBSERVERS_COUNT_KEY, _observerscount);
-                }
+                _theme = value;
+                _settings.Set(_THEME_KEY, (int)_theme);
             }
         }
 
@@ -120,15 +115,20 @@ namespace HardwareMonitor.Client.Temperature.Utils
             object value;
             _temperaturelertlevel = (value = _settings.Get(_TEMPERATURE_ALERT_LEVEL_KEY)) != null ? (int)value : _DEFAULT_TEMPERATURE_ALERT_LEVEL;
             _updatetime = (value = _settings.Get(_UPDATE_TIME_KEY)) != null ? (int)value : _DEFAULT_UPDATE_TIME;
-            _observerscount = (value = _settings.Get(_OBSERVERS_COUNT_KEY)) != null ? (int)value : _DEFAULT_OBSERVERS_COUNT;
-            _notification = (value = _settings.Get(_NOTIFICATION_KEY)) != null ? (NotificationMethod)((int)value) : _DEFAULT_NOTIFICATION;
-            _soundResourceName = (value = _settings.Get(_OBSERVERS_COUNT_KEY)) as string;
+            _notification = (value = _settings.Get(_NOTIFICATION_KEY)) != null ? (NotificationMethod)value : _DEFAULT_NOTIFICATION;
+            _theme = (value = _settings.Get(_THEME_KEY)) != null ? (Theme)value : _DEFAULT_THEME;
+            _soundResourceName = (value = _settings.Get(_SOUND_RESOURCE_NAME_KEY)) as string;
         }
 
         public void Close()
         {
             _settings.Close();
         }
+    }
+
+    public enum Theme
+    {
+        DEFAULT, DARK
     }
 
     static class Utils
