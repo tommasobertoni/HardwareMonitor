@@ -32,11 +32,11 @@
             this.rbNoNotif = new System.Windows.Forms.RadioButton();
             this.rbMessageNotif = new System.Windows.Forms.RadioButton();
             this.rbMessageAndSoundNotif = new System.Windows.Forms.RadioButton();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelNotificationMethodTitle = new System.Windows.Forms.Label();
             this.trackbarUpdateTime = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelUpdateTimeTitle = new System.Windows.Forms.Label();
             this.trackBarTemperatureAlertLevel = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTemperatureAlertLevelTitle = new System.Windows.Forms.Label();
             this.labelTemperature = new System.Windows.Forms.Label();
             this.labelUpdateTime = new System.Windows.Forms.Label();
             this.nupTemperatureAlertLevel = new System.Windows.Forms.NumericUpDown();
@@ -54,7 +54,7 @@
             // labelAvgCPUsTemperature
             // 
             this.labelAvgCPUsTemperature.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAvgCPUsTemperature.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelAvgCPUsTemperature.ForeColor = System.Drawing.SystemColors.ControlText;
             this.labelAvgCPUsTemperature.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.labelAvgCPUsTemperature.Location = new System.Drawing.Point(25, 10);
             this.labelAvgCPUsTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -66,7 +66,7 @@
             // rbNoNotif
             // 
             this.rbNoNotif.AutoSize = true;
-            this.rbNoNotif.ForeColor = System.Drawing.SystemColors.Control;
+            this.rbNoNotif.ForeColor = System.Drawing.SystemColors.ControlText;
             this.rbNoNotif.Location = new System.Drawing.Point(433, 326);
             this.rbNoNotif.Margin = new System.Windows.Forms.Padding(4);
             this.rbNoNotif.Name = "rbNoNotif";
@@ -79,7 +79,7 @@
             // rbMessageNotif
             // 
             this.rbMessageNotif.AutoSize = true;
-            this.rbMessageNotif.ForeColor = System.Drawing.SystemColors.Control;
+            this.rbMessageNotif.ForeColor = System.Drawing.SystemColors.ControlText;
             this.rbMessageNotif.Location = new System.Drawing.Point(339, 326);
             this.rbMessageNotif.Margin = new System.Windows.Forms.Padding(4);
             this.rbMessageNotif.Name = "rbMessageNotif";
@@ -92,7 +92,7 @@
             // rbMessageAndSoundNotif
             // 
             this.rbMessageAndSoundNotif.AutoSize = true;
-            this.rbMessageAndSoundNotif.ForeColor = System.Drawing.SystemColors.Control;
+            this.rbMessageAndSoundNotif.ForeColor = System.Drawing.SystemColors.ControlText;
             this.rbMessageAndSoundNotif.Location = new System.Drawing.Point(175, 326);
             this.rbMessageAndSoundNotif.Margin = new System.Windows.Forms.Padding(4);
             this.rbMessageAndSoundNotif.Name = "rbMessageAndSoundNotif";
@@ -102,21 +102,21 @@
             this.rbMessageAndSoundNotif.Text = "sound and message";
             this.rbMessageAndSoundNotif.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // labelNotificationMethodTitle
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Marlett", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(168, 288);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(178, 23);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Notification Method";
+            this.labelNotificationMethodTitle.AutoSize = true;
+            this.labelNotificationMethodTitle.Font = new System.Drawing.Font("Marlett", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNotificationMethodTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelNotificationMethodTitle.Location = new System.Drawing.Point(168, 288);
+            this.labelNotificationMethodTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelNotificationMethodTitle.Name = "labelNotificationMethodTitle";
+            this.labelNotificationMethodTitle.Size = new System.Drawing.Size(178, 23);
+            this.labelNotificationMethodTitle.TabIndex = 13;
+            this.labelNotificationMethodTitle.Text = "Notification Method";
             // 
             // trackbarUpdateTime
             // 
-            this.trackbarUpdateTime.BackColor = System.Drawing.Color.Black;
+            this.trackbarUpdateTime.BackColor = System.Drawing.SystemColors.Control;
             this.trackbarUpdateTime.LargeChange = 1;
             this.trackbarUpdateTime.Location = new System.Drawing.Point(260, 203);
             this.trackbarUpdateTime.Margin = new System.Windows.Forms.Padding(4);
@@ -126,21 +126,21 @@
             this.trackbarUpdateTime.TickFrequency = 10;
             this.trackbarUpdateTime.TickStyle = System.Windows.Forms.TickStyle.Both;
             // 
-            // label2
+            // labelUpdateTimeTitle
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Marlett", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(168, 170);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 23);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Update time";
+            this.labelUpdateTimeTitle.AutoSize = true;
+            this.labelUpdateTimeTitle.Font = new System.Drawing.Font("Marlett", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUpdateTimeTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelUpdateTimeTitle.Location = new System.Drawing.Point(168, 170);
+            this.labelUpdateTimeTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelUpdateTimeTitle.Name = "labelUpdateTimeTitle";
+            this.labelUpdateTimeTitle.Size = new System.Drawing.Size(116, 23);
+            this.labelUpdateTimeTitle.TabIndex = 17;
+            this.labelUpdateTimeTitle.Text = "Update time";
             // 
             // trackBarTemperatureAlertLevel
             // 
-            this.trackBarTemperatureAlertLevel.BackColor = System.Drawing.Color.Black;
+            this.trackBarTemperatureAlertLevel.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarTemperatureAlertLevel.LargeChange = 1;
             this.trackBarTemperatureAlertLevel.Location = new System.Drawing.Point(260, 98);
             this.trackBarTemperatureAlertLevel.Margin = new System.Windows.Forms.Padding(4);
@@ -150,17 +150,17 @@
             this.trackBarTemperatureAlertLevel.TickFrequency = 5;
             this.trackBarTemperatureAlertLevel.TickStyle = System.Windows.Forms.TickStyle.Both;
             // 
-            // label1
+            // labelTemperatureAlertLevelTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Marlett", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(168, 65);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 23);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Temperature Alert Level";
+            this.labelTemperatureAlertLevelTitle.AutoSize = true;
+            this.labelTemperatureAlertLevelTitle.Font = new System.Drawing.Font("Marlett", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemperatureAlertLevelTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelTemperatureAlertLevelTitle.Location = new System.Drawing.Point(168, 65);
+            this.labelTemperatureAlertLevelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTemperatureAlertLevelTitle.Name = "labelTemperatureAlertLevelTitle";
+            this.labelTemperatureAlertLevelTitle.Size = new System.Drawing.Size(219, 23);
+            this.labelTemperatureAlertLevelTitle.TabIndex = 8;
+            this.labelTemperatureAlertLevelTitle.Text = "Temperature Alert Level";
             // 
             // labelTemperature
             // 
@@ -209,9 +209,9 @@
             // 
             // labelSoundName
             // 
-            this.labelSoundName.BackColor = System.Drawing.Color.Black;
+            this.labelSoundName.BackColor = System.Drawing.SystemColors.Control;
             this.labelSoundName.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSoundName.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelSoundName.ForeColor = System.Drawing.SystemColors.ControlText;
             this.labelSoundName.Location = new System.Drawing.Point(309, 367);
             this.labelSoundName.Name = "labelSoundName";
             this.labelSoundName.Size = new System.Drawing.Size(251, 36);
@@ -236,7 +236,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(582, 459);
             this.Controls.Add(this.labelSoundName);
             this.Controls.Add(this.btnChangeSound);
@@ -246,20 +246,21 @@
             this.Controls.Add(this.labelTemperature);
             this.Controls.Add(this.thermometerPictureBox);
             this.Controls.Add(this.trackBarTemperatureAlertLevel);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTemperatureAlertLevelTitle);
             this.Controls.Add(this.labelAvgCPUsTemperature);
             this.Controls.Add(this.rbNoNotif);
             this.Controls.Add(this.rbMessageNotif);
             this.Controls.Add(this.rbMessageAndSoundNotif);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelNotificationMethodTitle);
             this.Controls.Add(this.trackbarUpdateTime);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelUpdateTimeTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TemperatureUI";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = " ";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.trackbarUpdateTime)).EndInit();
@@ -278,11 +279,11 @@
         private System.Windows.Forms.RadioButton rbNoNotif;
         private System.Windows.Forms.RadioButton rbMessageNotif;
         private System.Windows.Forms.RadioButton rbMessageAndSoundNotif;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelNotificationMethodTitle;
         private System.Windows.Forms.TrackBar trackbarUpdateTime;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelUpdateTimeTitle;
         private System.Windows.Forms.TrackBar trackBarTemperatureAlertLevel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTemperatureAlertLevelTitle;
         private System.Windows.Forms.Label labelTemperature;
         private System.Windows.Forms.Label labelUpdateTime;
         private System.Windows.Forms.NumericUpDown nupTemperatureAlertLevel;

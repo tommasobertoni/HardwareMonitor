@@ -1,4 +1,4 @@
-﻿namespace HardwareMonitor.Client.Controller
+﻿namespace HardwareMonitor.Client.Settings
 {
     partial class SettingsForm
     {
@@ -32,11 +32,14 @@
             this.cbStartupNotification = new System.Windows.Forms.CheckBox();
             this.cbStartupRun = new System.Windows.Forms.CheckBox();
             this.btnSaveSettings = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelApplicationTitle = new System.Windows.Forms.Label();
+            this.labelPrivilegesTitle = new System.Windows.Forms.Label();
             this.cbAdminRights = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.labelAdminRightsInfo = new System.Windows.Forms.Label();
+            this.btnThemeLight = new System.Windows.Forms.Button();
+            this.labelThemeTitle = new System.Windows.Forms.Label();
+            this.btnThemeDark = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cbStartupNotification
@@ -61,9 +64,8 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSaveSettings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveSettings.Location = new System.Drawing.Point(107, 251);
+            this.btnSaveSettings.Location = new System.Drawing.Point(110, 335);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(115, 45);
             this.btnSaveSettings.TabIndex = 2;
@@ -72,25 +74,25 @@
             this.btnSaveSettings.UseVisualStyleBackColor = true;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
-            // label1
+            // labelApplicationTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Application";
+            this.labelApplicationTitle.AutoSize = true;
+            this.labelApplicationTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelApplicationTitle.Location = new System.Drawing.Point(17, 7);
+            this.labelApplicationTitle.Name = "labelApplicationTitle";
+            this.labelApplicationTitle.Size = new System.Drawing.Size(102, 20);
+            this.labelApplicationTitle.TabIndex = 3;
+            this.labelApplicationTitle.Text = "Application";
             // 
-            // label2
+            // labelPrivilegesTitle
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 105);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Privileges";
+            this.labelPrivilegesTitle.AutoSize = true;
+            this.labelPrivilegesTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrivilegesTitle.Location = new System.Drawing.Point(17, 105);
+            this.labelPrivilegesTitle.Name = "labelPrivilegesTitle";
+            this.labelPrivilegesTitle.Size = new System.Drawing.Size(92, 20);
+            this.labelPrivilegesTitle.TabIndex = 4;
+            this.labelPrivilegesTitle.Text = "Privileges";
             // 
             // cbAdminRights
             // 
@@ -107,7 +109,7 @@
             // 
             this.labelAdminRightsInfo.AutoSize = true;
             this.labelAdminRightsInfo.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminRightsInfo.Location = new System.Drawing.Point(18, 198);
+            this.labelAdminRightsInfo.Location = new System.Drawing.Point(23, 283);
             this.labelAdminRightsInfo.Name = "labelAdminRightsInfo";
             this.labelAdminRightsInfo.Size = new System.Drawing.Size(277, 32);
             this.labelAdminRightsInfo.TabIndex = 8;
@@ -115,15 +117,51 @@
             this.labelAdminRightsInfo.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelAdminRightsInfo.Visible = false;
             // 
+            // btnThemeLight
+            // 
+            this.btnThemeLight.Location = new System.Drawing.Point(21, 208);
+            this.btnThemeLight.Name = "btnThemeLight";
+            this.btnThemeLight.Size = new System.Drawing.Size(106, 38);
+            this.btnThemeLight.TabIndex = 9;
+            this.btnThemeLight.Text = "Force Light";
+            this.btnThemeLight.UseVisualStyleBackColor = true;
+            this.btnThemeLight.Click += new System.EventHandler(this.btnThemeLight_Click);
+            // 
+            // labelThemeTitle
+            // 
+            this.labelThemeTitle.AutoSize = true;
+            this.labelThemeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelThemeTitle.Location = new System.Drawing.Point(17, 176);
+            this.labelThemeTitle.Name = "labelThemeTitle";
+            this.labelThemeTitle.Size = new System.Drawing.Size(65, 20);
+            this.labelThemeTitle.TabIndex = 10;
+            this.labelThemeTitle.Text = "Theme";
+            // 
+            // btnThemeDark
+            // 
+            this.btnThemeDark.BackColor = System.Drawing.SystemColors.ControlText;
+            this.btnThemeDark.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnThemeDark.Location = new System.Drawing.Point(133, 208);
+            this.btnThemeDark.Name = "btnThemeDark";
+            this.btnThemeDark.Size = new System.Drawing.Size(106, 38);
+            this.btnThemeDark.TabIndex = 11;
+            this.btnThemeDark.Text = "Force Dark";
+            this.btnThemeDark.UseVisualStyleBackColor = false;
+            this.btnThemeDark.Click += new System.EventHandler(this.btnThemeDark_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 308);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(330, 392);
+            this.Controls.Add(this.btnThemeDark);
+            this.Controls.Add(this.labelThemeTitle);
+            this.Controls.Add(this.btnThemeLight);
             this.Controls.Add(this.labelAdminRightsInfo);
             this.Controls.Add(this.cbAdminRights);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelPrivilegesTitle);
+            this.Controls.Add(this.labelApplicationTitle);
             this.Controls.Add(this.btnSaveSettings);
             this.Controls.Add(this.cbStartupRun);
             this.Controls.Add(this.cbStartupNotification);
@@ -131,6 +169,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.TopMost = true;
@@ -144,10 +183,13 @@
         private System.Windows.Forms.CheckBox cbStartupNotification;
         private System.Windows.Forms.CheckBox cbStartupRun;
         private System.Windows.Forms.Button btnSaveSettings;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelApplicationTitle;
+        private System.Windows.Forms.Label labelPrivilegesTitle;
         private System.Windows.Forms.CheckBox cbAdminRights;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label labelAdminRightsInfo;
+        private System.Windows.Forms.Button btnThemeLight;
+        private System.Windows.Forms.Label labelThemeTitle;
+        private System.Windows.Forms.Button btnThemeDark;
     }
 }

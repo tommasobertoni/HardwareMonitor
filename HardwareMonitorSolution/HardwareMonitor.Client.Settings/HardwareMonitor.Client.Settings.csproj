@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D79E443-97BE-4497-915F-F748EEB19F7D}</ProjectGuid>
+    <ProjectGuid>{B68961CB-4037-4E63-B261-EC46682149A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HardwareMonitor.Client.Domain</RootNamespace>
-    <AssemblyName>HardwareMonitor.Client.Domain</AssemblyName>
+    <RootNamespace>HardwareMonitor.Client.Settings</RootNamespace>
+    <AssemblyName>HardwareMonitor.Client.Settings</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +42,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IClientSettingsOperations.cs" />
-    <Compile Include="Contracts\IController.cs" />
-    <Compile Include="Contracts\ITemperatureObserver.cs" />
-    <Compile Include="Contracts\ITemperatureUI.cs" />
-    <Compile Include="Contracts\IView.cs" />
-    <Compile Include="Entities\Theme.cs" />
-    <Compile Include="Utils\LogsManager.cs" />
-    <Compile Include="Utils\SettingsStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ClientSettingsHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HardwareMonitor.Client.Domain\HardwareMonitor.Client.Domain.csproj">
+      <Project>{5d79e443-97be-4497-915f-f748eeb19f7d}</Project>
+      <Name>HardwareMonitor.Client.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uac-image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

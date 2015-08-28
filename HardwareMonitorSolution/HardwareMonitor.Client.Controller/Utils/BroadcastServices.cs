@@ -3,7 +3,7 @@ using System.Security.Principal;
 
 namespace HardwareMonitor.Client.Controller.Utils
 {
-    static class BroadcastServices
+    static class UACUtils
     {
         private static bool? _isUserAdministrator;
 

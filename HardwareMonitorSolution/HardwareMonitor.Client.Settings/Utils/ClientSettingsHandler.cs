@@ -1,8 +1,9 @@
-﻿using HardwareMonitor.Client.Domain.Utils;
+﻿using HardwareMonitor.Client.Domain.Entities;
+using HardwareMonitor.Client.Domain.Utils;
 using Microsoft.Win32;
 using System.Windows.Forms;
 
-namespace HardwareMonitor.Client.Controller.Utils
+namespace HardwareMonitor.Client.Settings.Utils
 {
     public class ClientSettingsHandler
     {
@@ -19,6 +20,9 @@ namespace HardwareMonitor.Client.Controller.Utils
 
         private const string _START_PROGRAM_AS_ADMIN_KEY = "startprogramasadmin";
         private const bool _DEFAULT_START_PROGRAM_AS_ADMIN = false;
+
+        private const string _THEME_KEY = "theme";
+        private const Theme _DEFAULT_THEME = Theme.LIGHT;
 
         private bool _runAtStartup;
         public bool RunAtStartup
@@ -63,6 +67,20 @@ namespace HardwareMonitor.Client.Controller.Utils
             }
         }
 
+        private Theme _theme;
+        public Theme Theme
+        {
+            get
+            {
+                return _theme;
+            }
+            set
+            {
+                _theme = value;
+                _settings.Set(_THEME_KEY, (int)_theme);
+            }
+        }
+
         private SettingsStorage _settings;
 
         public ClientSettingsHandler(string key = _DEFAULT_CLIENT_SETTINGS_KEY)
@@ -73,15 +91,18 @@ namespace HardwareMonitor.Client.Controller.Utils
 
         public void Update()
         {
-            string value;
-            if (!bool.TryParse(value = _settings.Get(_RUN_AT_STARTUP_KEY)?.ToString(), out _runAtStartup))
+            string stringValue;
+            if (!bool.TryParse(stringValue = _settings.Get(_RUN_AT_STARTUP_KEY)?.ToString(), out _runAtStartup))
                 _runAtStartup = _DEFAULT_RUN_AT_STARTUP;
 
-            if (!bool.TryParse(value = _settings.Get(_STARTUP_NOTIFICATION_KEY)?.ToString(), out _startupNotification))
+            if (!bool.TryParse(stringValue = _settings.Get(_STARTUP_NOTIFICATION_KEY)?.ToString(), out _startupNotification))
                 _startupNotification = _DEFAULT_STARTUP_NOTIFICATION;
 
-            if (!bool.TryParse(value = _settings.Get(_START_PROGRAM_AS_ADMIN_KEY)?.ToString(), out _startProgramAsAdmin))
+            if (!bool.TryParse(stringValue = _settings.Get(_START_PROGRAM_AS_ADMIN_KEY)?.ToString(), out _startProgramAsAdmin))
                 _startProgramAsAdmin = _DEFAULT_START_PROGRAM_AS_ADMIN;
+
+            object value;
+            _theme = (value = _settings.Get(_THEME_KEY)) != null ? (Theme)value : _DEFAULT_THEME;
         }
 
         private void SetAutorun(bool autorun)

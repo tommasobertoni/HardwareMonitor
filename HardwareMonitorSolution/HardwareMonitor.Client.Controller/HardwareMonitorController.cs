@@ -4,15 +4,50 @@ using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using HardwareMonitor.Client.Controller.Utils;
+using HardwareMonitor.Client.Settings.Utils;
+using System.Reflection;
+using static HardwareMonitor.Client.Domain.Utils.LogsManager;
 
 namespace HardwareMonitor.Client.Controller
 {
     public class HardwareMonitorController : IController
     {
         private const string _APPLICATION_NAME = "Hardware Monitor Client";
-        private const int _NOTIFICATION_TIMEOUT = 10000;
         private const string _MONITORS_ICON_NAME = "Monitors";
+        private const int _NOTIFICATION_TIMEOUT = 10000;
+
+        #region Settings
         private const string _SETTINGS_ICON_NAME = "Settings";
+        private readonly static string _SETTINGS_UI_NAME = $"{_APPLICATION_NAME} - {_SETTINGS_ICON_NAME}";
+
+        private IClientSettingsUI _clientSettingsUI;
+        public IClientSettingsUI SettingsUI
+        {
+            private get { return _clientSettingsUI; }
+            set
+            {
+                _clientSettingsUI?.Close();
+                _clientSettingsUI = value;
+
+                var settingsItem = _notifyIcon.ContextMenuStrip.Items[_notifyIcon.ContextMenuStrip.Items.IndexOfKey(_SETTINGS_ICON_NAME)];
+
+                if (_clientSettings != null)
+                {
+                    _clientSettingsUI.Name = _SETTINGS_UI_NAME;
+                    _clientSettingsUI.OnSavedSettings += (s, e) => _clientSettings?.Update();
+                    _clientSettingsUI.OnForceTheme += (s, theme) =>
+                    {
+                        _clientSettingsUI.ForceTheme(theme);
+                        TemperatureUI?.ForceTheme(theme);
+                    };
+                    settingsItem.Image = _clientSettingsUI.Icon;
+                    _clientSettingsUI.OnLog += (s, message) => Log(message, LogLevel.VERBOSE);
+                }
+                
+                settingsItem.Visible = _clientSettingsUI != null;
+            }
+        }
+        #endregion
 
         #region Temperature
         private const string _TEMPERATURE_ICON_NAME = "Temperature";
@@ -35,12 +70,13 @@ namespace HardwareMonitor.Client.Controller
 
         private ITemperatureUI _temperatureUI;
         public ITemperatureUI TemperatureUI {
+            private get { return _temperatureUI; }
             set
             {
                 RemoveObserver(_temperatureUI);
                 _temperatureUI?.Close();
                 _temperatureUI = value;
-                GetMonitorsToolStripItemCollection().RemoveByKey(_TEMPERATURE_ICON_NAME);
+                RemoveTrayItemByKey(_TEMPERATURE_ICON_NAME);
                 
                 if (_temperatureUI != null)
                 {
@@ -60,11 +96,11 @@ namespace HardwareMonitor.Client.Controller
                         }
                     };
                     
-                    _temperatureUI.OnLog += (s, messsage) => Console.WriteLine(messsage);
+                    _temperatureUI.OnLog += (s, message) => Log(message, LogLevel.VERBOSE);
                     _temperatureUI.OnRequestUpdate += (s, e) => NotifyTemperature(_temperatureUI);
 
-                    GetMonitorsToolStripItemCollection().Add(_TEMPERATURE_ICON_NAME, _temperatureUI.Icon,
-                        (s, e) => _temperatureUI?.Show(true)).Name = _TEMPERATURE_ICON_NAME;
+                    AddTrayItem(_TEMPERATURE_ICON_NAME, _temperatureUI.Icon,
+                        (s, e) => _temperatureUI?.Show(true), _TEMPERATURE_ICON_NAME);
 
                     AddObserver(_temperatureUI);
                 }
@@ -72,11 +108,27 @@ namespace HardwareMonitor.Client.Controller
         }
         #endregion
 
-        private ToolStripItemCollection GetMonitorsToolStripItemCollection()
+        private ToolStripItem AddTrayItem(string text, System.Drawing.Image image, EventHandler onClick, string key)
+        {
+            var monitorItems = GetMonitorsToolStripMenuItem();
+            var item = monitorItems.DropDown.Items.Add(text, image, onClick);
+            item.Name = key;
+            monitorItems.Visible = true;
+            return item;
+        }
+
+        private void RemoveTrayItemByKey(string key)
+        {
+            var monitorItems = GetMonitorsToolStripMenuItem();
+            monitorItems.DropDown.Items.RemoveByKey(key);
+            if (monitorItems.DropDown.Items.Count == 0)
+                monitorItems.Visible = false;
+        }
+
+        private ToolStripMenuItem GetMonitorsToolStripMenuItem()
         {
             var items = _notifyIcon.ContextMenuStrip.Items;
-            var monitorsItem = items[items.IndexOfKey(_MONITORS_ICON_NAME)] as ToolStripMenuItem;
-            return monitorsItem.DropDown.Items;
+            return items[items.IndexOfKey(_MONITORS_ICON_NAME)] as ToolStripMenuItem;
         }
 
         private ClientSettingsHandler _clientSettings;
@@ -98,33 +150,28 @@ namespace HardwareMonitor.Client.Controller
             {
                 Text = _APPLICATION_NAME,
                 Visible = true,
-                Icon = BroadcastServices.IsUserAdministrator ? Properties.Resources.ohmuaclogo : Properties.Resources.ohmlogo
+                Icon = UACUtils.IsUserAdministrator ? Properties.Resources.ohmuaclogo : Properties.Resources.ohmlogo
             };
-
+            
             _notifyIcon.BalloonTipClosed += (s, e) => _isShowingNotification = false;
             _notifyIcon.BalloonTipClicked += (s, e) => _isShowingNotification = false;
 
             var trayMenuStrip = new ContextMenuStrip();
-            
-            trayMenuStrip.Items.Add(_MONITORS_ICON_NAME).Name = _MONITORS_ICON_NAME;
-            trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, Properties.Resources.Settings, (snd, evt) =>
-            {
-                var settingsForm = new SettingsForm(BroadcastServices.IsUserAdministrator);
 
-                var settingsOperations = settingsForm as IClientSettingsOperations;
-                if (settingsOperations != null)
-                {
-                    settingsOperations.OnSavedSettings += (s, e) => _clientSettings?.Update();
-                }
-                settingsForm.ShowDialog();
-            });
+            var monitorItems = trayMenuStrip.Items.Add(_MONITORS_ICON_NAME);
+            monitorItems.Name = _MONITORS_ICON_NAME;
+            monitorItems.Visible = false;
+
+            var settingsItem = trayMenuStrip.Items.Add(_SETTINGS_ICON_NAME, null, (snd, evt) => SettingsUI?.Show(true));
+            settingsItem.Name = _SETTINGS_ICON_NAME;
+            settingsItem.Visible = false;
 
             trayMenuStrip.Items.Add(new ToolStripSeparator());
 
             trayMenuStrip.Items.Add("Restart", null, (s, e) => {
 
                 //if the privileges requested are different that the ones acquired
-                if (_clientSettings.StartProgramAsAdmin != BroadcastServices.IsUserAdministrator)
+                if (_clientSettings.StartProgramAsAdmin != UACUtils.IsUserAdministrator)
                 {
                     ProcessUtils.RerunCurrentProcess(_clientSettings.StartProgramAsAdmin);
                     Application.Exit();
@@ -139,6 +186,7 @@ namespace HardwareMonitor.Client.Controller
             });
 
             _notifyIcon.ContextMenuStrip = trayMenuStrip;
+            _notifyIcon.MouseClick += NotifyIcon_click;
             #endregion
 
             #region Init Remote Temperature Monitor
@@ -148,11 +196,21 @@ namespace HardwareMonitor.Client.Controller
                 NotifyTemperature();
             };
             #endregion
-
+            
             if (_clientSettings.StartupNotification)
             {
                 _notifyIcon.ShowBalloonTip(_NOTIFICATION_TIMEOUT, _APPLICATION_NAME,
                     $"The program has been started successfully", ToolTipIcon.None);
+            }
+        }
+
+        private void NotifyIcon_click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //http://stackoverflow.com/questions/2208690/invoke-notifyicons-context-menu
+                MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
+                mi.Invoke(_notifyIcon, null);
             }
         }
 
@@ -181,9 +239,12 @@ namespace HardwareMonitor.Client.Controller
         private void CloseAll()
         {
             _notifyIcon?.Dispose();
+
             _remoteTemperatureMonitor?.StopWorker();
-            _temperatureUI?.Close();
+            TemperatureUI?.Close();
             _temperatureObservers?.Clear();
+
+            SettingsUI.Close();
         }
     }
 

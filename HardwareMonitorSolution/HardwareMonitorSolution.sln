@@ -25,6 +25,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitor.Client.Setu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Setup.CustomActions", "HardwareMonitor.Client.Setup.CustomActions\HardwareMonitor.Client.Setup.CustomActions.csproj", "{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Settings", "HardwareMonitor.Client.Settings\HardwareMonitor.Client.Settings.csproj", "{B68961CB-4037-4E63-B261-EC46682149A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68961CB-4037-4E63-B261-EC46682149A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68961CB-4037-4E63-B261-EC46682149A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68961CB-4037-4E63-B261-EC46682149A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68961CB-4037-4E63-B261-EC46682149A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

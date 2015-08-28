@@ -37,6 +37,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -66,14 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\BroadcastServices.cs" />
-    <Compile Include="Utils\ClientSettingsHandler.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +85,10 @@
       <Project>{5d79e443-97be-4497-915f-f748eeb19f7d}</Project>
       <Name>HardwareMonitor.Client.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HardwareMonitor.Client.Settings\HardwareMonitor.Client.Settings.csproj">
+      <Project>{b68961cb-4037-4e63-b261-ec46682149a0}</Project>
+      <Name>HardwareMonitor.Client.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HardwareMonitor.Client.Temperature\HardwareMonitor.Client.Temperature.csproj">
       <Project>{08eab2b8-0e62-4b1b-abbd-83d8ce26bdcb}</Project>
       <Name>HardwareMonitor.Client.Temperature</Name>
@@ -100,9 +98,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

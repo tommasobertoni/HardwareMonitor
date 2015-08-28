@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HardwareMonitor.Client.Domain.Entities;
+using System;
 using System.Drawing;
 
 namespace HardwareMonitor.Client.Domain.Contracts
@@ -14,6 +15,8 @@ namespace HardwareMonitor.Client.Domain.Contracts
         void Hide();
 
         void Close();
+
+        void ForceTheme(Theme theme);
 
         event EventHandler<string> OnNotification;
         event EventHandler<string> OnLog;

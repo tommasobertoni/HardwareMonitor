@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HardwareMonitor.Client.Controller.Properties {
+namespace HardwareMonitor.Client.Settings.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HardwareMonitor.Client.Controller.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HardwareMonitor.Client.Controller.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HardwareMonitor.Client.Settings.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,20 +63,20 @@ namespace HardwareMonitor.Client.Controller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon ohmlogo {
+        internal static System.Drawing.Icon settings_icon {
             get {
-                object obj = ResourceManager.GetObject("ohmlogo", resourceCulture);
+                object obj = ResourceManager.GetObject("settings_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon ohmuaclogo {
+        internal static System.Drawing.Bitmap uac_image {
             get {
-                object obj = ResourceManager.GetObject("ohmuaclogo", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("uac_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -46,6 +46,8 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
             }
         }
 
+        public Brush SelectionBrush { get; set; }
+
         // Hides these properties in the designer
         [Browsable(false)]
         public override DrawMode DrawMode
@@ -83,6 +85,7 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
         {
             this.DrawMode = DrawMode.OwnerDrawFixed;
             this.SelectionMode = SelectionMode.One;
+            SelectionBrush = Brushes.Lime;
             this.ItemHeight = this.FontHeight;
             
             this.Align = new StringFormat(StringFormat.GenericDefault);
@@ -111,7 +114,7 @@ namespace HardwareMonitor.Client.Temperature.CustomControls
             // if selected, mark the background differently
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
-                e.Graphics.FillRectangle(Brushes.Lime, e.Bounds);
+                e.Graphics.FillRectangle(SelectionBrush, e.Bounds);
             }
             else
             {

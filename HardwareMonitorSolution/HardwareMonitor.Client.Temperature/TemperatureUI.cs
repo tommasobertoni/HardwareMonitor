@@ -3,6 +3,7 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 using HardwareMonitor.Client.Temperature.Utils;
+using HardwareMonitor.Client.Domain.Entities;
 
 namespace HardwareMonitor.Client.Temperature
 {
@@ -20,16 +21,9 @@ namespace HardwareMonitor.Client.Temperature
                 Text = value;
             }
         }
-
-        private Bitmap _iconBitmap;
-        Image IView.Icon
-        {
-            get
-            {
-                return _iconBitmap;
-            }
-        }
         
+        Image IView.Icon { get; } = Properties.Resources.temperatureIcon.ToBitmap();
+
         public event EventHandler<int> OnUpdateTimeChanged;
         public event EventHandler<string> OnNotification;
         public event EventHandler<string> OnLog;
@@ -42,13 +36,13 @@ namespace HardwareMonitor.Client.Temperature
                     _lastSavedUpdateTime;
 
         private TemperatureUISettingsHandler _settings;
+        private IView _changeSoundUI;
 
         public TemperatureUI()
         {
             InitializeComponent();
 
             _settings = new TemperatureUISettingsHandler();
-            _iconBitmap = Properties.Resources.temperatureIcon.ToBitmap();
 
             FormClosed += (s, e) =>
             {
@@ -139,20 +133,45 @@ namespace HardwareMonitor.Client.Temperature
             switch (_settings.Theme)
             {
                 case Theme.DARK:
-                    backgroundColor = Color.Black;
+                    backgroundColor = SystemColors.ControlText;
                     foregroundColor = SystemColors.Control;
                     thermometerImage = Properties.Resources.ThermometerDark;
                     break;
 
                 default:
                     backgroundColor = SystemColors.Control;
-                    foregroundColor = Color.Black;
+                    foregroundColor = SystemColors.ControlText;
                     thermometerImage = Properties.Resources.Thermometer;
                     break;
             }
 
             BackColor = backgroundColor;
+            trackBarTemperatureAlertLevel.BackColor = backgroundColor;
+            trackbarUpdateTime.BackColor = backgroundColor;
+            labelAvgCPUsTemperature.ForeColor = foregroundColor;
+            labelTemperatureAlertLevelTitle.ForeColor = foregroundColor;
+            labelTemperature.ForeColor = foregroundColor;
+            labelUpdateTimeTitle.ForeColor = foregroundColor;
+            labelUpdateTime.ForeColor = foregroundColor;
+            labelNotificationMethodTitle.ForeColor = foregroundColor;
+            rbMessageAndSoundNotif.ForeColor = foregroundColor;
+            rbMessageNotif.ForeColor = foregroundColor;
+            rbNoNotif.ForeColor = foregroundColor;
+            labelSoundName.ForeColor = foregroundColor;
+            labelSoundName.BackColor = backgroundColor;
+            btnChangeSound.ForeColor = foregroundColor;
+            btnChangeSound.BackColor = backgroundColor;
             thermometerPictureBox.Image = thermometerImage;
+        }
+
+        void IView.ForceTheme(Theme theme)
+        {
+            if (_settings.Theme != theme)
+            {
+                _settings.Theme = theme;
+                ApplyTheme();
+                _changeSoundUI?.ForceTheme(theme);
+            }
         }
 
         private void UpdateTemperatureAlertValue(int temperature, bool saveSettings = false)
@@ -181,6 +200,7 @@ namespace HardwareMonitor.Client.Temperature
         private void UpdateSoundName()
         {
             labelSoundName.Text = $"\"{SoundResourcesManager.Instance.SelectedSound?.Name ?? "No sound selected"}\"";
+            _settings.SoundResourceName = SoundResourcesManager.Instance.SelectedSound.ResourceName;
         }
 
         private void RB_CheckedChanged(object sender, EventArgs e)
@@ -265,7 +285,13 @@ namespace HardwareMonitor.Client.Temperature
 
         private void btnChangeSound_Click(object sender, EventArgs e)
         {
-            var result = new SoundChooserForm().ShowDialog(this);
+            var dialog = new SoundChooserForm();
+            _changeSoundUI = dialog as IView;
+            _changeSoundUI?.ForceTheme(_settings.Theme);
+            var result = dialog.ShowDialog(this);
+            _changeSoundUI = null;
+            dialog.Dispose();
+
             if (result == DialogResult.OK || result == DialogResult.Yes) UpdateSoundName();
         }
 

@@ -1,4 +1,5 @@
-﻿using HardwareMonitor.Client.Domain.Utils;
+﻿using HardwareMonitor.Client.Domain.Entities;
+using HardwareMonitor.Client.Domain.Utils;
 using System;
 
 namespace HardwareMonitor.Client.Temperature.Utils
@@ -18,7 +19,7 @@ namespace HardwareMonitor.Client.Temperature.Utils
         public const int MAX_UPDATE_TIME = 120000;
 
         private const string _THEME_KEY = "theme";
-        private const Theme _DEFAULT_THEME = Theme.DEFAULT;
+        private const Theme _DEFAULT_THEME = Theme.LIGHT;
 
         private const string _NOTIFICATION_KEY = "notification";
         private const NotificationMethod _DEFAULT_NOTIFICATION = NotificationMethod.SOUND_AND_MESSAGE;
@@ -124,11 +125,6 @@ namespace HardwareMonitor.Client.Temperature.Utils
         {
             _settings.Close();
         }
-    }
-
-    public enum Theme
-    {
-        DEFAULT, DARK
     }
 
     static class Utils

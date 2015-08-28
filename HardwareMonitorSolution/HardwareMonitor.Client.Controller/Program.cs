@@ -1,10 +1,12 @@
 ﻿using HardwareMonitor.Client.Controller.Utils;
 using HardwareMonitor.Client.Domain.Contracts;
-using HardwareMonitor.Client.Temperature;
 using System;
 using static System.Diagnostics.Process;
 using System.Windows.Forms;
 using static HardwareMonitor.Client.Domain.Utils.LogsManager;
+using HardwareMonitor.Client.Temperature;
+using HardwareMonitor.Client.Settings;
+using HardwareMonitor.Client.Settings.Utils;
 
 namespace HardwareMonitor.Client.Controller
 {
@@ -13,6 +15,7 @@ namespace HardwareMonitor.Client.Controller
         private static void InitComponents()
         {
             IController controller = new HardwareMonitorController();
+            controller.SettingsUI = new SettingsForm();
             controller.TemperatureUI = new TemperatureUI();
         }
 
@@ -23,7 +26,7 @@ namespace HardwareMonitor.Client.Controller
             {
                 var settings = new ClientSettingsHandler();
 
-                if (settings.StartProgramAsAdmin && !BroadcastServices.IsUserAdministrator)
+                if (settings.StartProgramAsAdmin && !UACUtils.IsUserAdministrator)
                 {
                     ProcessUtils.RerunProcessWithAdminPrivileges(GetCurrentProcess());
                     Application.Exit();
@@ -38,7 +41,11 @@ namespace HardwareMonitor.Client.Controller
             }
             catch (Exception ex)
             {
-                Log($"Program Main exit => {ex}");
+#if DEBUG
+                throw;
+#else
+                Log($"Program Main exit => {ex}", LogLevel.ERROR);
+#endif
             }
         }
     }
