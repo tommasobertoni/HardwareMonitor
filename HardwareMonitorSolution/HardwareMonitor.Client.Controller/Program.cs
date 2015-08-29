@@ -41,11 +41,13 @@ namespace HardwareMonitor.Client.Controller
             }
             catch (Exception ex)
             {
-#if DEBUG
-                throw;
-#else
                 Log($"Program Main exit => {ex}", LogLevel.ERROR);
-#endif
+                var result = MessageBox.Show(
+                    "The Hardware Monitor Client crashed. More information can be found in the log file in the installation directory.\n\nDo you want to open it now?",
+                    "Hardware Monitor Client error",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+
+                if (result == DialogResult.Yes) Start(LogFilePath(LogLevel.ERROR));
             }
         }
     }

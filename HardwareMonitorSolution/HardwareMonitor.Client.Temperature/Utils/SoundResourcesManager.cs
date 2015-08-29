@@ -70,8 +70,9 @@ namespace HardwareMonitor.Client.Temperature.Utils
 
         internal void DisposeAll()
         {
-            _resourcesList.ForEach(res => res.Dispose());
-            _resourcesList.Clear();
+            foreach (var res in _resources) res.Dispose();
+            _resources.Clear();
+            _resourcesList?.Clear();
             SelectedSound = null;
         }
     }
