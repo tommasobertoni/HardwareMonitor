@@ -105,9 +105,6 @@
     <None Include="Resources\ohmlogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Settings.png" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -126,13 +123,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\uac-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\settings-icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ohmuaclogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info-icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

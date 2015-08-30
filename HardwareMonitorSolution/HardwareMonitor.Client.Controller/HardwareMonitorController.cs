@@ -14,6 +14,7 @@ namespace HardwareMonitor.Client.Controller
     {
         private const string _APPLICATION_NAME = "Hardware Monitor Client";
         private const string _MONITORS_ICON_NAME = "Monitors";
+        private const string _INFO_ICON_NAME = "Info";
         private const int _NOTIFICATION_TIMEOUT = 10000;
 
         #region Settings
@@ -134,6 +135,8 @@ namespace HardwareMonitor.Client.Controller
         private ClientSettingsHandler _clientSettings;
 
         private NotifyIcon _notifyIcon;
+        private ToolStripItem _infoItem;
+
         private bool _isShowingNotification;
 
         public HardwareMonitorController()
@@ -168,6 +171,12 @@ namespace HardwareMonitor.Client.Controller
 
             trayMenuStrip.Items.Add(new ToolStripSeparator());
 
+            _infoItem = trayMenuStrip.Items.Add("About", Properties.Resources.info_icon.ToBitmap(), (s, e) =>
+            {
+                MessageBox.Show("HardwareMonitor windows service and winform developed by Tommaso Bertoni, 2015.\n\nBased on OpenHardwareMonitorLib project.",
+                    $"{_APPLICATION_NAME} - {_INFO_ICON_NAME}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            });
+
             trayMenuStrip.Items.Add("Restart", null, (s, e) => {
 
                 //if the privileges requested are different that the ones acquired
@@ -186,6 +195,10 @@ namespace HardwareMonitor.Client.Controller
             });
 
             _notifyIcon.ContextMenuStrip = trayMenuStrip;
+            _notifyIcon.ContextMenuStrip.Closed += (s, e) =>
+            {
+                _infoItem.Visible = true;
+            };
             _notifyIcon.MouseClick += NotifyIcon_click;
             #endregion
 
@@ -208,6 +221,7 @@ namespace HardwareMonitor.Client.Controller
         {
             if (e.Button == MouseButtons.Left)
             {
+                _infoItem.Visible = false; //visible only on right click
                 //http://stackoverflow.com/questions/2208690/invoke-notifyicons-context-menu
                 MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
                 mi.Invoke(_notifyIcon, null);
