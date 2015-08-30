@@ -1,5 +1,5 @@
 #HardwareMonitor
-<br>
+
 ##Abstract
 Application for displaying hardware values. At this development stage the app covers the following modules:
 <br>
