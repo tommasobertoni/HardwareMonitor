@@ -5,6 +5,8 @@ namespace HardwareMonitor.Client.Controller.Monitors
 {
     public abstract class RemoteAbstractMonitor
     {
+        public const string SERVICE_NAME = "HardwareMonitorWinService";
+
         public const int SMALL_TICK = 500;
 
         private int _triggerTime;

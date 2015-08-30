@@ -1,5 +1,4 @@
 ﻿using HardwareMonitor.Client.Temperature.Utils;
-using System;
 using System.Threading;
 
 namespace HardwareMonitor.Client.Controller.Monitors
