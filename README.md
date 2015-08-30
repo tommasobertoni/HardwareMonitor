@@ -1,12 +1,14 @@
-TemperatureAlertSystem
-======================
+#HardwareMonitor
 
-A desktop utility which notify when the cpu temperature exceeds a certain limit, also the time interval which the temperature should be checked is editable
+##Abstract
+Application for displaying hardware values. At this development stage the app covers the following modules:
+<br>
+#####Temperature
+&nbsp;&nbsp;&nbsp;&nbsp;shows the average cpu temperature, allowing the user to be notified when it exceeds an alert level
+<br>
+##Implementation
+Based on the [OpenHardwareMonitor project](http://openhardwaremonitor.org/), this SOA solution contains a windows service providing the hardware's data and a WinForm consumer application with different modules (ideally one for each hardware available).
 
-The solution includes a domain program, whith the TemperatureWatcher class and a UI program (a tray icon)
-
-The cpu temperature value is provided by using the OpenHardwareMonitorLib.dll from the [Open Hardware Monitor] (http://openhardwaremonitor.org/) Project.
-
-The domain project as is supports additional implementations for the different sensors provided by the library and multiple event subscrivers
-
-PS: sorry for the graphics and the layout :grin:
+I tried to develop the project with low coupling, so new modules can be added with minimum impact on the existing source code.
+<br><br><br>
+*explicit license coming soon*
