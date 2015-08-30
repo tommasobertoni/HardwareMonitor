@@ -5,7 +5,7 @@ Application for displaying hardware values.<br>
 At this development stage the app covers the following modules:
 <br>
 #####- Temperature
-  shows the average cpu temperature, allowing the user to be notified when it exceeds an alert level
+* shows the average cpu temperature, allowing the user to be notified when it exceeds an alert level
 
 <br>
 ##Implementation
