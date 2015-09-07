@@ -1,7 +1,7 @@
 #HardwareMonitor
 
 ##Abstract
-Application for displaying hardware values.<br>
+Application for displaying hardware sensors values.<br>
 At this development stage the app covers the following modules:
 <br>
 #####- Temperature
@@ -9,7 +9,7 @@ At this development stage the app covers the following modules:
 
 <br>
 ##Implementation
-Based on the [OpenHardwareMonitor project](http://openhardwaremonitor.org/), this SOA solution contains a windows service providing the hardware's data and a WinForm consumer application with different modules (ideally one for each hardware available).
+Based on the [OpenHardwareMonitor project](http://openhardwaremonitor.org/), this SOA solution contains a windows service providing the hardware's data and a WinForm consumer application with different modules (ideally one for each hardware sensor available).
 
 I tried to develop the project with low coupling, so new modules can be added with minimum impact on the existing source code.
 <br><br><br>
