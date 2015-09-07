@@ -41,20 +41,11 @@ namespace HardwareMonitor.Client.Controller.Monitors
             _bworker.ProgressChanged += _bworker_ProgressChanged;
         }
 
-        protected virtual void StartWorker()
-        {
-            _bworker.RunWorkerAsync();
-        }
+        protected virtual void StartWorker() => _bworker.RunWorkerAsync();
 
-        public virtual void StopWorker()
-        {
-            _bworker.CancelAsync();
-        }
+        public virtual void StopWorker() => _bworker.CancelAsync();
 
-        private void _bworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (OnEventTriggered != null) OnEventTriggered();
-        }
+        private void _bworker_ProgressChanged(object sender, ProgressChangedEventArgs e) => OnEventTriggered?.Invoke();
 
         private void _bworker_DoWork(object sender, DoWorkEventArgs e)
         {
