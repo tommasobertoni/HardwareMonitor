@@ -1,6 +1,6 @@
 ﻿namespace HardwareMonitor.WindowsService
 {
-    partial class HardwareMonitorWinService
+    partial class HardwareMonitorService
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             // 
-            // HardwareMonitorWinService
+            // HardwareMonitorService
             // 
             this.CanPauseAndContinue = true;
             this.CanShutdown = true;
-            this.ServiceName = "HardwareMonitorWinService";
+            this.ServiceName = "HardwareMonitorService";
 
         }
 

@@ -64,7 +64,7 @@ namespace HardwareMonitor.Client.Controller
             {
                 Log("Service not found", LogLevel.ERROR);
                 MessageBox.Show(
-                    $"Can't find \"{RemoteAbstractMonitor.SERVICE_NAME}\" service. Please, ensure that it's installed and running on the local machine",
+                    $"Can't find \"{RemoteAbstractMonitor.SERVICE_NAME}\" service. Please, ensure that it's installed and running on the local machine.",
                     "Hardware Monitor Client error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

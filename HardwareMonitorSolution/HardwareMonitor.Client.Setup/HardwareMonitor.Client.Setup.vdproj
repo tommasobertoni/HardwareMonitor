@@ -15,14 +15,14 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0AFFF4D20BCFB341D77854023C955D5B"
-        "OwnerKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
+        "MsmKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_590A4D69C107079B0A294D0AD19574EE"
+        "OwnerKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -33,32 +33,32 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8A014DD15D79667349E1A412FA0AC66A"
+        "OwnerKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_946C283B44994F77A498F7E8B3ED009E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_CDBC0114F06C32127FF0F6D27B8B5A39"
+        "MsmKey" = "8:_F1EAB49FD5F26F7E5189FEC3AD3011D3"
         "OwnerKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E06AD6B613475308C440B7545A4B5FB5"
-        "OwnerKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
+        "MsmKey" = "8:_F1EAB49FD5F26F7E5189FEC3AD3011D3"
+        "OwnerKey" = "8:_590A4D69C107079B0A294D0AD19574EE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E06AD6B613475308C440B7545A4B5FB5"
-        "OwnerKey" = "8:_0AFFF4D20BCFB341D77854023C955D5B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E06AD6B613475308C440B7545A4B5FB5"
-        "OwnerKey" = "8:_CDBC0114F06C32127FF0F6D27B8B5A39"
+        "MsmKey" = "8:_F1EAB49FD5F26F7E5189FEC3AD3011D3"
+        "OwnerKey" = "8:_8A014DD15D79667349E1A412FA0AC66A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,6 +76,24 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_590A4D69C107079B0A294D0AD19574EE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8A014DD15D79667349E1A412FA0AC66A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F1EAB49FD5F26F7E5189FEC3AD3011D3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_607195548B824F549DC569E5F38D6F65"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -83,24 +101,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0DE27249D57D49C5936E8E7C47FF84C2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0AFFF4D20BCFB341D77854023C955D5B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CDBC0114F06C32127FF0F6D27B8B5A39"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E06AD6B613475308C440B7545A4B5FB5"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -111,7 +111,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\HardwareMonitor.Client.Setup.msi"
+        "OutputFilename" = "8:Debug\\HardwareMonitorClient_Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -143,7 +143,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\HardwareMonitor.Client.Setup.msi"
+        "OutputFilename" = "8:Release\\HardwareMonitorClient_Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -268,20 +268,51 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0AFFF4D20BCFB341D77854023C955D5B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_590A4D69C107079B0A294D0AD19574EE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:HardwareMonitor.Client.Temperature, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_0AFFF4D20BCFB341D77854023C955D5B"
+                    "_590A4D69C107079B0A294D0AD19574EE"
                     {
                     "Name" = "8:HardwareMonitor.Client.Temperature.exe"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:HardwareMonitor.Client.Temperature.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DEA4DC6440A14F449456D0BD0E018A76"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8A014DD15D79667349E1A412FA0AC66A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:HardwareMonitor.Client.Settings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_8A014DD15D79667349E1A412FA0AC66A"
+                    {
+                    "Name" = "8:HardwareMonitor.Client.Settings.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:HardwareMonitor.Client.Settings.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_DEA4DC6440A14F449456D0BD0E018A76"
@@ -319,45 +350,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CDBC0114F06C32127FF0F6D27B8B5A39"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:HardwareMonitor.Client.Settings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_CDBC0114F06C32127FF0F6D27B8B5A39"
-                    {
-                    "Name" = "8:HardwareMonitor.Client.Settings.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:HardwareMonitor.Client.Settings.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_DEA4DC6440A14F449456D0BD0E018A76"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E06AD6B613475308C440B7545A4B5FB5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F1EAB49FD5F26F7E5189FEC3AD3011D3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:HardwareMonitor.Client.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E06AD6B613475308C440B7545A4B5FB5"
+                    "_F1EAB49FD5F26F7E5189FEC3AD3011D3"
                     {
                     "Name" = "8:HardwareMonitor.Client.Domain.dll"
                     "Attributes" = "3:512"
@@ -469,7 +469,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Hardware Monitor Client"
         "ProductCode" = "8:{36825BF6-E7D2-4B9F-ACD0-78E61A4FC416}"
-        "PackageCode" = "8:{3D2CC492-24C3-4392-A8A2-087BA9F5741F}"
+        "PackageCode" = "8:{3D704541-E870-4C5B-B68F-659C8BC29290}"
         "UpgradeCode" = "8:{C9410A1D-09BF-49C5-8485-882B73F05251}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1018,7 +1018,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0DE27249D57D49C5936E8E7C47FF84C2"
             {
-            "SourcePath" = "8:..\\HardwareMonitor.Client.Controller\\obj\\Debug\\HardwareMonitor.Client.Controller.exe"
+            "SourcePath" = "8:..\\HardwareMonitor.Client.Controller\\obj\\Release\\HardwareMonitorClient.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_DEA4DC6440A14F449456D0BD0E018A76"
@@ -1046,7 +1046,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_607195548B824F549DC569E5F38D6F65"
             {
-            "SourcePath" = "8:..\\HardwareMonitor.Client.Setup.CustomActions\\obj\\Debug\\HardwareMonitor.Client.Setup.CustomActions.dll"
+            "SourcePath" = "8:..\\HardwareMonitor.Client.Setup.CustomActions\\obj\\Release\\HardwareMonitor.Client.Setup.CustomActions.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_DEA4DC6440A14F449456D0BD0E018A76"

@@ -12,7 +12,7 @@ namespace HardwareMonitor.WindowsService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new HardwareMonitorWinService()
+                new HardwareMonitorService()
             };
             ServiceBase.Run(ServicesToRun);
         }

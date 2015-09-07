@@ -5,7 +5,7 @@ using static System.Math;
 
 namespace HardwareMonitor.WindowsService
 {
-    public partial class HardwareMonitorWinService : ServiceBase
+    public partial class HardwareMonitorService : ServiceBase
     {
         public const int DEFAULT_UPDATE_TIME_SPAN = 2000;
         public const int MIN_UPDATE_TIME_SPAN = 1000;
@@ -14,10 +14,10 @@ namespace HardwareMonitor.WindowsService
 
         internal static ServiceHost _temperatureHost = null;
 
-        public HardwareMonitorWinService() : this(DEFAULT_UPDATE_TIME_SPAN)
+        public HardwareMonitorService() : this(DEFAULT_UPDATE_TIME_SPAN)
         { }
 
-        public HardwareMonitorWinService(int stmillis)
+        public HardwareMonitorService(int stmillis)
         {
             InitializeComponent();
             CURRENT_UPDATE_TIME_SPAN = Max(stmillis, MIN_UPDATE_TIME_SPAN);
