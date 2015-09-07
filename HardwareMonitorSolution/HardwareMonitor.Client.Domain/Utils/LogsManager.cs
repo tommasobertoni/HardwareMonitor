@@ -6,7 +6,7 @@ namespace HardwareMonitor.Client.Domain.Utils
     public static class LogsManager
     {
         private const string _SEPARATOR = "--------------------------------";
-        private static readonly string _LOGS_FOLDER = $"{AppDomain.CurrentDomain.BaseDirectory}Logs\\";
+        private static readonly string _LOGS_FOLDER = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}HardwareMonitor Logs\\";
 
         public enum LogLevel
         {

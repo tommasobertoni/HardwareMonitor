@@ -173,7 +173,7 @@ namespace HardwareMonitor.Client.Controller
 
             _infoItem = trayMenuStrip.Items.Add("About", Properties.Resources.info_icon.ToBitmap(), (s, e) =>
             {
-                MessageBox.Show("HardwareMonitor windows service and winform developed by Tommaso Bertoni, 2015.\n\nBased on OpenHardwareMonitorLib project.",
+                MessageBox.Show(new Form() { TopMost = true /*pretty bad, I know*/ }, "HardwareMonitor windows service and winform developed by Tommaso Bertoni, 2015.\n\nBased on the OpenHardwareMonitorLib project.",
                     $"{_APPLICATION_NAME} - {_INFO_ICON_NAME}", MessageBoxButtons.OK, MessageBoxIcon.Information);
             });
 
