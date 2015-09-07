@@ -38,6 +38,7 @@ namespace HardwareMonitor.Client.Controller
 
                     if (settings.StartProgramAsAdmin && !UACUtils.IsUserAdministrator)
                     {
+                        Log("RerunProcessWithAdminPrivileges", LogLevel.VERBOSE);
                         ProcessUtils.RerunProcessWithAdminPrivileges(GetCurrentProcess());
                         Application.Exit();
                     }
@@ -62,7 +63,7 @@ namespace HardwareMonitor.Client.Controller
             }
             else
             {
-                Log("Service not found", LogLevel.ERROR);
+                Log("Service not found", LogLevel.VERBOSE);
                 MessageBox.Show(
                     $"Can't find \"{RemoteAbstractMonitor.SERVICE_NAME}\" service. Please, ensure that it's installed and running on the local machine.",
                     "Hardware Monitor Client error",

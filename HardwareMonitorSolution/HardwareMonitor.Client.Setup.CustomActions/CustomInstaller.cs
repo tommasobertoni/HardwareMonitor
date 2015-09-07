@@ -10,18 +10,18 @@ namespace HardwareMonitor.Client.Setup.CustomActions
     [RunInstaller(true)]
     public partial class CustomInstaller : Installer
     {
-        public CustomInstaller()
+        public CustomInstaller() : base()
         {
             InitializeComponent();
         }
 
-        public override void Commit(IDictionary savedState)
+        protected override void OnAfterInstall(IDictionary savedState)
         {
             var location = Path.GetDirectoryName(GetExecutingAssembly().Location).ToString();
             Directory.SetCurrentDirectory(location);
-            Process.Start("explorer.exe", $"{location}\\HardwareMonitor.Client.Controller.exe");
+            Process.Start("explorer.exe", $"{location}\\HardwareMonitorClient.exe");
 
-            base.Commit(savedState);
+            base.OnAfterInstall(savedState);
         }
     }
 }
