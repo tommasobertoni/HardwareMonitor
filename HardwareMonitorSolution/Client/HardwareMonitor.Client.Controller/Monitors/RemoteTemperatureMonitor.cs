@@ -2,33 +2,26 @@
 using System.ServiceModel;
 using System.Threading;
 using static HardwareMonitor.Client.Domain.Utils.LogsManager;
+using System;
 
 namespace HardwareMonitor.Client.Controller.Monitors
 {
     public class RemoteTemperatureMonitor : RemoteAbstractMonitor
     {
-        private TemperatureUISettingsHandler _settings;
-        public TemperatureUISettingsHandler Settings
-        {
-            get
-            {
-                return _settings;
-            }
-        }
+        public TemperatureUISettingsHandler Settings { get; } = new TemperatureUISettingsHandler();
 
         private TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient _service;
 
-        public bool IsServiceReady {
-            get
-            {
-                return _service != null;
-            }
-        }
+        public bool IsServiceReady => _service != null;
 
         public RemoteTemperatureMonitor() : base()
         {
-            _settings = new TemperatureUISettingsHandler();
+            Settings = new TemperatureUISettingsHandler();
+            OpenServiceCommunicationAsync();
+        }
 
+        private void OpenServiceCommunicationAsync()
+        {
             new Thread(() =>
             {
                 _service = new TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient();
@@ -36,7 +29,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
             }).Start();
         }
 
-        protected override bool TriggerEvent(int elapsedTime) => elapsedTime >= _settings.UpdateTime;
+        protected override bool TriggerEvent(int elapsedTime) => elapsedTime >= Settings.UpdateTime;
 
         public override int? GetCPUsCount()
         {
@@ -50,7 +43,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
                 return null;
             }
         }
-
+        
         public float? GetAvgCPUsTemperature()
         {
             try
@@ -85,6 +78,9 @@ namespace HardwareMonitor.Client.Controller.Monitors
 
         private void Handle(CommunicationException cEx, string additionalInformation = null)
         {
+            base.StopWorker();
+            _service = null;
+            OpenServiceCommunicationAsync();
             Log($"{$"{additionalInformation}: " ?? ""}{cEx}", LogLevel.WARNING);
         }
     }
