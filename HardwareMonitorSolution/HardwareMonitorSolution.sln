@@ -3,29 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Domain", "HardwareMonitor.Domain\HardwareMonitor.Domain.csproj", "{9482A6AC-332D-4C64-BCAB-7DB7D88EC100}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Domain", "Domain\HardwareMonitor.Domain\HardwareMonitor.Domain.csproj", "{9482A6AC-332D-4C64-BCAB-7DB7D88EC100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Temperature", "HardwareMonitor.Temperature\HardwareMonitor.Temperature.csproj", "{91D2901D-19B7-426D-AA13-AD4A5964627C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Temperature", "Domain\HardwareMonitor.Temperature\HardwareMonitor.Temperature.csproj", "{91D2901D-19B7-426D-AA13-AD4A5964627C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService", "HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj", "{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService", "Service\HardwareMonitor.WindowsService\HardwareMonitor.WindowsService.csproj", "{9F563D80-9FA9-4AB4-A03C-38A910EC2E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Temperature", "HardwareMonitor.Client.Temperature\HardwareMonitor.Client.Temperature.csproj", "{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Temperature", "Client\HardwareMonitor.Client.Temperature\HardwareMonitor.Client.Temperature.csproj", "{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Domain", "HardwareMonitor.Client.Domain\HardwareMonitor.Client.Domain.csproj", "{5D79E443-97BE-4497-915F-F748EEB19F7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Domain", "Client\HardwareMonitor.Client.Domain\HardwareMonitor.Client.Domain.csproj", "{5D79E443-97BE-4497-915F-F748EEB19F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Controller", "HardwareMonitor.Client.Controller\HardwareMonitor.Client.Controller.csproj", "{5963A853-78E4-4404-9CDC-0C97C61CB5B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Controller", "Client\HardwareMonitor.Client.Controller\HardwareMonitor.Client.Controller.csproj", "{5963A853-78E4-4404-9CDC-0C97C61CB5B2}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitor.WindowsService.Setup", "HardwareMonitor.WindowsService.Setup\HardwareMonitor.WindowsService.Setup.vdproj", "{C0CD3550-033A-4B2A-BF9B-590A143DDE5A}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitor.WindowsService.Setup", "Service\HardwareMonitor.WindowsService.Setup\HardwareMonitor.WindowsService.Setup.vdproj", "{C0CD3550-033A-4B2A-BF9B-590A143DDE5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService.TemperatureWCF", "HardwareMonitor.WindowsService.TemperatureWCF\HardwareMonitor.WindowsService.TemperatureWCF.csproj", "{E4CE4FE1-05C5-4807-9152-48B7D38D7E35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService.TemperatureWCF", "Service\HardwareMonitor.WindowsService.TemperatureWCF\HardwareMonitor.WindowsService.TemperatureWCF.csproj", "{E4CE4FE1-05C5-4807-9152-48B7D38D7E35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService.Domain", "HardwareMonitor.WindowsService.Domain\HardwareMonitor.WindowsService.Domain.csproj", "{B2824397-C291-46E5-961B-7C2BA8660D49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.WindowsService.Domain", "Service\HardwareMonitor.WindowsService.Domain\HardwareMonitor.WindowsService.Domain.csproj", "{B2824397-C291-46E5-961B-7C2BA8660D49}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitor.Client.Setup", "HardwareMonitor.Client.Setup\HardwareMonitor.Client.Setup.vdproj", "{3BCA3C66-38D5-43AA-8A37-C4B2977F2B38}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardwareMonitor.Client.Setup", "Client\HardwareMonitor.Client.Setup\HardwareMonitor.Client.Setup.vdproj", "{3BCA3C66-38D5-43AA-8A37-C4B2977F2B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Setup.CustomActions", "HardwareMonitor.Client.Setup.CustomActions\HardwareMonitor.Client.Setup.CustomActions.csproj", "{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Setup.CustomActions", "Client\HardwareMonitor.Client.Setup.CustomActions\HardwareMonitor.Client.Setup.CustomActions.csproj", "{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Settings", "HardwareMonitor.Client.Settings\HardwareMonitor.Client.Settings.csproj", "{B68961CB-4037-4E63-B261-EC46682149A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareMonitor.Client.Settings", "Client\HardwareMonitor.Client.Settings\HardwareMonitor.Client.Settings.csproj", "{B68961CB-4037-4E63-B261-EC46682149A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{61F13AEF-001A-46C4-B768-846C89C37EA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{FA1F0FC0-9CDD-4802-8CFE-32C2080E59FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,5 +86,19 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9482A6AC-332D-4C64-BCAB-7DB7D88EC100} = {FA1F0FC0-9CDD-4802-8CFE-32C2080E59FB}
+		{91D2901D-19B7-426D-AA13-AD4A5964627C} = {FA1F0FC0-9CDD-4802-8CFE-32C2080E59FB}
+		{9F563D80-9FA9-4AB4-A03C-38A910EC2E04} = {61F13AEF-001A-46C4-B768-846C89C37EA2}
+		{08EAB2B8-0E62-4B1B-ABBD-83D8CE26BDCB} = {3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}
+		{5D79E443-97BE-4497-915F-F748EEB19F7D} = {3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}
+		{5963A853-78E4-4404-9CDC-0C97C61CB5B2} = {3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}
+		{C0CD3550-033A-4B2A-BF9B-590A143DDE5A} = {61F13AEF-001A-46C4-B768-846C89C37EA2}
+		{E4CE4FE1-05C5-4807-9152-48B7D38D7E35} = {61F13AEF-001A-46C4-B768-846C89C37EA2}
+		{B2824397-C291-46E5-961B-7C2BA8660D49} = {61F13AEF-001A-46C4-B768-846C89C37EA2}
+		{3BCA3C66-38D5-43AA-8A37-C4B2977F2B38} = {3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}
+		{35B4EDCD-386A-4AAE-AC58-1B5B2E4E070B} = {3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}
+		{B68961CB-4037-4E63-B261-EC46682149A0} = {3B1298ED-CBEB-4F39-A6B4-FCCBFA53AAA5}
 	EndGlobalSection
 EndGlobal
