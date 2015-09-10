@@ -1,5 +1,7 @@
 #HardwareMonitor
 
+![Screenshot](https://cloud.githubusercontent.com/assets/8939890/9720902/57457ee2-5593-11e5-8879-2547479d8328.png)
+<br/>
 ##Abstract
 Application for displaying hardware sensors values.<br>
 At this development stage the app covers the following modules:
