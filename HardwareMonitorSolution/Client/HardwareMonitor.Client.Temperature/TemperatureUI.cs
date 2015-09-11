@@ -26,7 +26,6 @@ namespace HardwareMonitor.Client.Temperature
 
         public event EventHandler<int> OnUpdateTimeChanged;
         public event EventHandler<string> OnNotification;
-        public event EventHandler<string> OnLog;
         public event EventHandler OnViewExit;
         public event EventHandler OnRequestUpdate;
 

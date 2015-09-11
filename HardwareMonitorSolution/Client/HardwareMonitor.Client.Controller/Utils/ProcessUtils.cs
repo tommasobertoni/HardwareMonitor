@@ -6,7 +6,7 @@ using static System.Reflection.Assembly;
 
 namespace HardwareMonitor.Client.Controller.Utils
 {
-    class ProcessUtils
+    static class ProcessUtils
     {
         [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
         public static Process RerunCurrentProcess(bool administratorRights = false)

@@ -29,7 +29,6 @@ namespace HardwareMonitor.Client.Settings
         public event EventHandler OnSavedSettings;
         public event EventHandler<Theme> OnForceTheme;
         public event EventHandler<string> OnNotification;
-        public event EventHandler<string> OnLog;
         public event EventHandler OnViewExit;
         public event EventHandler OnRequestUpdate;
 

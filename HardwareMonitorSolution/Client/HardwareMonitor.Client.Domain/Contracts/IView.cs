@@ -19,7 +19,6 @@ namespace HardwareMonitor.Client.Domain.Contracts
         void ForceTheme(Theme theme);
 
         event EventHandler<string> OnNotification;
-        event EventHandler<string> OnLog;
         event EventHandler OnViewExit;
         event EventHandler OnRequestUpdate;
     }
