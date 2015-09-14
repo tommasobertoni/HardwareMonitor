@@ -94,7 +94,7 @@ namespace HardwareMonitor.Client.Settings
             Color backgroundColor, foregroundColor;
             switch (_settings.Theme)
             {
-                case Theme.DARK:
+                case Theme.Dark:
                     backgroundColor = SystemColors.ControlText;
                     foregroundColor = SystemColors.Control;
                     break;
@@ -138,12 +138,12 @@ namespace HardwareMonitor.Client.Settings
 
         private void btnThemeLight_Click(object sender, EventArgs e)
         {
-            ForceTheme(Theme.LIGHT);
+            ForceTheme(Theme.Light);
         }
 
         private void btnThemeDark_Click(object sender, EventArgs e)
         {
-            ForceTheme(Theme.DARK);
+            ForceTheme(Theme.Dark);
         }
     }
 }

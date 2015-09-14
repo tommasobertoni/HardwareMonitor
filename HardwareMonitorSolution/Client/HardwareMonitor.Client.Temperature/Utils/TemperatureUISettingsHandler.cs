@@ -19,10 +19,10 @@ namespace HardwareMonitor.Client.Temperature.Utils
         public const int MAX_UPDATE_TIME = 120000;
 
         private const string _THEME_KEY = "theme";
-        private const Theme _DEFAULT_THEME = Theme.LIGHT;
+        private const Theme _DEFAULT_THEME = Theme.Light;
 
         private const string _NOTIFICATION_KEY = "notification";
-        private const NotificationMethod _DEFAULT_NOTIFICATION = NotificationMethod.SOUND_AND_MESSAGE;
+        private const NotificationMethod _DEFAULT_NOTIFICATION = NotificationMethod.SoundAndMessage;
 
         private const string _SOUND_RESOURCE_NAME_KEY = "soundresourcename";
 

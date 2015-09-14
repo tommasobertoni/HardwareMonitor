@@ -52,7 +52,7 @@ namespace HardwareMonitor.Client.Temperature
 
             switch (theme)
             {
-                case Theme.DARK:
+                case Theme.Dark:
                     backgroundColor = SystemColors.ControlText;
                     foregroundColor = SystemColors.Control;
                     selectionBrush = Brushes.DarkGreen;

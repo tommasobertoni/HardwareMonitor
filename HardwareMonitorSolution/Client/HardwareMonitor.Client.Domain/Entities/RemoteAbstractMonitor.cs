@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using static System.Threading.Thread;
 
-namespace HardwareMonitor.Client.Controller.Monitors
+namespace HardwareMonitor.Client.Domain.Monitors
 {
     public abstract class RemoteAbstractMonitor
     {

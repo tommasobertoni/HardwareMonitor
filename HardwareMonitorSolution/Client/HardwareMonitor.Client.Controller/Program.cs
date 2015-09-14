@@ -38,7 +38,7 @@ namespace HardwareMonitor.Client.Controller
 
                     if (settings.StartProgramAsAdmin && !UACUtils.IsUserAdministrator)
                     {
-                        Log("RerunProcessWithAdminPrivileges", LogLevel.VERBOSE);
+                        Log("RerunProcessWithAdminPrivileges", LogLevel.Verbose);
                         ProcessUtils.RerunProcessWithAdminPrivileges(GetCurrentProcess());
                         Application.Exit();
                     }
@@ -52,18 +52,18 @@ namespace HardwareMonitor.Client.Controller
                 }
                 catch (Exception ex)
                 {
-                    Log($"Program Main exit => {ex}", LogLevel.ERROR);
+                    Log($"Program Main exit => {ex}", LogLevel.Error);
                     var result = MessageBox.Show(
                         "The Hardware Monitor Client crashed. More information can be found in the log file in the installation directory.\n\nDo you want to open it now?",
                         "Hardware Monitor Client error",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 
-                    if (result == DialogResult.Yes) Start(LogFilePath(LogLevel.ERROR));
+                    if (result == DialogResult.Yes) Start(LogFilesPath(LogLevel.Error)[0]);
                 }
             }
             else
             {
-                Log("Service not found", LogLevel.VERBOSE);
+                Log("Service not found", LogLevel.Verbose);
                 MessageBox.Show(
                     $"Can't find \"{RemoteAbstractMonitor.SERVICE_NAME}\" service. Please, ensure that it's installed and running on the local machine.",
                     "Hardware Monitor Client error",

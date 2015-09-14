@@ -22,7 +22,7 @@ namespace HardwareMonitor.Client.Settings.Utils
         private const bool _DEFAULT_START_PROGRAM_AS_ADMIN = false;
 
         private const string _THEME_KEY = "theme";
-        private const Theme _DEFAULT_THEME = Theme.LIGHT;
+        private const Theme _DEFAULT_THEME = Theme.Light;
 
         private bool _runAtStartup;
         public bool RunAtStartup

@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.Threading;
 using static HardwareMonitor.Client.Domain.Utils.LogsManager;
 using System;
+using HardwareMonitor.Client.Domain.Monitors;
 
 namespace HardwareMonitor.Client.Controller.Monitors
 {
@@ -81,7 +82,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
             base.StopWorker();
             _service = null;
             OpenServiceCommunicationAsync();
-            Log($"{$"{additionalInformation}: " ?? ""}{cEx}", LogLevel.WARNING);
+            Log($"{$"{additionalInformation}: " ?? ""}{cEx}", LogLevel.Warning);
         }
     }
 }

@@ -8,6 +8,12 @@ using HardwareMonitor.Client.Settings.Utils;
 
 namespace HardwareMonitor.Client.Controller
 {
+    [Flags]
+    public enum HardwareMonitorType
+    {
+        Temperature
+    }
+
     public class HardwareMonitorController : IController
     {
         #region Settings

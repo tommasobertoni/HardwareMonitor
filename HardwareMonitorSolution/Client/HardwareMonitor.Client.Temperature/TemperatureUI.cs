@@ -131,7 +131,7 @@ namespace HardwareMonitor.Client.Temperature
 
             switch (_settings.Theme)
             {
-                case Theme.DARK:
+                case Theme.Dark:
                     backgroundColor = SystemColors.ControlText;
                     foregroundColor = SystemColors.Control;
                     thermometerImage = Properties.Resources.ThermometerDark;
@@ -205,9 +205,9 @@ namespace HardwareMonitor.Client.Temperature
         private void RB_CheckedChanged(object sender, EventArgs e)
         {
             NotificationMethod? value = null;
-            if (sender == rbMessageAndSoundNotif && rbMessageAndSoundNotif.Checked) value = NotificationMethod.SOUND_AND_MESSAGE;
-            else if (sender == rbMessageNotif && rbMessageNotif.Checked) value = NotificationMethod.MESSAGE;
-            else if (sender == rbNoNotif && rbNoNotif.Checked) value = NotificationMethod.NONE;
+            if (sender == rbMessageAndSoundNotif && rbMessageAndSoundNotif.Checked) value = NotificationMethod.SoundAndMessage;
+            else if (sender == rbMessageNotif && rbMessageNotif.Checked) value = NotificationMethod.Message;
+            else if (sender == rbNoNotif && rbNoNotif.Checked) value = NotificationMethod.None;
 
             if (value.HasValue) _settings.Notification = value.Value;
         }
@@ -276,9 +276,9 @@ namespace HardwareMonitor.Client.Temperature
         {
             switch (notification)
             {
-                case NotificationMethod.SOUND_AND_MESSAGE: rbMessageAndSoundNotif.Checked = true; break;
-                case NotificationMethod.MESSAGE: rbMessageNotif.Checked = true; break;
-                case NotificationMethod.NONE: rbNoNotif.Checked = true; break;
+                case NotificationMethod.SoundAndMessage: rbMessageAndSoundNotif.Checked = true; break;
+                case NotificationMethod.Message: rbMessageNotif.Checked = true; break;
+                case NotificationMethod.None: rbNoNotif.Checked = true; break;
             }
         }
 
@@ -306,15 +306,15 @@ namespace HardwareMonitor.Client.Temperature
         {
             switch (_settings.Notification)
             {
-                case NotificationMethod.SOUND_AND_MESSAGE:
+                case NotificationMethod.SoundAndMessage:
                     SoundResourcesManager.Instance.SelectedSound?.Play();
-                    goto case NotificationMethod.MESSAGE;
+                    goto case NotificationMethod.Message;
 
-                case NotificationMethod.MESSAGE:
+                case NotificationMethod.Message:
                     OnNotification?.Invoke(this, $"AVG cpu temperature: {temperature} °C!");
                     break;
 
-                case NotificationMethod.NONE:
+                case NotificationMethod.None:
                     break;
             }
         }
