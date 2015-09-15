@@ -7,6 +7,7 @@ using static HardwareMonitor.Client.Controller.Properties.Resources;
 using HardwareMonitor.Client.Domain.Contracts;
 using System.Collections.Generic;
 using System.IO;
+using HardwareMonitor.Client.Settings.Utils;
 
 namespace HardwareMonitor.Client.Controller.Utils
 {
@@ -50,7 +51,8 @@ namespace HardwareMonitor.Client.Controller.Utils
         public bool IsRecording { get; private set; } = false;
         private HardwareValuesRecorderMenuController _recorder;
 
-        IController _controller;
+        private IController _controller;
+        private ClientSettingsHandler _clientSettings = new ClientSettingsHandler();
 
         public ContextMenuController(IController controller)
         {
@@ -164,8 +166,9 @@ namespace HardwareMonitor.Client.Controller.Utils
 
         private void InvalidateLogsDropDown(object sender, EventArgs e)
         {
+            _clientSettings.Update();
             _verboseLogsItem.Available = File.Exists(LogFilesPath(LogLevel.Verbose)[0]);
-            _debugLogsItem.Available = File.Exists(LogFilesPath(LogLevel.Debug)[0]);
+            _debugLogsItem.Available = _clientSettings.DeveloperMode && File.Exists(LogFilesPath(LogLevel.Debug)[0]);
             _warningLogsItem.Available = File.Exists(LogFilesPath(LogLevel.Warning)[0]);
             _errorLogsItem.Available = File.Exists(LogFilesPath(LogLevel.Error)[0]);
             

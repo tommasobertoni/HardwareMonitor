@@ -42,6 +42,7 @@ namespace HardwareMonitor.Client.Settings
             cbStartupRun.Checked = _settings.RunAtStartup;
             cbStartupNotification.Checked = _settings.StartupNotification;
             cbAdminRights.Checked = _settings.StartProgramAsAdmin;
+            cbDeveloperMode.Checked = _settings.DeveloperMode;
 
             FormClosing += (s, e) =>
             {
@@ -60,6 +61,7 @@ namespace HardwareMonitor.Client.Settings
             _settings.RunAtStartup = cbStartupRun.Checked;
             _settings.StartupNotification = cbStartupNotification.Checked;
             _settings.StartProgramAsAdmin = cbAdminRights.Checked;
+            _settings.DeveloperMode = cbDeveloperMode.Checked;
             Hide();
             OnSavedSettings?.Invoke(this, null);
         }
@@ -124,10 +126,7 @@ namespace HardwareMonitor.Client.Settings
             Close();
         }
 
-        private void cbAdminRights_CheckedChanged(object sender, EventArgs e)
-        {
-            ChangeLabelAdminRightsInfoVisibility();
-        }
+        private void cbAdminRights_CheckedChanged(object sender, EventArgs e) => ChangeLabelAdminRightsInfoVisibility();
 
         private void ForceTheme(Theme theme)
         {
@@ -136,14 +135,8 @@ namespace HardwareMonitor.Client.Settings
             Cursor.Current = Cursors.Default;
         }
 
-        private void btnThemeLight_Click(object sender, EventArgs e)
-        {
-            ForceTheme(Theme.Light);
-        }
+        private void btnThemeLight_Click(object sender, EventArgs e) => ForceTheme(Theme.Light);
 
-        private void btnThemeDark_Click(object sender, EventArgs e)
-        {
-            ForceTheme(Theme.Dark);
-        }
+        private void btnThemeDark_Click(object sender, EventArgs e) => ForceTheme(Theme.Dark);
     }
 }

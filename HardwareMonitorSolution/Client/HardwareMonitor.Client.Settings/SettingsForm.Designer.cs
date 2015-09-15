@@ -40,6 +40,7 @@
             this.btnThemeLight = new System.Windows.Forms.Button();
             this.labelThemeTitle = new System.Windows.Forms.Label();
             this.btnThemeDark = new System.Windows.Forms.Button();
+            this.cbDeveloperMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbStartupNotification
@@ -65,7 +66,7 @@
             // btnSaveSettings
             // 
             this.btnSaveSettings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveSettings.Location = new System.Drawing.Point(110, 335);
+            this.btnSaveSettings.Location = new System.Drawing.Point(114, 369);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(115, 45);
             this.btnSaveSettings.TabIndex = 2;
@@ -109,7 +110,7 @@
             // 
             this.labelAdminRightsInfo.AutoSize = true;
             this.labelAdminRightsInfo.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminRightsInfo.Location = new System.Drawing.Point(23, 283);
+            this.labelAdminRightsInfo.Location = new System.Drawing.Point(27, 317);
             this.labelAdminRightsInfo.Name = "labelAdminRightsInfo";
             this.labelAdminRightsInfo.Size = new System.Drawing.Size(277, 32);
             this.labelAdminRightsInfo.TabIndex = 8;
@@ -119,7 +120,7 @@
             // 
             // btnThemeLight
             // 
-            this.btnThemeLight.Location = new System.Drawing.Point(21, 208);
+            this.btnThemeLight.Location = new System.Drawing.Point(21, 235);
             this.btnThemeLight.Name = "btnThemeLight";
             this.btnThemeLight.Size = new System.Drawing.Size(106, 38);
             this.btnThemeLight.TabIndex = 9;
@@ -131,7 +132,7 @@
             // 
             this.labelThemeTitle.AutoSize = true;
             this.labelThemeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelThemeTitle.Location = new System.Drawing.Point(17, 176);
+            this.labelThemeTitle.Location = new System.Drawing.Point(17, 203);
             this.labelThemeTitle.Name = "labelThemeTitle";
             this.labelThemeTitle.Size = new System.Drawing.Size(65, 20);
             this.labelThemeTitle.TabIndex = 10;
@@ -141,7 +142,7 @@
             // 
             this.btnThemeDark.BackColor = System.Drawing.SystemColors.ControlText;
             this.btnThemeDark.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnThemeDark.Location = new System.Drawing.Point(133, 208);
+            this.btnThemeDark.Location = new System.Drawing.Point(133, 235);
             this.btnThemeDark.Name = "btnThemeDark";
             this.btnThemeDark.Size = new System.Drawing.Size(106, 38);
             this.btnThemeDark.TabIndex = 11;
@@ -149,12 +150,23 @@
             this.btnThemeDark.UseVisualStyleBackColor = false;
             this.btnThemeDark.Click += new System.EventHandler(this.btnThemeDark_Click);
             // 
+            // cbDeveloperMode
+            // 
+            this.cbDeveloperMode.AutoSize = true;
+            this.cbDeveloperMode.Location = new System.Drawing.Point(21, 165);
+            this.cbDeveloperMode.Name = "cbDeveloperMode";
+            this.cbDeveloperMode.Size = new System.Drawing.Size(134, 21);
+            this.cbDeveloperMode.TabIndex = 12;
+            this.cbDeveloperMode.Text = "Developer mode";
+            this.cbDeveloperMode.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(330, 392);
+            this.ClientSize = new System.Drawing.Size(330, 433);
+            this.Controls.Add(this.cbDeveloperMode);
             this.Controls.Add(this.btnThemeDark);
             this.Controls.Add(this.labelThemeTitle);
             this.Controls.Add(this.btnThemeLight);
@@ -191,5 +203,6 @@
         private System.Windows.Forms.Button btnThemeLight;
         private System.Windows.Forms.Label labelThemeTitle;
         private System.Windows.Forms.Button btnThemeDark;
+        private System.Windows.Forms.CheckBox cbDeveloperMode;
     }
 }

@@ -24,6 +24,9 @@ namespace HardwareMonitor.Client.Settings.Utils
         private const string _THEME_KEY = "theme";
         private const Theme _DEFAULT_THEME = Theme.Light;
 
+        private const string _DEVELOPER_MODE_KEY = "developermode";
+        private const bool _DEFAULT_DEVELOPER_MODE = false;
+
         private bool _runAtStartup;
         public bool RunAtStartup
         {
@@ -81,6 +84,20 @@ namespace HardwareMonitor.Client.Settings.Utils
             }
         }
 
+        private bool _developerMode;
+        public bool DeveloperMode
+        {
+            get
+            {
+                return _developerMode;
+            }
+            set
+            {
+                _developerMode = value;
+                _settings.Set(_DEVELOPER_MODE_KEY, _developerMode);
+            }
+        }
+
         private SettingsStorage _settings;
 
         public ClientSettingsHandler(string key = _DEFAULT_CLIENT_SETTINGS_KEY)
@@ -103,6 +120,9 @@ namespace HardwareMonitor.Client.Settings.Utils
 
             object value;
             _theme = (value = _settings.Get(_THEME_KEY)) != null ? (Theme)value : _DEFAULT_THEME;
+
+            if (!bool.TryParse(stringValue = _settings.Get(_DEVELOPER_MODE_KEY)?.ToString(), out _developerMode))
+                _developerMode = _DEFAULT_DEVELOPER_MODE;
         }
 
         private void SetAutorun(bool autorun)
