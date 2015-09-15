@@ -61,6 +61,26 @@ namespace HardwareMonitor.Client.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap debug_logs_icon {
+            get {
+                object obj = ResourceManager.GetObject("debug_logs_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_logs_icon {
+            get {
+                object obj = ResourceManager.GetObject("error_logs_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon info_icon {
@@ -87,6 +107,46 @@ namespace HardwareMonitor.Client.Controller.Properties {
             get {
                 object obj = ResourceManager.GetObject("ohmuaclogo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap start_record_icon {
+            get {
+                object obj = ResourceManager.GetObject("start_record_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stop_record_icon {
+            get {
+                object obj = ResourceManager.GetObject("stop_record_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap verbose_logs_icon {
+            get {
+                object obj = ResourceManager.GetObject("verbose_logs_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning_logs_icon {
+            get {
+                object obj = ResourceManager.GetObject("warning_logs_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HardwareMonitorController.cs" />
-    <Compile Include="Monitors\RemoteAbstractMonitor.cs" />
     <Compile Include="Monitors\RemoteTemperatureMonitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,7 +66,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Utils\BroadcastServices.cs" />
+    <Compile Include="Utils\HardwareRecordsManager.cs" />
+    <Compile Include="Utils\UACUtils.cs" />
+    <Compile Include="Utils\ContextMenuController.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\info-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\debug-logs-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error-logs-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\verbose-logs-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning-logs-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start_record_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop-record-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

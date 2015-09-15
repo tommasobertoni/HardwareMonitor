@@ -24,7 +24,7 @@ namespace HardwareMonitor.Client.Domain.Utils
 
             public abstract void OnLog(string message, LogLevel level);
 
-            protected void Subscribe() => _observers.AddLast(this);
+            protected void Subscribe() => _observers.Add(this);
 
             protected void Unsubscribe() => _observers.Remove(this);
         }
@@ -33,7 +33,7 @@ namespace HardwareMonitor.Client.Domain.Utils
         private static readonly string _LOGS_FOLDER = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\HardwareMonitor Logs\\";
         private static readonly string _TEMP_LOGS_FOLDER = $"{_LOGS_FOLDER}\\_TEMP_LOGS_FOLDER\\";
 
-        private static LinkedList<LogObserver> _observers = new LinkedList<LogObserver>();
+        private static ICollection<LogObserver> _observers = new HashSet<LogObserver>();
 
         public static void Log(object message, LogLevel level = LogLevel.Debug)
         {
@@ -71,6 +71,12 @@ namespace HardwareMonitor.Client.Domain.Utils
             {
                 File.AppendAllText(LogFilesPath(LogLevel.Error)[0], $"Log to observers (level {level}): {ex}");
             }
+        }
+
+        public static string GetLogsFolderPath()
+        {
+            if (!Directory.Exists(_LOGS_FOLDER)) Directory.CreateDirectory(_LOGS_FOLDER);
+            return _LOGS_FOLDER;
         }
 
         public static string GetTempLogsFolderPath()

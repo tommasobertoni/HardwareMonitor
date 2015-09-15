@@ -8,8 +8,8 @@ using HardwareMonitor.Client.Temperature;
 using HardwareMonitor.Client.Settings;
 using HardwareMonitor.Client.Settings.Utils;
 using System.ServiceProcess;
-using HardwareMonitor.Client.Controller.Monitors;
 using System.Linq;
+using HardwareMonitor.Client.Domain.Monitors;
 
 namespace HardwareMonitor.Client.Controller
 {

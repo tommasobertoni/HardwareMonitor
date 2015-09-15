@@ -78,7 +78,7 @@ namespace HardwareMonitor.Client.Controller
 
         public void AddObserver(ITemperatureObserver temperatureObserver)
         {
-            if (temperatureObserver == null)
+            if (temperatureObserver != null)
             {
                 _temperatureObservers.Add(temperatureObserver);
                 NotifyTemperature(temperatureObserver);
@@ -92,13 +92,14 @@ namespace HardwareMonitor.Client.Controller
         }
         #endregion
 
-        private ContextMenuController _menuController = new ContextMenuController();
         private ClientSettingsHandler _clientSettings = new ClientSettingsHandler();
+        private ContextMenuController _menuController;
 
         public HardwareMonitorController()
         {
             Application.ApplicationExit += (s, e) => CloseAll();
 
+            _menuController = new ContextMenuController(this);
             _menuController.OnRestartClicked += () =>
             {
                 //if the privileges requested are different that the ones acquired

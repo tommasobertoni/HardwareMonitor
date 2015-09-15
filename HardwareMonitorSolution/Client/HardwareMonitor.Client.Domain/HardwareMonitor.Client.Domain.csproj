@@ -46,6 +46,7 @@
     <Compile Include="Contracts\ITemperatureObserver.cs" />
     <Compile Include="Contracts\ITemperatureUI.cs" />
     <Compile Include="Contracts\IView.cs" />
+    <Compile Include="Entities\RemoteAbstractMonitor.cs" />
     <Compile Include="Entities\Theme.cs" />
     <Compile Include="Utils\LogsManager.cs" />
     <Compile Include="Utils\SettingsStorage.cs" />
