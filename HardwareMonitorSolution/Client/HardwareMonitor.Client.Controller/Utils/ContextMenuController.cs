@@ -322,7 +322,10 @@ namespace HardwareMonitor.Client.Controller.Utils
                 }
 
                 if (currentFolderName != null)
+                {
+                    _cmc._notifyIcon.ContextMenuStrip.Close();
                     Start(currentFolderName);
+                }
             }
 
             public void StopRecording() => IsRecording = false;

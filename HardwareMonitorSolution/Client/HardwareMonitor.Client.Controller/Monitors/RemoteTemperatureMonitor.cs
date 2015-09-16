@@ -82,7 +82,7 @@ namespace HardwareMonitor.Client.Controller.Monitors
             base.StopWorker();
             _service = null;
             OpenServiceCommunicationAsync();
-            Log($"{$"{additionalInformation}: " ?? ""}{cEx}", LogLevel.Warning);
+            Log($"{$"{additionalInformation}: " ?? ""}{cEx}", LogLevel.Debug);
         }
     }
 }
