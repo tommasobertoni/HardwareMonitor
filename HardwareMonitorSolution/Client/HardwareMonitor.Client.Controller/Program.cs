@@ -10,6 +10,7 @@ using HardwareMonitor.Client.Settings.Utils;
 using System.ServiceProcess;
 using System.Linq;
 using HardwareMonitor.Client.Domain.Monitors;
+using HardwareMonitor.Client.Controller.Controllers;
 
 namespace HardwareMonitor.Client.Controller
 {

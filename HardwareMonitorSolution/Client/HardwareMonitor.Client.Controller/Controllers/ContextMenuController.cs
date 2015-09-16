@@ -8,8 +8,11 @@ using HardwareMonitor.Client.Domain.Contracts;
 using System.Collections.Generic;
 using System.IO;
 using HardwareMonitor.Client.Settings.Utils;
+using HardwareMonitor.Client.Controller.Utils;
+using System.Drawing;
+using System.Text;
 
-namespace HardwareMonitor.Client.Controller.Utils
+namespace HardwareMonitor.Client.Controller.Controllers
 {
     public class ContextMenuController : IDisposable
     {
@@ -17,33 +20,30 @@ namespace HardwareMonitor.Client.Controller.Utils
         
         public const string APPLICATION_NAME = "Hardware Monitor Client";
 
-        public const string INFO_ICON_NAME = "Info";
-        public const string SETTINGS_ICON_NAME = "Settings";
+        public const string INFO_ICON_NAME = "Info",
+                            SETTINGS_ICON_NAME = "Settings",
+                            LOGS_ICON_NAME = "Logs",
+                            VERBOSE_LOGS_ICON_NAME = "Verbose",
+                            DEBUG_LOGS_ICON_NAME = "Debug",
+                            WARNING_LOGS_ICON_NAME = "Warning",
+                            ERROR_LOGS_ICON_NAME = "Error",
+                            RECORD_ICON_NAME = "Record",
+                            START_RECORDING_ACTION_ICON_NAME = "Start recording",
+                            STOP_RECORDING_ACTION_ICON_NAME = "Stop and save",
+                            MONITORS_ICON_NAME = "Monitors",
+                            TEMPERATURE_ICON_NAME = "Temperature";
 
-        public const string LOGS_ICON_NAME = "Logs";
-        public const string START_RECORDING_ACTION_ICON_NAME = "Start recording";
-        public const string STOP_RECORDING_ACTION_ICON_NAME = "Stop and save";
-        public const string VERBOSE_LOGS_ICON_NAME = "Verbose";
-        public const string DEBUG_LOGS_ICON_NAME = "Debug";
-        public const string WARNING_LOGS_ICON_NAME = "Warning";
-        public const string ERROR_LOGS_ICON_NAME = "Error";
-        public const string NO_LOGS_ICON_NAME = "no logs found";
-
-        public const string MONITORS_ICON_NAME = "Monitors";
-
-        public const string TEMPERATURE_ICON_NAME = "Temperature";
+        //private ICollection<ToolStripMenuItem> _recordableHardwareMonitorTypesItems = new List<ToolStripMenuItem>();
 
         public bool IsShowingNotification { get; private set; }
 
         private NotifyIcon _notifyIcon;
-        private ToolStripMenuItem _monitorsItem, _logsItem;
-        private ToolStripSeparator _logsToolStripSeparator;
-        private ToolStripItem _toggleRecordingAction;
-        private ToolStripItem _verboseLogsItem, _debugLogsItem, _warningLogsItem, _errorLogsItem;
-        private ToolStripItem _infoItem, _settingsItem;
-        private ToolStripItem _temperatureItem;
+        private ToolStripMenuItem _monitorsItem, _logsItem, _recordsItem;
+        private ToolStripItem _toggleRecordingAction, _selectAllAction, _unselectAllAction,
+                              _verboseLogsItem, _debugLogsItem, _warningLogsItem, _errorLogsItem,
+                              _infoItem, _temperatureItem, _settingsItem;
 
-        private bool _closeContextMenu = true, _closeLogsDropdown = true;
+        private bool _closeContextMenu = true, _closeLogsDropdown = true, _closeRecordsDropdown = true;
 
         public delegate void NoParametersEventHandler();
         public event NoParametersEventHandler OnRestartClicked, OnExitClicked;
@@ -80,10 +80,106 @@ namespace HardwareMonitor.Client.Controller.Utils
             _temperatureItem.VisibleChanged += (s, e) => InvalidateMonitorsIcon();
             #endregion
 
+            #region Records
+            _recordsItem = contextMenuStrip.Items.Add(RECORD_ICON_NAME, start_record_icon) as ToolStripMenuItem;
+            _recordsItem.DropDown.Closing += RecordsDropDown_Closing;
+
+            var recordable = _recordsItem.DropDown.Items;
+
+            foreach (var hwmType in Enum.GetValues(typeof(HardwareMonitorType)))
+            {
+                var item = new ToolStripMenuItem()
+                {
+                    Text = hwmType.ToString(),
+                    CheckOnClick = true,
+                    Tag = hwmType
+                };
+                item.MouseDown += CancelRecordsDropdownClosing;
+                recordable.Add(item);
+            }
+
+            recordable.Add(new ToolStripSeparator());
+            _selectAllAction = recordable.Add("Select All", null, (s, e) => ToggleHardwareMonitorTypesSelection(true));
+            _selectAllAction.MouseDown += CancelRecordsDropdownClosing;
+            _unselectAllAction = recordable.Add("Unselect All", null, (s, e) => ToggleHardwareMonitorTypesSelection(false));
+            _unselectAllAction.MouseDown += CancelRecordsDropdownClosing;
+
+            _toggleRecordingAction = recordable.Add(START_RECORDING_ACTION_ICON_NAME, start_record_icon, (s, e) =>
+            {
+                var recordables = _recordsItem.DropDown.Items;
+
+                if (IsRecording)
+                {
+                    if (DialogResult.Yes == MessageBox.Show("Do you want to stop recording and save the values in a log file?",
+                        APPLICATION_NAME, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    {
+                        _recorder.Save();
+                        _recorder.Close();
+
+                        _controller.RemoveObserver(_recorder);
+                        _recorder = null;
+
+                        //re-enables items check and restores names
+                        for (int i = 0; i < recordables.Count - 4 /*excludes separator and functionalities*/; i++)
+                        {
+                            var menuItem = (recordables[i] as ToolStripMenuItem);
+                            menuItem.Text = menuItem.Tag.ToString();
+                            menuItem.CheckOnClick = true;
+                        }
+
+                        _selectAllAction.Enabled = true;
+                        _unselectAllAction.Enabled = true;
+                        
+                        _toggleRecordingAction.Text = START_RECORDING_ACTION_ICON_NAME;
+                        _toggleRecordingAction.Image = start_record_icon;
+
+                        IsRecording = false;
+                    }
+                }
+                else
+                {
+                    List<HardwareMonitorType> selectedTypes = new List<HardwareMonitorType>();
+                    HardwareMonitorType hwmTypesToRecord;
+                    
+                    for (int i = 0; i < recordables.Count - 4 /*excludes separator and functionalities*/; i++)
+                        if ((recordables[i] as ToolStripMenuItem).Checked)
+                            selectedTypes.Add((HardwareMonitorType)recordables[i].Tag);
+
+                    if (selectedTypes.Count > 0)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        hwmTypesToRecord = selectedTypes[0];
+                        foreach (var type in selectedTypes)
+                        {
+                            hwmTypesToRecord |= type;
+                            sb.AppendLine(type.ToString());
+                        }
+
+                        if (DialogResult.Yes == MessageBox.Show($"Start recording the following hardware sensors?\n{sb.ToString()}",
+                            APPLICATION_NAME, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                        {
+                            //disables items check
+                            for (int i = 0; i < recordables.Count - 4 /*excludes separator and functionalities*/; i++)
+                            {
+                                var menuItem = (recordables[i] as ToolStripMenuItem);
+                                menuItem.Checked = false;
+                                menuItem.CheckOnClick = false;
+                            }
+
+                            _selectAllAction.Enabled = false;
+                            _unselectAllAction.Enabled = false;
+
+                            StartRecording(hwmTypesToRecord);
+                        }
+                    }
+                }
+            });
+            _toggleRecordingAction.MouseDown += CancelRecordsDropdownClosing;
+            #endregion
+
             #region Logs
             _logsItem = contextMenuStrip.Items.Add(LOGS_ICON_NAME, null) as ToolStripMenuItem;
             contextMenuStrip.Opening += InvalidateLogsDropDown;
-            _logsItem.MouseHover += InvalidateLogsDropDown;
             _logsItem.MouseDown += (s, e) =>
             {
                 if (!_logsItem.AllowDrop)
@@ -92,33 +188,6 @@ namespace HardwareMonitor.Client.Controller.Utils
             _logsItem.DropDown.Closing += LogsDropDown_Closing;
 
             var logs = _logsItem.DropDown.Items;
-
-            _toggleRecordingAction = logs.Add(START_RECORDING_ACTION_ICON_NAME, start_record_icon, (s, e) =>
-            {
-                if (IsRecording)
-                {
-                    _recorder.Save();
-                    _recorder.Close();
-
-                    _controller.RemoveObserver(_recorder);
-                    _recorder = null;
-                    
-                    IsRecording = false;
-                    _toggleRecordingAction.Text = START_RECORDING_ACTION_ICON_NAME;
-                    _toggleRecordingAction.Image = start_record_icon;
-                }
-                else
-                {
-                    _recorder = new HardwareValuesRecorderMenuController(this, HardwareMonitorType.Temperature);
-                    _controller.AddObserver(_recorder);
-                    IsRecording = true;
-                    _toggleRecordingAction.Text = STOP_RECORDING_ACTION_ICON_NAME;
-                    _toggleRecordingAction.Image = stop_record_icon;
-                }
-            });
-            _toggleRecordingAction.MouseDown += CancelLogsDropdownClosing;
-
-            logs.Add((_logsToolStripSeparator = new ToolStripSeparator()));
 
             //if dropdown shows log file but that file has actually been deleted, don't close the dropdown if the item gets clicked
             (_verboseLogsItem = logs.Add(VERBOSE_LOGS_ICON_NAME, verbose_logs_icon,
@@ -149,8 +218,30 @@ namespace HardwareMonitor.Client.Controller.Utils
             contextMenuStrip.Items.Add("Exit", null, (s, e) => OnExitClicked?.Invoke());
             
             _notifyIcon.ContextMenuStrip = contextMenuStrip;
-            _notifyIcon.ContextMenuStrip.Closed += (s, e) => _infoItem.Available = true;
+            _notifyIcon.ContextMenuStrip.Closed += (s, e) =>
+            {
+                _infoItem.Available = true;
+                if (_settingsItem != null) _settingsItem.Available = true;
+            };
             _notifyIcon.MouseClick += NotifyIcon_click;
+        }
+
+        private void ToggleHardwareMonitorTypesSelection(bool ch)
+        {
+            var recordables = _recordsItem.DropDown.Items;
+            for (int i = 0; i < recordables.Count - 4 /*excludes separator and functionalities*/; i++)
+                (recordables[i] as ToolStripMenuItem).Checked = ch;
+        }
+
+        public void StartRecording(HardwareMonitorType hwmTypes)
+        {
+            _recorder = new HardwareValuesRecorderMenuController(this, hwmTypes);
+            _controller.AddObserver(_recorder);
+            
+            _toggleRecordingAction.Text = STOP_RECORDING_ACTION_ICON_NAME;
+            _toggleRecordingAction.Image = stop_record_icon;
+
+            IsRecording = true;
         }
 
         private void ContextMenuStrip_Closing(object sender, ToolStripDropDownClosingEventArgs e)
@@ -171,12 +262,6 @@ namespace HardwareMonitor.Client.Controller.Utils
             _debugLogsItem.Available = _clientSettings.DeveloperMode && File.Exists(LogFilesPath(LogLevel.Debug)[0]);
             _warningLogsItem.Available = File.Exists(LogFilesPath(LogLevel.Warning)[0]);
             _errorLogsItem.Available = File.Exists(LogFilesPath(LogLevel.Error)[0]);
-            
-            //hide the strip separator if there isn't any log file
-            _logsToolStripSeparator.Available = _verboseLogsItem.Available ||
-                                                _debugLogsItem.Available   ||
-                                                _warningLogsItem.Available ||
-                                                _errorLogsItem.Available;
         }
         
         private void LogsDropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
@@ -188,8 +273,19 @@ namespace HardwareMonitor.Client.Controller.Utils
             }
         }
 
+        private void RecordsDropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            if (!_closeRecordsDropdown)
+            {
+                e.Cancel = true;
+                _closeRecordsDropdown = true;
+            }
+        }
+
         private void CancelLogsDropdownClosing(object sender, MouseEventArgs e) => _closeLogsDropdown = false;
-        
+
+        private void CancelRecordsDropdownClosing(object sender, MouseEventArgs e) => _closeRecordsDropdown = false;
+
         private void OpenLogs(LogLevel level)
         {
             var path = LogFilesPath(level)[0];
@@ -205,26 +301,20 @@ namespace HardwareMonitor.Client.Controller.Utils
         {
             if (e.Button == MouseButtons.Left)
             {
-                _infoItem.Available = false; //visible only on right click
+                //visible only on right click
+                _infoItem.Available = false;
+                if (_settingsItem != null) _settingsItem.Available = false;
                 //http://stackoverflow.com/questions/2208690/invoke-notifyicons-context-menu
                 MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
                 mi.Invoke(_notifyIcon, null);
             }
         }
 
-        public void SetSettingsItem(System.Drawing.Image image, EventHandler onClick)
-        {
-            _settingsItem.Image = image;
-            _settingsItem.Click += onClick;
-        }
+        public void SetSettingsItem(System.Drawing.Image image, EventHandler onClick) => _settingsItem.Apply(image, onClick);
 
         public void SetSettingsItemVisible(bool visible) => _settingsItem.Available = visible;
 
-        public void SetTemperatureItem(System.Drawing.Image image, EventHandler onClick)
-        {
-            _temperatureItem.Image = image;
-            _temperatureItem.Click += onClick;
-        }
+        public void SetTemperatureItem(Image image, EventHandler onClick) => _temperatureItem.Apply(image, onClick);
 
         public void SetTemperatureItemVisible(bool visible) => _temperatureItem.Available = visible;
 
@@ -300,7 +390,7 @@ namespace HardwareMonitor.Client.Controller.Utils
                     var index = _hardwareLabelsMap[HardwareMonitorType.Temperature].GetDropDownIndex();
                     //thread-safe set text
                     _cmc._notifyIcon.ContextMenuStrip.Invoke(new Action(() =>
-                        _cmc._logsItem.DropDown.Items[index].Text = $"{_TEMPERATURE_TEXT} ({collection.Count})"));
+                        _cmc._recordsItem.DropDown.Items[index].Text = $"{_TEMPERATURE_TEXT} ({collection.Count})"));
                 }
             }
 
@@ -334,6 +424,12 @@ namespace HardwareMonitor.Client.Controller.Utils
 
     static class ContextMenuUtils
     {
+        public static void Apply(this ToolStripItem item, Image image, EventHandler onClick)
+        {
+            item.Image = image;
+            item.Click += onClick;
+        }
+
         public static int GetDropDownIndex(this ToolStripItem item) => (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
     }
 }

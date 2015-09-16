@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Globalization;
+using HardwareMonitor.Client.Controller.Controllers;
 
 namespace HardwareMonitor.Client.Controller.Utils
 {

@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using HardwareMonitor.Client.Controller.Utils;
 using HardwareMonitor.Client.Settings.Utils;
 
-namespace HardwareMonitor.Client.Controller
+namespace HardwareMonitor.Client.Controller.Controllers
 {
     [Flags]
     public enum HardwareMonitorType
     {
-        Temperature
+        Temperature = 1 << 0
     }
 
     public class HardwareMonitorController : IController
