@@ -114,7 +114,7 @@ namespace HardwareMonitor.Client.Controller.Controllers
                         APPLICATION_NAME, MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
                         _recorder.Save();
-                        _recorder.Close();
+                        _recorder.Close(true);
 
                         _controller.RemoveObserver(_recorder);
                         _recorder = null;
@@ -360,6 +360,8 @@ namespace HardwareMonitor.Client.Controller.Controllers
             private Dictionary<HardwareMonitorType, ICollection<Tuple<float, DateTime>>> _hardwareValuesMap;
             private Dictionary<HardwareMonitorType, ToolStripLabel> _hardwareLabelsMap;
 
+            private string _currentRecordFolderName;
+
             ContextMenuController _cmc;
 
             public HardwareValuesRecorderMenuController(ContextMenuController cmc, HardwareMonitorType hwmTypes)
@@ -394,27 +396,26 @@ namespace HardwareMonitor.Client.Controller.Controllers
                 }
             }
 
-            public void Close()
+            public void Close(bool openRecordFolder = false)
             {
                 _hardwareValuesMap.Clear();
                 _hardwareLabelsMap.Clear();
                 _cmc._logsItem.DropDown.Items.RemoveByKey(_TEMPERATURE_TEXT);
+
+                if (openRecordFolder && _currentRecordFolderName != null)
+                {
+                    _cmc._notifyIcon.ContextMenuStrip.Close();
+                    Start(_currentRecordFolderName);
+                }
             }
 
             public void Save()
             {
-                string currentFolderName = null;
                 ICollection<Tuple<float, DateTime>> collection;
                 lock (_hardwareValuesMap)
                 {
                     if (_hardwareValuesMap.TryGetValue(HardwareMonitorType.Temperature, out collection))
-                        HardwareRecordsManager.Save(HardwareMonitorType.Temperature, collection, out currentFolderName);
-                }
-
-                if (currentFolderName != null)
-                {
-                    _cmc._notifyIcon.ContextMenuStrip.Close();
-                    Start(currentFolderName);
+                        HardwareRecordsManager.Save(HardwareMonitorType.Temperature, collection, out _currentRecordFolderName);
                 }
             }
 
