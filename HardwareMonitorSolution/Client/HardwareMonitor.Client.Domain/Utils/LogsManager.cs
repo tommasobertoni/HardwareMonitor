@@ -52,7 +52,7 @@ namespace HardwareMonitor.Client.Domain.Utils
             var buildedMessage = sb.ToString();
 
             foreach (var path in LogFilesPath(level))
-                File.AppendAllText(path, $"{DateTime.UtcNow}\n{buildedMessage}\n{_SEPARATOR}\n");
+                File.AppendAllText(path, $"{DateTime.Now}\n{buildedMessage}\n{_SEPARATOR}\n");
 
             try
             {

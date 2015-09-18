@@ -26,11 +26,11 @@ namespace HardwareMonitor.Client.Controller.Monitors
             new Thread(() =>
             {
                 _service = new TemperatureMonitorServiceReference.HardwareMonitorTemperatureWCFContractClient();
-                StartWorker();
+                StartWorkerAsync();
             }).Start();
         }
 
-        protected override bool TriggerEvent(int elapsedTime) => elapsedTime >= Settings.UpdateTime;
+        protected override bool TriggerEvent(int elapsedTime) => IsServiceReady && elapsedTime >= Settings.UpdateTime;
 
         public override int? GetCPUsCount()
         {
@@ -71,15 +71,14 @@ namespace HardwareMonitor.Client.Controller.Monitors
             }
         }
 
-        public override void StopWorker()
+        public override void StopWorkerAsync()
         {
-            base.StopWorker();
+            base.StopWorkerAsync();
             _service?.Close();
         }
 
         private void Handle(CommunicationException cEx, string additionalInformation = null)
         {
-            base.StopWorker();
             _service = null;
             OpenServiceCommunicationAsync();
             Log($"{$"{additionalInformation}: " ?? ""}{cEx}", LogLevel.Debug);

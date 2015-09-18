@@ -133,16 +133,18 @@ namespace HardwareMonitor.Client.Controller.Controllers
 
             if (_remoteTemperatureMonitor.IsServiceReady)
             {
-                float temperature = _remoteTemperatureMonitor.GetAvgCPUsTemperature().GetValueOrDefault();
+                float? temperature = _remoteTemperatureMonitor.GetAvgCPUsTemperature();
+                if (!temperature.HasValue) return false;
+
                 if (observer == null)
                 {
                     lock (_temperatureObservers)
                     {
                         _temperatureObservers.ForEach(obs =>
-                            obs.OnAvgCPUsTemperatureChanged(temperature));
+                            obs.OnAvgCPUsTemperatureChanged(temperature.Value));
                     }
                 }
-                else observer.OnAvgCPUsTemperatureChanged(temperature);
+                else observer.OnAvgCPUsTemperatureChanged(temperature.Value);
 
                 return true;
             }
@@ -152,7 +154,7 @@ namespace HardwareMonitor.Client.Controller.Controllers
         private void CloseAll()
         {
             _menuController.Dispose();
-            _remoteTemperatureMonitor?.StopWorker();
+            _remoteTemperatureMonitor?.StopWorkerAsync();
             TemperatureUI?.Close();
             _temperatureObservers?.Clear();
             SettingsUI?.Close();

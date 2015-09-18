@@ -9,19 +9,6 @@ namespace HardwareMonitor.Client.Domain.Monitors
 
         public const int SMALL_TICK = 500;
 
-        private int _triggerTime;
-        public int TriggerTime {
-            get
-            {
-                return _triggerTime;
-            }
-
-            set
-            {
-                _triggerTime = value < 0 ? 0 : value;
-            }
-        }
-
         public delegate void EventHandler();
         public event EventHandler OnEventTriggered;
 
@@ -40,13 +27,13 @@ namespace HardwareMonitor.Client.Domain.Monitors
             _bworker.DoWork += _bworker_DoWork;
             _bworker.ProgressChanged += _bworker_ProgressChanged;
         }
-
-        protected virtual void StartWorker()
+        
+        protected virtual void StartWorkerAsync()
         {
             if (!_bworker.IsBusy) _bworker.RunWorkerAsync();
         }
 
-        public virtual void StopWorker() => _bworker.CancelAsync();
+        public virtual void StopWorkerAsync() => _bworker.CancelAsync();
 
         private void _bworker_ProgressChanged(object sender, ProgressChangedEventArgs e) => OnEventTriggered?.Invoke();
 
