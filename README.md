@@ -20,4 +20,6 @@ Based on the [OpenHardwareMonitor project](http://openhardwaremonitor.org/), thi
 
 I tried to develop the project with low coupling, so new modules can be added with minimum impact on the existing source code.
 <br><br><br>
-*explicit license coming soon*
+
+####License
+The source code is available under the Mozilla Public License 2.0 (MPL), same as the Open Hardware Monitor project.
