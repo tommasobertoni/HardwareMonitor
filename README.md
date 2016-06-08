@@ -19,6 +19,8 @@ At this development stage the app covers the following modules:
 Based on the [OpenHardwareMonitor project](http://openhardwaremonitor.org/), this SOA solution contains a windows service providing the hardware's data and a WinForm consumer application with different modules (ideally one for each hardware sensor available).
 
 I tried to develop the project with low coupling, so new modules can be added with minimum impact on the existing source code.
+<br><br>
+**I encourage everyone who wants to develop a new sensor-module or contribute in any way to this project to submit PRs and file issues.**
 <br><br><br>
 
 ####License
